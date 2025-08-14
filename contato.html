@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contato - Escola Antonio Austragésio</title>
+  <title>Contato - Escola Antonio Austregésio</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
   <header>
-    <h1>Escola Antonio Austragésio</h1>
-    <nav>
+    <h1>Escola Antonio Austregésio</h1>
+    <nav aria-label="Menu principal">
       <ul>
         <li><a href="index.html">Início</a></li>
         <li><a href="quem-somos.html">Quem Somos</a></li>
@@ -22,10 +22,9 @@
   </header>
 
   <main>
-    <section class="contato">
-      <h2>Fale Conosco</h2>
-
-      <form action="#" method="post">
+    <section class="contato" aria-labelledby="titulo-contato">
+      <h2 id="titulo-contato">Contato</h2>
+      <form>
         <label for="nome">Nome:</label>
         <input type="text" id="nome" name="nome" required />
 
@@ -37,48 +36,11 @@
 
         <button type="submit">Enviar</button>
       </form>
-
-      <div class="info">
-        <h3>Informações da Escola</h3>
-        <p><strong>Endereço:</strong> Rua Exemplo, 123 - Centro</p>
-        <p><strong>Telefone:</strong> (99) 99999-9999</p>
-        <p><strong>E-mail:</strong> contato@escolaaustragesio.com</p>
-      </div>
     </section>
   </main>
 
   <footer>
-    <p>&copy; 2025 Escola Antonio Austragésio</p>
+    <p>&copy; 2025 Escola Antonio Austregésio</p>
   </footer>
-  <script>
-  const form = document.querySelector('form');
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    const nome = form.nome.value;
-    const email = form.email.value;
-    const mensagem = form.mensagem.value;
-
-    try {
-      const response = await fetch('https://escola-backend-45kv.onrender.com/contato', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nome, email, mensagem }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        alert(data.message);
-        form.reset();
-      } else {
-        alert(data.error || 'Erro ao enviar mensagem');
-      }
-    } catch (error) {
-      alert('Erro na comunicação com o servidor.');
-    }
-  });
-</script>
 </body>
 </html>

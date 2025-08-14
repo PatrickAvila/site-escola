@@ -3,12 +3,65 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Galeria - Escola Antonio Austragésio</title>
+  <title>Galeria - Escola Antonio Austregésio</title>
   <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .galeria {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 24px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .galeria h2 {
+      text-align: center;
+      margin-bottom: 24px;
+      color: #0059b3;
+    }
+    .fotos {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      justify-content: center;
+    }
+    .fotos img {
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+      max-width: 220px;
+      width: 100%;
+      height: auto;
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+      background: #f5f5f5;
+      border: 2px solid #eee;
+    }
+    .fotos img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 16px rgba(0,89,179,0.15);
+      border-color: #0059b3;
+    }
+    @media (max-width: 600px) {
+      .fotos {
+        gap: 10px;
+      }
+      .fotos img {
+        max-width: 100px;
+      }
+      .galeria {
+        padding: 8px;
+      }
+    }
+    .galeria p {
+      text-align: center;
+      color: #888;
+      margin-top: 18px;
+    }
+  </style>
 </head>
 <body>
   <header>
-    <h1>Escola Antonio Austragésio</h1>
+    <h1>Escola Antonio Austregésio</h1>
     <nav>
       <ul>
         <li><a href="index.html">Início</a></li>
@@ -35,7 +88,7 @@
   </main>
 
   <footer>
-    <p>&copy; 2025 Escola Antonio Austragésio</p>
+    <p>&copy; 2025 Escola Antonio Austregésio</p>
   </footer>
 </body>
 </html>

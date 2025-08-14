@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel Administrativo - Escola Antonio Austregésio</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- Área de Login -->
+  <div id="login-area">
+    <h2>Login do Administrador</h2>
+    <form id="login-form">
+      <input type="text" id="usuario" placeholder="Usuário" required />
+      <input type="password" id="senha" placeholder="Senha" required />
+      <button type="submit">Entrar</button>
+    </form>
+    <p id="login-erro" style="color: red; display: none;">Usuário ou senha incorretos.</p>
+  </div>
+
+  <!-- Área do Painel Admin -->
+  <div id="admin-area" style="display: none;">
+    <header>
+      <h1>Painel Administrativo</h1>
+      <nav aria-label="Menu do painel">
+        <ul>
+          <li><a href="#avisos">Avisos</a></li>
+          <li><a href="#professores">Professores</a></li>
+          <li><a href="#galeria">Galeria</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Avisos -->
+      <section id="avisos">
+        <h2>Gerenciar Avisos</h2>
+        <form id="form-avisos">
+          <input type="text" name="titulo" placeholder="Título do aviso" required />
+          <textarea name="texto" placeholder="Texto do aviso" required></textarea>
+          <button type="submit">Adicionar Aviso</button>
+        </form>
+        <ul id="lista-avisos"></ul>
+      </section>
+
+      <!-- Professores -->
+      <section id="professores">
+        <h2>Gerenciar Professores</h2>
+        <form id="form-professores">
+          <input type="text" name="nome" placeholder="Nome do professor" required />
+          <input type="text" name="disciplina" placeholder="Disciplina" required />
+          <button type="submit">Adicionar Professor</button>
+        </form>
+        <ul id="lista-professores"></ul>
+      </section>
+
+      <!-- Galeria -->
+      <section id="galeria">
+        <h2>Gerenciar Galeria</h2>
+        <form id="form-galeria" enctype="multipart/form-data">
+          <input type="file" name="imagem" accept="image/*" required />
+          <button type="submit">Adicionar Foto</button>
+        </form>
+        <div id="lista-galeria"></div>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 Escola Antonio Austregésio</p>
+    </footer>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    // Autenticação JWT
+    const loginForm = document.getElementById('login-form');
+    const loginArea = document.getElementById('login-area');
+    const adminArea = document.getElementById('admin-area');
+    const loginErro = document.getElementById('login-erro');
+
+    loginForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const usuario = document.getElementById('usuario').value;
+      const senha = document.getElementById('senha').value;
+      fetch('http://localhost:3000/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ usuario, senha })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.token) {
+          localStorage.setItem('token', data.token);
+          loginArea.style.display = "none";
+          adminArea.style.display = "block";
+          carregarAvisos();
+          carregarProfessores();
+          carregarGaleria();
+        } else {
+          loginErro.style.display = "block";
+        }
+      });
+    });
+
+    // Avisos
+    const formAvisos = document.getElementById('form-avisos');
+    const listaAvisos = document.getElementById('lista-avisos');
+
+    function carregarAvisos() {
+      fetch('http://localhost:3000/avisos')
+        .then(res => res.json())
+        .then(data => {
+          listaAvisos.innerHTML = '';
+          data.forEach(aviso => {
+            listaAvisos.innerHTML += `
+              <li>
+                <strong>${aviso.titulo}</strong>: ${aviso.texto}
+                <button onclick="editarAviso(${aviso.id}, '${aviso.titulo.replace(/'/g, "\\'")}', '${aviso.texto.replace(/'/g, "\\'")}')">Editar</button>
+                <button onclick="excluirAviso(${aviso.id})">Excluir</button>
+              </li>`;
+          });
+        });
+    }
+
+    formAvisos.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const titulo = formAvisos.titulo.value;
+      const texto = formAvisos.texto.value;
+      const token = localStorage.getItem('token');
+      if (formAvisos.dataset.editando) {
+        fetch(`http://localhost:3000/avisos/${formAvisos.dataset.editando}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+          },
+          body: JSON.stringify({ titulo, texto })
+        })
+        .then(res => res.json())
+        .then(() => {
+          formAvisos.reset();
+          delete formAvisos.dataset.editando;
+          formAvisos.querySelector('button').textContent = 'Adicionar Aviso';
+          carregarAvisos();
+        });
+      } else {
+        fetch('http://localhost:3000/avisos', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+          },
+          body: JSON.stringify({ titulo, texto })
+        })
+        .then(res => res.json())
+        .then(() => {
+          formAvisos.reset();
+          carregarAvisos();
+        });
+      }
+    });
+
+    window.editarAviso = function(id, titulo, texto) {
+      formAvisos.titulo.value = titulo;
+      formAvisos.texto.value = texto;
+      formAvisos.dataset.editando = id;
+      formAvisos.querySelector('button').textContent = 'Salvar Edição';
+    };
+
+    window.excluirAviso = function(id) {
+      const token = localStorage.getItem('token');
+      if (confirm('Deseja realmente excluir este aviso?')) {
+        fetch(`http://localhost:3000/avisos/${id}`, {
+          method: 'DELETE',
+          headers: { 'Authorization': 'Bearer ' + token }
+        })
+        .then(res => res.json())
+        .then(() => carregarAvisos());
+      }
+    };
+
+    // Professores
+    const formProfessores = document.getElementById('form-professores');
+    const listaProfessores = document.getElementById('lista-professores');
+
+    function carregarProfessores() {
+      fetch('http://localhost:3000/professores')
+        .then(res => res.json())
+        .then(data => {
+          listaProfessores.innerHTML = '';
+          data.forEach(prof => {
+            listaProfessores.innerHTML += `
+              <li>
+                <strong>${prof.nome}</strong> – ${prof.disciplina}
+                <button onclick="editarProfessor(${prof.id}, '${prof.nome.replace(/'/g, "\\'")}', '${prof.disciplina.replace(/'/g, "\\'")}')">Editar</button>
+                <button onclick="excluirProfessor(${prof.id})">Excluir</button>
+              </li>`;
+          });
+        });
+    }
+
+    formProfessores.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const nome = formProfessores.nome.value;
+      const disciplina = formProfessores.disciplina.value;
+      const token = localStorage.getItem('token');
+      if (formProfessores.dataset.editando) {
+        fetch(`http://localhost:3000/professores/${formProfessores.dataset.editando}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+          },
+          body: JSON.stringify({ nome, disciplina })
+        })
+        .then(res => res.json())
+        .then(() => {
+          formProfessores.reset();
+          delete formProfessores.dataset.editando;
+          formProfessores.querySelector('button').textContent = 'Adicionar Professor';
+          carregarProfessores();
+        });
+      } else {
+        fetch('http://localhost:3000/professores', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+          },
+          body: JSON.stringify({ nome, disciplina })
+        })
+        .then(res => res.json())
+        .then(() => {
+          formProfessores.reset();
+          carregarProfessores();
+        });
+      }
+    });
+
+    window.editarProfessor = function(id, nome, disciplina) {
+      formProfessores.nome.value = nome;
+      formProfessores.disciplina.value = disciplina;
+      formProfessores.dataset.editando = id;
+      formProfessores.querySelector('button').textContent = 'Salvar Edição';
+    };
+
+    window.excluirProfessor = function(id) {
+      const token = localStorage.getItem('token');
+      if (confirm('Deseja realmente excluir este professor?')) {
+        fetch(`http://localhost:3000/professores/${id}`, {
+          method: 'DELETE',
+          headers: { 'Authorization': 'Bearer ' + token }
+        })
+        .then(res => res.json())
+        .then(() => carregarProfessores());
+      }
+    };
+
+    // Galeria
+    const formGaleria = document.getElementById('form-galeria');
+    const listaGaleria = document.getElementById('lista-galeria');
+
+    function carregarGaleria() {
+      fetch('http://localhost:3000/galeria')
+        .then(res => res.json())
+        .then(data => {
+          listaGaleria.innerHTML = '';
+          data.forEach(img => {
+            listaGaleria.innerHTML += `
+              <div style="display:inline-block; margin:5px;">
+                <img src="http://localhost:3000${img.url}" alt="${img.nome}" style="max-width:150px; display:block;" />
+                <input type="text" value="${img.nome}" onchange="editarNomeImagem(${img.id}, this.value)" style="margin:5px 0; width:140px;" />
+                <button onclick="excluirImagem(${img.id})">Excluir</button>
+              </div>`;
+          });
+        });
+    }
+
+    formGaleria.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const formData = new FormData(formGaleria);
+      const token = localStorage.getItem('token');
+      fetch('http://localhost:3000/galeria', {
+        method: 'POST',
+        headers: { 'Authorization': 'Bearer ' + token },
+        body: formData
+      })
+      .then(res => res.json())
+      .then(() => {
+        formGaleria.reset();
+        carregarGaleria();
+      });
+    });
+
+    window.editarNomeImagem = function(id, novoNome) {
+      const token = localStorage.getItem('token');
+      fetch(`http://localhost:3000/galeria/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify({ nome: novoNome })
+      })
+      .then(res => res.json())
+      .then(() => carregarGaleria());
+    };
+
+    window.excluirImagem = function(id) {
+      const token = localStorage.getItem('token');
+      if (confirm('Deseja realmente excluir esta imagem?')) {
+        fetch(`http://localhost:3000/galeria/${id}`, {
+          method: 'DELETE',
+          headers: { 'Authorization': 'Bearer ' + token }
+        })
+        .then(res => res.json())
+        .then(() => carregarGaleria());
+      }
+    };
+  </script>
+</body>
+</html>
