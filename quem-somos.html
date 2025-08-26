@@ -8,30 +8,63 @@
 </head>
 <body>
   <header>
-    <h1>Escola Antonio Austregésio</h1>
-    <nav aria-label="Menu principal">
-      <ul>
-        <li><a href="index.html">Início</a></li>
-        <li><a href="quem-somos.html">Quem Somos</a></li>
-        <li><a href="professores.html">Professores</a></li>
-        <li><a href="avisos.html">Avisos</a></li>
-        <li><a href="galeria.html">Galeria</a></li>
-        <li><a href="contato.html">Contato</a></li>
-      </ul>
-    </nav>
-  </header>
-
+  <div style="display:flex;align-items:center;justify-content:center;gap:24px;padding-top:12px;">
+    <img src="imagens/fundoMenu.png" alt="Prefeitura do Rio de Janeiro" style="height:100px;">
+    <h1 style="margin:0;">Escola Antonio Austregésio</h1>
+  </div>
+  <nav aria-label="Menu principal">
+    <button id="menu-btn" aria-label="Abrir menu" class="menu-btn">
+      <span></span><span></span><span></span>
+    </button>
+    <ul id="menu-list">
+      <li><a href="index.html">Início</a></li>
+      <li><a href="quem-somos.html">Quem Somos</a></li>
+      <li><a href="professores.html">Professores</a></li>
+      <li><a href="avisos.html">Avisos</a></li>
+      <li><a href="galeria.html">Galeria</a></li>
+      <li><a href="contato.html">Contato</a></li>
+      <li><a href="admin.html">Admin</a></li>
+    </ul>
+  </nav>
+</header>
   <main>
-    <section class="quem-somos" aria-labelledby="titulo-quem-somos">
-      <h2 id="titulo-quem-somos">Quem Somos</h2>
-      <p>
-        A Escola Antonio Austregésio é referência em educação, promovendo valores, cidadania e conhecimento para crianças e jovens. Nossa missão é formar cidadãos preparados para os desafios do futuro, com ensino de qualidade e respeito à diversidade.
-      </p>
+    <section class="quem-somos">
+      <h2>Quem Somos</h2>
+      <p id="texto-quem-somos"></p>
+      <div class="missao-visao">
+        <div class="missao">
+          <strong>Missão:</strong><br>
+          Formar cidadãos críticos, éticos e preparados para os desafios do futuro.
+        </div>
+        <div class="visao">
+          <strong>Visão:</strong><br>
+          Ser referência em educação na região, inovando e acolhendo cada aluno.
+        </div>
+      </div>
     </section>
   </main>
-
   <footer>
     <p>&copy; 2025 Escola Antonio Austregésio</p>
   </footer>
+  <script>
+    // Menu hambúrguer responsivo
+    const menuBtn = document.getElementById('menu-btn');
+    const menuList = document.getElementById('menu-list');
+    menuBtn.addEventListener('click', () => {
+      menuList.classList.toggle('show');
+    });
+    document.addEventListener('click', function(e) {
+      if (window.innerWidth <= 900 && !menuBtn.contains(e.target) && !menuList.contains(e.target)) {
+        menuList.classList.remove('show');
+      }
+    });
+
+    // Quem somos dinâmico
+    fetch('http://localhost:3000/quem-somos')
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('texto-quem-somos').textContent = data.texto;
+      });
+  </script>
 </body>
 </html>

@@ -9,37 +9,85 @@
 </head>
 <body>
   <header>
-    <h1>Escola Antonio Austregésio</h1>
-    <nav aria-label="Menu principal">
-      <ul>
-        <li><a href="index.html">Início</a></li>
-        <li><a href="quem-somos.html">Quem Somos</a></li>
-        <li><a href="professores.html">Professores</a></li>
-        <li><a href="avisos.html">Avisos</a></li>
-        <li><a href="galeria.html">Galeria</a></li>
-        <li><a href="contato.html">Contato</a></li>
-      </ul>
-    </nav>
-  </header>
-
+  <div style="display:flex;align-items:center;justify-content:center;gap:24px;padding-top:12px;">
+    <img src="imagens/fundoMenu.png" alt="Prefeitura do Rio de Janeiro" style="height:100px;">
+    <h1 style="margin:0;">Escola Antonio Austregésio</h1>
+  </div>
+  <nav aria-label="Menu principal">
+    <button id="menu-btn" aria-label="Abrir menu" class="menu-btn">
+      <span></span><span></span><span></span>
+    </button>
+    <ul id="menu-list">
+      <li><a href="index.html">Início</a></li>
+      <li><a href="quem-somos.html">Quem Somos</a></li>
+      <li><a href="professores.html">Professores</a></li>
+      <li><a href="avisos.html">Avisos</a></li>
+      <li><a href="galeria.html">Galeria</a></li>
+      <li><a href="contato.html">Contato</a></li>
+      <li><a href="admin.html">Admin</a></li>
+    </ul>
+  </nav>
+</header>
   <main>
-    <section class="banner" aria-labelledby="bem-vindo">
-      <h2 id="bem-vindo">Bem-vindo à Escola Antonio Austregésio</h2>
-      <p>Formando cidadãos para um futuro melhor.</p>
+    <section class="info-rapida">
+      <span class="icon">📢</span>
+      <div>
+        <strong>Matrículas abertas para 2025!</strong><br>
+        Venha conhecer nossa escola, agende uma visita pelo WhatsApp:
+        <a href="https://wa.me/5588999999999" target="_blank" style="color:#0059b3;text-decoration:underline;">Clique aqui</a><br>
+        Endereço: Rua das Flores, 123 - Centro, Cidade/UF
+      </div>
     </section>
-
     <section class="destaques" aria-labelledby="destaques">
       <h3 id="destaques">Destaques</h3>
-      <ul>
-        <li>Matrículas abertas para 2025!</li>
-        <li>Semana do Meio Ambiente – confira as fotos na galeria.</li>
-        <li>Reunião de pais e mestres: 28 de julho.</li>
-      </ul>
+      <div class="destaque-cards" id="destaque-cards"></div>
+    </section>
+    <section class="videos">
+      <h3>Vídeos da Escola</h3>
+      <div class="video-grid">
+        <iframe src="https://www.youtube.com/embed/2Vv-BfVoq4g" title="Vídeo Institucional" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/3fumBcKC6RE" title="Evento Escolar" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/5qap5aO4i9A" title="Apresentação dos Alunos" allowfullscreen></iframe>
+      </div>
+    </section>
+    <section class="depoimentos">
+      <h3>Depoimentos</h3>
+      <div class="depoimento">"A escola mudou a vida do meu filho, só tenho a agradecer!"<br><strong>- Maria, mãe de aluno</strong></div>
+      <div class="depoimento">"Aqui aprendi a ser cidadão e a sonhar alto."<br><strong>- João, ex-aluno</strong></div>
+      <div class="depoimento">"Equipe dedicada e ambiente acolhedor."<br><strong>- Ana, professora</strong></div>
     </section>
   </main>
-
   <footer>
     <p>&copy; 2025 Escola Antonio Austregésio</p>
   </footer>
+  <script>
+    // Menu hambúrguer responsivo
+    const menuBtn = document.getElementById('menu-btn');
+    const menuList = document.getElementById('menu-list');
+    menuBtn.addEventListener('click', () => {
+      menuList.classList.toggle('show');
+    });
+    document.addEventListener('click', function(e) {
+      if (window.innerWidth <= 900 && !menuBtn.contains(e.target) && !menuList.contains(e.target)) {
+        menuList.classList.remove('show');
+      }
+    });
+
+    // Destaques dinâmicos
+    fetch('http://localhost:3000/destaques')
+      .then(res => res.json())
+      .then(destaques => {
+        const cards = document.getElementById('destaque-cards');
+        cards.innerHTML = '';
+        const icons = ['🎉','📅','⭐','📢','🏫','📝','🎓','🏆','📷','💡'];
+        destaques.slice().reverse().forEach((item, idx) => {
+          cards.innerHTML += `
+            <div class="card-destaque">
+              <span class="icon">${icons[idx % icons.length]}</span>
+              <span>${item.texto}</span>
+            </div>`;
+        });
+      });
+  </script>
 </body>
 </html>

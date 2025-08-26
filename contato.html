@@ -8,39 +8,64 @@
 </head>
 <body>
   <header>
-    <h1>Escola Antonio Austregésio</h1>
-    <nav aria-label="Menu principal">
-      <ul>
-        <li><a href="index.html">Início</a></li>
-        <li><a href="quem-somos.html">Quem Somos</a></li>
-        <li><a href="professores.html">Professores</a></li>
-        <li><a href="avisos.html">Avisos</a></li>
-        <li><a href="galeria.html">Galeria</a></li>
-        <li><a href="contato.html">Contato</a></li>
-      </ul>
-    </nav>
-  </header>
-
+  <div style="display:flex;align-items:center;justify-content:center;gap:24px;padding-top:12px;">
+    <img src="imagens/fundoMenu.png" alt="Prefeitura do Rio de Janeiro" style="height:100px;">
+    <h1 style="margin:0;">Escola Antonio Austregésio</h1>
+  </div>
+  <nav aria-label="Menu principal">
+    <button id="menu-btn" aria-label="Abrir menu" class="menu-btn">
+      <span></span><span></span><span></span>
+    </button>
+    <ul id="menu-list">
+      <li><a href="index.html">Início</a></li>
+      <li><a href="quem-somos.html">Quem Somos</a></li>
+      <li><a href="professores.html">Professores</a></li>
+      <li><a href="avisos.html">Avisos</a></li>
+      <li><a href="galeria.html">Galeria</a></li>
+      <li><a href="contato.html">Contato</a></li>
+      <li><a href="admin.html">Admin</a></li>
+    </ul>
+  </nav>
+</header>
   <main>
-    <section class="contato" aria-labelledby="titulo-contato">
-      <h2 id="titulo-contato">Contato</h2>
-      <form>
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome" required />
-
-        <label for="email">E-mail:</label>
-        <input type="email" id="email" name="email" required />
-
-        <label for="mensagem">Mensagem:</label>
-        <textarea id="mensagem" name="mensagem" rows="5" required></textarea>
-
+    <section class="contato">
+      <h2>Fale Conosco</h2>
+      <form id="form-contato">
+        <input type="text" name="nome" placeholder="Seu nome" required />
+        <input type="email" name="email" placeholder="Seu e-mail" required />
+        <textarea name="mensagem" rows="4" placeholder="Sua mensagem" required></textarea>
         <button type="submit">Enviar</button>
       </form>
+      <div class="contato-info">
+        <strong>WhatsApp:</strong> <a href="https://wa.me/5588999999999" target="_blank">Clique aqui</a><br>
+        <strong>E-mail:</strong> contato@escolaaustregesio.com.br<br>
+        <strong>Endereço:</strong> Rua das Flores, 123 - Centro, Cidade/UF
+      </div>
+      <div id="msg-contato" style="margin-top:12px;color:#0059b3;"></div>
     </section>
   </main>
-
   <footer>
     <p>&copy; 2025 Escola Antonio Austregésio</p>
   </footer>
+  <script>
+    // Menu hambúrguer responsivo
+    const menuBtn = document.getElementById('menu-btn');
+    const menuList = document.getElementById('menu-list');
+    menuBtn.addEventListener('click', () => {
+      menuList.classList.toggle('show');
+    });
+    document.addEventListener('click', function(e) {
+      if (window.innerWidth <= 900 && !menuBtn.contains(e.target) && !menuList.contains(e.target)) {
+        menuList.classList.remove('show');
+      }
+    });
+
+    // Simulação de envio de contato
+    document.getElementById('form-contato').addEventListener('submit', function(e) {
+      e.preventDefault();
+      document.getElementById('msg-contato').textContent = "Mensagem enviada! Em breve entraremos em contato.";
+      this.reset();
+    });
+  </script>
 </body>
 </html>

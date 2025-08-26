@@ -7,77 +7,160 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <!-- Área de Login -->
-  <div id="login-area">
-    <h2>Login do Administrador</h2>
-    <form id="login-form">
-      <input type="text" id="usuario" placeholder="Usuário" required />
-      <input type="password" id="senha" placeholder="Senha" required />
-      <button type="submit">Entrar</button>
-    </form>
-    <p id="login-erro" style="color: red; display: none;">Usuário ou senha incorretos.</p>
+  <header>
+  <div style="display:flex;align-items:center;justify-content:center;gap:24px;padding-top:12px;">
+    <img src="imagens/fundoMenu.png" alt="Prefeitura do Rio de Janeiro" style="height:100px;">
+    <h1 style="margin:0;">Escola Antonio Austregésio</h1>
   </div>
+  <nav aria-label="Menu principal">
+    <button id="menu-btn" aria-label="Abrir menu" class="menu-btn">
+      <span></span><span></span><span></span>
+    </button>
+    <ul id="menu-list">
+      <li><a href="index.html">Início</a></li>
+      <li><a href="quem-somos.html">Quem Somos</a></li>
+      <li><a href="professores.html">Professores</a></li>
+      <li><a href="avisos.html">Avisos</a></li>
+      <li><a href="galeria.html">Galeria</a></li>
+      <li><a href="contato.html">Contato</a></li>
+      <li><a href="admin.html">Admin</a></li>
+    </ul>
+  </nav>
+</header>
 
-  <!-- Área do Painel Admin -->
-  <div id="admin-area" style="display: none;">
-    <header>
-      <h1>Painel Administrativo</h1>
-      <nav aria-label="Menu do painel">
-        <ul>
-          <li><a href="#avisos">Avisos</a></li>
-          <li><a href="#professores">Professores</a></li>
-          <li><a href="#galeria">Galeria</a></li>
-        </ul>
-      </nav>
-    </header>
+  <main>
+    <div id="mensagem-admin"></div>
+    <!-- Área de Login -->
+    <div id="login-area" class="painel">
+      <h2>Login do Administrador</h2>
+      <form id="login-form">
+        <input type="text" id="usuario" placeholder="Usuário" required />
+        <input type="password" id="senha" placeholder="Senha" required />
+        <button type="submit" class="btn">Entrar</button>
+      </form>
+      <p id="login-erro" style="color: red; display: none;">Usuário ou senha incorretos.</p>
+    </div>
 
-    <main>
-      <!-- Avisos -->
+    <!-- Área do Painel Admin -->
+    <div id="admin-area" class="painel" style="display: none;">
+      <button id="logout-btn" class="btn" style="float:right;">Sair</button>
+      <h2>Painel Administrativo</h2>
+
       <section id="avisos">
-        <h2>Gerenciar Avisos</h2>
+        <h3>Avisos</h3>
         <form id="form-avisos">
           <input type="text" name="titulo" placeholder="Título do aviso" required />
           <textarea name="texto" placeholder="Texto do aviso" required></textarea>
-          <button type="submit">Adicionar Aviso</button>
+          <button type="submit" class="btn">Adicionar Aviso</button>
         </form>
-        <ul id="lista-avisos"></ul>
+        <div class="card-list" id="lista-avisos"></div>
       </section>
 
-      <!-- Professores -->
       <section id="professores">
-        <h2>Gerenciar Professores</h2>
+        <h3>Professores</h3>
         <form id="form-professores">
           <input type="text" name="nome" placeholder="Nome do professor" required />
           <input type="text" name="disciplina" placeholder="Disciplina" required />
-          <button type="submit">Adicionar Professor</button>
+          <button type="submit" class="btn">Adicionar Professor</button>
         </form>
-        <ul id="lista-professores"></ul>
+        <div class="card-list" id="lista-professores"></div>
       </section>
 
-      <!-- Galeria -->
       <section id="galeria">
-        <h2>Gerenciar Galeria</h2>
+        <h3>Galeria</h3>
         <form id="form-galeria" enctype="multipart/form-data">
           <input type="file" name="imagem" accept="image/*" required />
-          <button type="submit">Adicionar Foto</button>
+          <button type="submit" class="btn">Adicionar Foto</button>
         </form>
-        <div id="lista-galeria"></div>
+        <div class="card-list" id="lista-galeria"></div>
       </section>
-    </main>
 
-    <footer>
-      <p>&copy; 2025 Escola Antonio Austregésio</p>
-    </footer>
-  </div>
+      <section id="destaques">
+        <h3>Destaques</h3>
+        <form id="form-destaque">
+          <input type="text" id="novoDestaque" placeholder="Novo destaque" required />
+          <button type="submit" class="btn">Adicionar Destaque</button>
+        </form>
+        <div id="lista-destaques-admin"></div>
+      </section>
 
-  <!-- Scripts -->
+      <section id="quem-somos">
+        <h3>Quem Somos</h3>
+        <form id="form-quem-somos">
+          <textarea id="textoQuemSomos" rows="4" style="width:100%;" required></textarea>
+          <button type="submit" class="btn">Salvar Texto</button>
+        </form>
+      </section>
+
+      <section id="alterar-senha">
+        <h3>Alterar Senha do Admin</h3>
+        <form id="form-alterar-senha">
+          <input type="password" id="novaSenha" placeholder="Nova senha" required minlength="6" />
+          <button type="submit" class="btn">Alterar Senha</button>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Escola Antonio Austregésio</p>
+  </footer>
+
   <script>
-    // Autenticação JWT
+    // Função mostrarPainel precisa estar antes da chamada!
+    function mostrarPainel() {
+      adminArea.style.display = "block";
+      loginArea.style.display = "none";
+      carregarAvisos();
+      carregarProfessores();
+      carregarGaleria();
+      carregarDestaquesAdmin();
+      carregarQuemSomosAdmin();
+    }
+
+    // Menu hambúrguer responsivo
+    const menuBtn = document.getElementById('menu-btn');
+    const menuList = document.getElementById('menu-list');
+    menuBtn.addEventListener('click', () => {
+      menuList.classList.toggle('show');
+    });
+    document.addEventListener('click', function(e) {
+      if (window.innerWidth <= 900 && !menuBtn.contains(e.target) && !menuList.contains(e.target)) {
+        menuList.classList.remove('show');
+      }
+    });
+
+    // Feedback visual
+    function mostrarMensagem(msg, tipo = 'sucesso') {
+      const div = document.getElementById('mensagem-admin');
+      div.textContent = msg;
+      div.className = tipo === 'erro' ? 'msg-erro' : 'msg-sucesso';
+      div.style.display = 'block';
+      setTimeout(() => { div.style.display = 'none'; }, 3000);
+    }
+
+    // Sessão inicial
     const loginForm = document.getElementById('login-form');
     const loginArea = document.getElementById('login-area');
     const adminArea = document.getElementById('admin-area');
     const loginErro = document.getElementById('login-erro');
 
+    if (!localStorage.getItem('token')) {
+      adminArea.style.display = "none";
+      loginArea.style.display = "block";
+    } else {
+      mostrarPainel();
+    }
+
+    // Logout
+    document.getElementById('logout-btn').onclick = function() {
+      localStorage.removeItem('token');
+      adminArea.style.display = "none";
+      loginArea.style.display = "block";
+      mostrarMensagem('Logout realizado com sucesso!');
+    };
+
+    // Login JWT
     loginForm.addEventListener('submit', function(e) {
       e.preventDefault();
       const usuario = document.getElementById('usuario').value;
@@ -91,18 +174,20 @@
       .then(data => {
         if (data.token) {
           localStorage.setItem('token', data.token);
-          loginArea.style.display = "none";
-          adminArea.style.display = "block";
-          carregarAvisos();
-          carregarProfessores();
-          carregarGaleria();
+          mostrarPainel();
+          mostrarMensagem('Login realizado com sucesso!');
         } else {
           loginErro.style.display = "block";
+          mostrarMensagem('Usuário ou senha incorretos.', 'erro');
         }
+      })
+      .catch(() => {
+        loginErro.style.display = "block";
+        mostrarMensagem('Erro de conexão.', 'erro');
       });
     });
 
-    // Avisos
+    // CRUD Avisos
     const formAvisos = document.getElementById('form-avisos');
     const listaAvisos = document.getElementById('lista-avisos');
 
@@ -111,13 +196,14 @@
         .then(res => res.json())
         .then(data => {
           listaAvisos.innerHTML = '';
-          data.forEach(aviso => {
+          data.slice().reverse().forEach(aviso => {
             listaAvisos.innerHTML += `
-              <li>
-                <strong>${aviso.titulo}</strong>: ${aviso.texto}
-                <button onclick="editarAviso(${aviso.id}, '${aviso.titulo.replace(/'/g, "\\'")}', '${aviso.texto.replace(/'/g, "\\'")}')">Editar</button>
-                <button onclick="excluirAviso(${aviso.id})">Excluir</button>
-              </li>`;
+              <div class="card">
+                <strong>${aviso.titulo}</strong>
+                <span>${aviso.texto}</span>
+                <button class="btn" onclick="editarAviso(${aviso.id}, '${aviso.titulo.replace(/'/g, "\\'")}', '${aviso.texto.replace(/'/g, "\\'")}')">Editar</button>
+                <button class="btn" onclick="excluirAviso(${aviso.id})">Excluir</button>
+              </div>`;
           });
         });
     }
@@ -142,6 +228,7 @@
           delete formAvisos.dataset.editando;
           formAvisos.querySelector('button').textContent = 'Adicionar Aviso';
           carregarAvisos();
+          mostrarMensagem('Aviso editado com sucesso!');
         });
       } else {
         fetch('http://localhost:3000/avisos', {
@@ -156,6 +243,7 @@
         .then(() => {
           formAvisos.reset();
           carregarAvisos();
+          mostrarMensagem('Aviso adicionado com sucesso!');
         });
       }
     });
@@ -175,11 +263,14 @@
           headers: { 'Authorization': 'Bearer ' + token }
         })
         .then(res => res.json())
-        .then(() => carregarAvisos());
+        .then(() => {
+          carregarAvisos();
+          mostrarMensagem('Aviso excluído com sucesso!');
+        });
       }
     };
 
-    // Professores
+    // CRUD Professores
     const formProfessores = document.getElementById('form-professores');
     const listaProfessores = document.getElementById('lista-professores');
 
@@ -190,11 +281,12 @@
           listaProfessores.innerHTML = '';
           data.forEach(prof => {
             listaProfessores.innerHTML += `
-              <li>
-                <strong>${prof.nome}</strong> – ${prof.disciplina}
-                <button onclick="editarProfessor(${prof.id}, '${prof.nome.replace(/'/g, "\\'")}', '${prof.disciplina.replace(/'/g, "\\'")}')">Editar</button>
-                <button onclick="excluirProfessor(${prof.id})">Excluir</button>
-              </li>`;
+              <div class="card">
+                <strong>${prof.nome}</strong>
+                <span>${prof.disciplina}</span>
+                <button class="btn" onclick="editarProfessor(${prof.id}, '${prof.nome.replace(/'/g, "\\'")}', '${prof.disciplina.replace(/'/g, "\\'")}')">Editar</button>
+                <button class="btn" onclick="excluirProfessor(${prof.id})">Excluir</button>
+              </div>`;
           });
         });
     }
@@ -219,6 +311,7 @@
           delete formProfessores.dataset.editando;
           formProfessores.querySelector('button').textContent = 'Adicionar Professor';
           carregarProfessores();
+          mostrarMensagem('Professor editado com sucesso!');
         });
       } else {
         fetch('http://localhost:3000/professores', {
@@ -233,6 +326,7 @@
         .then(() => {
           formProfessores.reset();
           carregarProfessores();
+          mostrarMensagem('Professor adicionado com sucesso!');
         });
       }
     });
@@ -252,11 +346,14 @@
           headers: { 'Authorization': 'Bearer ' + token }
         })
         .then(res => res.json())
-        .then(() => carregarProfessores());
+        .then(() => {
+          carregarProfessores();
+          mostrarMensagem('Professor excluído com sucesso!');
+        });
       }
     };
 
-    // Galeria
+    // CRUD Galeria
     const formGaleria = document.getElementById('form-galeria');
     const listaGaleria = document.getElementById('lista-galeria');
 
@@ -265,12 +362,12 @@
         .then(res => res.json())
         .then(data => {
           listaGaleria.innerHTML = '';
-          data.forEach(img => {
+          data.slice().reverse().forEach(img => {
             listaGaleria.innerHTML += `
-              <div style="display:inline-block; margin:5px;">
-                <img src="http://localhost:3000${img.url}" alt="${img.nome}" style="max-width:150px; display:block;" />
-                <input type="text" value="${img.nome}" onchange="editarNomeImagem(${img.id}, this.value)" style="margin:5px 0; width:140px;" />
-                <button onclick="excluirImagem(${img.id})">Excluir</button>
+              <div class="card">
+                <img src="http://localhost:3000${img.url}" alt="${img.nome}" style="max-width:100%;border-radius:8px;" />
+                <input type="text" value="${img.nome}" onchange="editarNomeImagem(${img.id}, this.value)" style="margin:5px 0; width:100%;" />
+                <button class="btn" onclick="excluirImagem(${img.id})">Excluir</button>
               </div>`;
           });
         });
@@ -289,6 +386,7 @@
       .then(() => {
         formGaleria.reset();
         carregarGaleria();
+        mostrarMensagem('Imagem adicionada com sucesso!');
       });
     });
 
@@ -303,7 +401,10 @@
         body: JSON.stringify({ nome: novoNome })
       })
       .then(res => res.json())
-      .then(() => carregarGaleria());
+      .then(() => {
+        carregarGaleria();
+        mostrarMensagem('Nome da imagem editado!');
+      });
     };
 
     window.excluirImagem = function(id) {
@@ -314,9 +415,136 @@
           headers: { 'Authorization': 'Bearer ' + token }
         })
         .then(res => res.json())
-        .then(() => carregarGaleria());
+        .then(() => {
+          carregarGaleria();
+          mostrarMensagem('Imagem excluída com sucesso!');
+        });
       }
     };
+
+    // CRUD Destaques
+    const formDestaque = document.getElementById('form-destaque');
+    const listaDestaquesAdmin = document.getElementById('lista-destaques-admin');
+
+    function carregarDestaquesAdmin() {
+      fetch('http://localhost:3000/destaques')
+        .then(res => res.json())
+        .then(destaques => {
+          listaDestaquesAdmin.innerHTML = '';
+          destaques.slice().reverse().forEach((item, idx) => {
+            const originalIdx = destaques.length - 1 - idx;
+            listaDestaquesAdmin.innerHTML += `
+              <div class="destaque-edit">
+                <input type="text" value="${item.texto}" onchange="editarDestaque(${originalIdx}, this.value)" style="flex:1;" />
+                <button class="btn" onclick="excluirDestaque(${originalIdx})">Excluir</button>
+              </div>`;
+          });
+        });
+    }
+
+    formDestaque.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const texto = document.getElementById('novoDestaque').value;
+      const token = localStorage.getItem('token');
+      fetch('http://localhost:3000/destaques', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify({ texto })
+      })
+      .then(res => res.json())
+      .then(() => {
+        formDestaque.reset();
+        carregarDestaquesAdmin();
+        mostrarMensagem('Destaque adicionado!');
+      });
+    });
+
+    window.editarDestaque = function(idx, texto) {
+      const token = localStorage.getItem('token');
+      fetch(`http://localhost:3000/destaques/${idx}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify({ texto })
+      })
+      .then(res => res.json())
+      .then(() => {
+        carregarDestaquesAdmin();
+        mostrarMensagem('Destaque editado!');
+      });
+    };
+
+    window.excluirDestaque = function(idx) {
+      const token = localStorage.getItem('token');
+      fetch(`http://localhost:3000/destaques/${idx}`, {
+        method: 'DELETE',
+        headers: { 'Authorization': 'Bearer ' + token }
+      })
+      .then(res => res.json())
+      .then(() => {
+        carregarDestaquesAdmin();
+        mostrarMensagem('Destaque excluído!');
+      });
+    };
+
+    // CRUD Quem Somos
+    const formQuemSomos = document.getElementById('form-quem-somos');
+    const textoQuemSomos = document.getElementById('textoQuemSomos');
+
+    function carregarQuemSomosAdmin() {
+      fetch('http://localhost:3000/quem-somos')
+        .then(res => res.json())
+        .then(data => {
+          textoQuemSomos.value = data.texto;
+        });
+    }
+
+    formQuemSomos.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const texto = textoQuemSomos.value;
+      const token = localStorage.getItem('token');
+      fetch('http://localhost:3000/quem-somos', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify({ texto })
+      })
+      .then(res => res.json())
+      .then(() => {
+        mostrarMensagem('Texto "Quem Somos" atualizado!');
+      });
+    });
+
+    // Alterar senha do admin
+    document.getElementById('form-alterar-senha').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const novaSenha = document.getElementById('novaSenha').value;
+      const token = localStorage.getItem('token');
+      fetch('http://localhost:3000/alterar-senha', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify({ novaSenha })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          mostrarMensagem('Senha alterada com sucesso!');
+          document.getElementById('form-alterar-senha').reset();
+        } else {
+          mostrarMensagem(data.error || 'Erro ao alterar senha.', 'erro');
+        }
+      });
+    });
   </script>
 </body>
 </html>
