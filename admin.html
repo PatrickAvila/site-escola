@@ -3,35 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Painel Administrativo - Escola Antonio Austregésio</title>
+  <title>Dashboard Admin - Escola Antonio Austregésio</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
   <header>
-  <div style="display:flex;align-items:center;justify-content:center;gap:24px;padding-top:12px;">
-    <img src="imagens/fundoMenu.png" alt="Prefeitura do Rio de Janeiro" style="height:100px;">
-    <h1 style="margin:0;">Escola Antonio Austregésio</h1>
-  </div>
-  <nav aria-label="Menu principal">
-    <button id="menu-btn" aria-label="Abrir menu" class="menu-btn">
-      <span></span><span></span><span></span>
-    </button>
-    <ul id="menu-list">
-      <li><a href="index.html">Início</a></li>
-      <li><a href="quem-somos.html">Quem Somos</a></li>
-      <li><a href="professores.html">Professores</a></li>
-      <li><a href="avisos.html">Avisos</a></li>
-      <li><a href="galeria.html">Galeria</a></li>
-      <li><a href="contato.html">Contato</a></li>
-      <li><a href="admin.html">Admin</a></li>
-    </ul>
-  </nav>
-</header>
-
+    <div class="menu-superior">
+      <img src="imagens/transferir.jpg" alt="Transferir" class="menu-img">
+      <h1 class="menu-titulo">Escola Antonio Austregésio</h1>
+      <img src="imagens/fundoMenu.png" alt="Prefeitura do Rio de Janeiro" class="menu-img">
+    </div>
+  </header>
   <main>
     <div id="mensagem-admin"></div>
     <!-- Área de Login -->
-    <div id="login-area" class="painel">
+    <div id="login-area" class="dashboard-login">
       <h2>Login do Administrador</h2>
       <form id="login-form">
         <input type="text" id="usuario" placeholder="Usuário" required />
@@ -40,95 +26,192 @@
       </form>
       <p id="login-erro" style="color: red; display: none;">Usuário ou senha incorretos.</p>
     </div>
-
-    <!-- Área do Painel Admin -->
-    <div id="admin-area" class="painel" style="display: none;">
-      <button id="logout-btn" class="btn" style="float:right;">Sair</button>
-      <h2>Painel Administrativo</h2>
-
-      <section id="avisos">
-        <h3>Avisos</h3>
-        <form id="form-avisos">
-          <input type="text" name="titulo" placeholder="Título do aviso" required />
-          <textarea name="texto" placeholder="Texto do aviso" required></textarea>
-          <button type="submit" class="btn">Adicionar Aviso</button>
-        </form>
-        <div class="card-list" id="lista-avisos"></div>
-      </section>
-
-      <section id="professores">
-        <h3>Professores</h3>
-        <form id="form-professores">
-          <input type="text" name="nome" placeholder="Nome do professor" required />
-          <input type="text" name="disciplina" placeholder="Disciplina" required />
-          <button type="submit" class="btn">Adicionar Professor</button>
-        </form>
-        <div class="card-list" id="lista-professores"></div>
-      </section>
-
-      <section id="galeria">
-        <h3>Galeria</h3>
-        <form id="form-galeria" enctype="multipart/form-data">
-          <input type="file" name="imagem" accept="image/*" required />
-          <button type="submit" class="btn">Adicionar Foto</button>
-        </form>
-        <div class="card-list" id="lista-galeria"></div>
-      </section>
-
-      <section id="destaques">
-        <h3>Destaques</h3>
-        <form id="form-destaque">
-          <input type="text" id="novoDestaque" placeholder="Novo destaque" required />
-          <button type="submit" class="btn">Adicionar Destaque</button>
-        </form>
-        <div id="lista-destaques-admin"></div>
-      </section>
-
-      <section id="quem-somos">
-        <h3>Quem Somos</h3>
-        <form id="form-quem-somos">
-          <textarea id="textoQuemSomos" rows="4" style="width:100%;" required></textarea>
-          <button type="submit" class="btn">Salvar Texto</button>
-        </form>
-      </section>
-
-      <section id="alterar-senha">
-        <h3>Alterar Senha do Admin</h3>
-        <form id="form-alterar-senha">
-          <input type="password" id="novaSenha" placeholder="Nova senha" required minlength="6" />
-          <button type="submit" class="btn">Alterar Senha</button>
-        </form>
-      </section>
+    <!-- Dashboard principal -->
+    <div id="admin-area" style="display: none;">
+      <div class="dashboard-layout">
+        <!-- Sidebar lateral -->
+        <aside class="dashboard-sidebar">
+          <nav>
+            <ul>
+              <li><button class="sidebar-btn" data-section="avisos">Avisos</button></li>
+              <li><button class="sidebar-btn" data-section="professores">Professores</button></li>
+              <li><button class="sidebar-btn" data-section="galeria">Galeria</button></li>
+              <li><button class="sidebar-btn" data-section="destaques">Destaques</button></li>
+              <li><button class="sidebar-btn" data-section="quem-somos">Quem Somos</button></li>
+              <li><button class="sidebar-btn" data-section="alterar-senha">Alterar Senha</button></li>
+              <li><button id="logout-btn" class="sidebar-btn">Sair</button></li>
+            </ul>
+          </nav>
+        </aside>
+        <!-- Conteúdo principal -->
+        <section class="dashboard-content">
+          <!-- Avisos -->
+          <div id="section-avisos" class="dashboard-section">
+            <h2>Avisos</h2>
+            <form id="form-avisos">
+              <input type="text" name="titulo" placeholder="Título do aviso" required />
+              <textarea name="texto" placeholder="Texto do aviso" required></textarea>
+              <button type="submit" class="btn">Adicionar Aviso</button>
+            </form>
+            <div class="card-list" id="lista-avisos"></div>
+          </div>
+          <!-- Professores -->
+          <div id="section-professores" class="dashboard-section" style="display:none;">
+            <h2>Professores</h2>
+            <form id="form-professores">
+              <input type="text" name="nome" placeholder="Nome do professor" required />
+              <input type="text" name="disciplina" placeholder="Disciplina" required />
+              <button type="submit" class="btn">Adicionar Professor</button>
+            </form>
+            <div class="card-list" id="lista-professores"></div>
+          </div>
+          <!-- Galeria -->
+          <div id="section-galeria" class="dashboard-section" style="display:none;">
+            <h2>Galeria</h2>
+            <form id="form-galeria" enctype="multipart/form-data">
+              <input type="file" name="imagem" accept="image/*" required />
+              <button type="submit" class="btn">Adicionar Foto</button>
+            </form>
+            <div class="card-list" id="lista-galeria"></div>
+          </div>
+          <!-- Destaques -->
+          <div id="section-destaques" class="dashboard-section" style="display:none;">
+            <h2>Destaques</h2>
+            <form id="form-destaque">
+              <input type="text" id="novoDestaque" placeholder="Novo destaque" required />
+              <button type="submit" class="btn">Adicionar Destaque</button>
+            </form>
+            <div id="lista-destaques-admin"></div>
+          </div>
+          <!-- Quem Somos -->
+          <div id="section-quem-somos" class="dashboard-section" style="display:none;">
+            <h2>Quem Somos</h2>
+            <form id="form-quem-somos">
+              <textarea id="textoQuemSomos" rows="4" style="width: 100%;" required></textarea>
+              <button type="submit" class="btn">Salvar Texto</button>
+            </form>
+          </div>
+          <!-- Alterar Senha -->
+          <div id="section-alterar-senha" class="dashboard-section" style="display:none;">
+            <h2>Alterar Senha do Admin</h2>
+            <form id="form-alterar-senha">
+              <input type="password" id="novaSenha" placeholder="Nova senha" required minlength="6" />
+              <button type="submit" class="btn">Alterar Senha</button>
+            </form>
+          </div>
+        </section>
+      </div>
     </div>
   </main>
-
+  <!-- Botão hambúrguer e overlay para mobile -->
+  <button class="dashboard-menu-btn" id="dashboardMenuBtn" aria-label="Abrir menu" style="display:none;">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  <div class="dashboard-overlay" id="dashboardOverlay"></div>
   <footer>
     <p>&copy; 2025 Escola Antonio Austregésio</p>
   </footer>
-
   <script>
-    // Função mostrarPainel precisa estar antes da chamada!
+    // Validação do token no back-end
+    async function validarToken() {
+      const token = localStorage.getItem('token');
+      if (!token) return false;
+      try {
+        const res = await fetch('https://escola-backend-45kv.onrender.com/validar-token', {
+          headers: { 'Authorization': 'Bearer ' + token }
+        });
+        return res.ok;
+      } catch {
+        return false;
+      }
+    }
+
+    // Elementos globais
+    const loginForm = document.getElementById('login-form');
+    const loginArea = document.getElementById('login-area');
+    const adminArea = document.getElementById('admin-area');
+    const loginErro = document.getElementById('login-erro');
+
+    // Inicialização segura do painel admin
+    (async () => {
+      if (await validarToken()) {
+        mostrarPainel();
+      } else {
+        localStorage.removeItem('token');
+        adminArea.style.display = "none";
+        loginArea.style.display = "block";
+      }
+    })();
+
+    // Função para mostrar painel admin
     function mostrarPainel() {
       adminArea.style.display = "block";
       loginArea.style.display = "none";
+      mostrarSecao('avisos');
       carregarAvisos();
       carregarProfessores();
       carregarGaleria();
       carregarDestaquesAdmin();
       carregarQuemSomosAdmin();
+
+      // Adiciona o evento de alterar senha quando o painel está visível
+      const formAlterarSenha = document.getElementById('form-alterar-senha');
+      if (formAlterarSenha && !formAlterarSenha.dataset.listener) {
+        formAlterarSenha.addEventListener('submit', function(e) {
+          e.preventDefault();
+          const novaSenha = document.getElementById('novaSenha').value;
+          const token = localStorage.getItem('token');
+          fetch('https://escola-backend-45kv.onrender.com/alterar-senha', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + token
+            },
+            body: JSON.stringify({ novaSenha })
+          })
+          .then(res => res.json())
+          .then(data => {
+            if (data.success) {
+              mostrarMensagem('Senha alterada com sucesso!');
+              formAlterarSenha.reset();
+            } else {
+              mostrarMensagem(data.error || 'Erro ao alterar senha.', 'erro');
+            }
+          });
+        });
+        formAlterarSenha.dataset.listener = "true";
+      }
     }
 
-    // Menu hambúrguer responsivo
-    const menuBtn = document.getElementById('menu-btn');
-    const menuList = document.getElementById('menu-list');
-    menuBtn.addEventListener('click', () => {
-      menuList.classList.toggle('show');
+    // Sidebar navegação
+    document.querySelectorAll('.sidebar-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        if (btn.id === 'logout-btn') {
+          localStorage.removeItem('token');
+          adminArea.style.display = "none";
+          loginArea.style.display = "block";
+          mostrarMensagem('Logout realizado com sucesso!');
+        } else {
+          mostrarSecao(btn.dataset.section);
+        }
+      });
     });
-    document.addEventListener('click', function(e) {
-      if (window.innerWidth <= 900 && !menuBtn.contains(e.target) && !menuList.contains(e.target)) {
-        menuList.classList.remove('show');
-      }
-    });
+
+    function mostrarSecao(secao) {
+      const secoes = [
+        'avisos',
+        'professores',
+        'galeria',
+        'destaques',
+        'quem-somos',
+        'alterar-senha'
+      ];
+      secoes.forEach(s => {
+        document.getElementById('section-' + s).style.display = (s === secao) ? 'block' : 'none';
+      });
+    }
 
     // Feedback visual
     function mostrarMensagem(msg, tipo = 'sucesso') {
@@ -139,33 +222,12 @@
       setTimeout(() => { div.style.display = 'none'; }, 3000);
     }
 
-    // Sessão inicial
-    const loginForm = document.getElementById('login-form');
-    const loginArea = document.getElementById('login-area');
-    const adminArea = document.getElementById('admin-area');
-    const loginErro = document.getElementById('login-erro');
-
-    if (!localStorage.getItem('token')) {
-      adminArea.style.display = "none";
-      loginArea.style.display = "block";
-    } else {
-      mostrarPainel();
-    }
-
-    // Logout
-    document.getElementById('logout-btn').onclick = function() {
-      localStorage.removeItem('token');
-      adminArea.style.display = "none";
-      loginArea.style.display = "block";
-      mostrarMensagem('Logout realizado com sucesso!');
-    };
-
     // Login JWT
     loginForm.addEventListener('submit', function(e) {
       e.preventDefault();
       const usuario = document.getElementById('usuario').value;
       const senha = document.getElementById('senha').value;
-      fetch('http://localhost:3000/login', {
+      fetch('https://escola-backend-45kv.onrender.com/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ usuario, senha })
@@ -192,7 +254,7 @@
     const listaAvisos = document.getElementById('lista-avisos');
 
     function carregarAvisos() {
-      fetch('http://localhost:3000/avisos')
+      fetch('https://escola-backend-45kv.onrender.com/avisos')
         .then(res => res.json())
         .then(data => {
           listaAvisos.innerHTML = '';
@@ -214,7 +276,7 @@
       const texto = formAvisos.texto.value;
       const token = localStorage.getItem('token');
       if (formAvisos.dataset.editando) {
-        fetch(`http://localhost:3000/avisos/${formAvisos.dataset.editando}`, {
+        fetch(`https://escola-backend-45kv.onrender.com/avisos/${formAvisos.dataset.editando}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -231,7 +293,7 @@
           mostrarMensagem('Aviso editado com sucesso!');
         });
       } else {
-        fetch('http://localhost:3000/avisos', {
+        fetch('https://escola-backend-45kv.onrender.com/avisos', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -258,7 +320,7 @@
     window.excluirAviso = function(id) {
       const token = localStorage.getItem('token');
       if (confirm('Deseja realmente excluir este aviso?')) {
-        fetch(`http://localhost:3000/avisos/${id}`, {
+        fetch(`https://escola-backend-45kv.onrender.com/avisos/${id}`, {
           method: 'DELETE',
           headers: { 'Authorization': 'Bearer ' + token }
         })
@@ -275,7 +337,7 @@
     const listaProfessores = document.getElementById('lista-professores');
 
     function carregarProfessores() {
-      fetch('http://localhost:3000/professores')
+      fetch('https://escola-backend-45kv.onrender.com/professores')
         .then(res => res.json())
         .then(data => {
           listaProfessores.innerHTML = '';
@@ -297,7 +359,7 @@
       const disciplina = formProfessores.disciplina.value;
       const token = localStorage.getItem('token');
       if (formProfessores.dataset.editando) {
-        fetch(`http://localhost:3000/professores/${formProfessores.dataset.editando}`, {
+        fetch(`https://escola-backend-45kv.onrender.com/professores/${formProfessores.dataset.editando}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -314,7 +376,7 @@
           mostrarMensagem('Professor editado com sucesso!');
         });
       } else {
-        fetch('http://localhost:3000/professores', {
+        fetch('https://escola-backend-45kv.onrender.com/professores', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -341,7 +403,7 @@
     window.excluirProfessor = function(id) {
       const token = localStorage.getItem('token');
       if (confirm('Deseja realmente excluir este professor?')) {
-        fetch(`http://localhost:3000/professores/${id}`, {
+        fetch(`https://escola-backend-45kv.onrender.com/professores/${id}`, {
           method: 'DELETE',
           headers: { 'Authorization': 'Bearer ' + token }
         })
@@ -358,14 +420,14 @@
     const listaGaleria = document.getElementById('lista-galeria');
 
     function carregarGaleria() {
-      fetch('http://localhost:3000/galeria')
+      fetch('https://escola-backend-45kv.onrender.com/galeria')
         .then(res => res.json())
         .then(data => {
           listaGaleria.innerHTML = '';
           data.slice().reverse().forEach(img => {
             listaGaleria.innerHTML += `
               <div class="card">
-                <img src="http://localhost:3000${img.url}" alt="${img.nome}" style="max-width:100%;border-radius:8px;" />
+                <img src="https://escola-backend-45kv.onrender.com${img.url}" alt="${img.nome}" style="max-width:100%;border-radius:8px;" />
                 <input type="text" value="${img.nome}" onchange="editarNomeImagem(${img.id}, this.value)" style="margin:5px 0; width:100%;" />
                 <button class="btn" onclick="excluirImagem(${img.id})">Excluir</button>
               </div>`;
@@ -377,7 +439,7 @@
       e.preventDefault();
       const formData = new FormData(formGaleria);
       const token = localStorage.getItem('token');
-      fetch('http://localhost:3000/galeria', {
+      fetch('https://escola-backend-45kv.onrender.com/galeria', {
         method: 'POST',
         headers: { 'Authorization': 'Bearer ' + token },
         body: formData
@@ -392,7 +454,7 @@
 
     window.editarNomeImagem = function(id, novoNome) {
       const token = localStorage.getItem('token');
-      fetch(`http://localhost:3000/galeria/${id}`, {
+      fetch(`https://escola-backend-45kv.onrender.com/galeria/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -410,7 +472,7 @@
     window.excluirImagem = function(id) {
       const token = localStorage.getItem('token');
       if (confirm('Deseja realmente excluir esta imagem?')) {
-        fetch(`http://localhost:3000/galeria/${id}`, {
+        fetch(`https://escola-backend-45kv.onrender.com/galeria/${id}`, {
           method: 'DELETE',
           headers: { 'Authorization': 'Bearer ' + token }
         })
@@ -427,7 +489,7 @@
     const listaDestaquesAdmin = document.getElementById('lista-destaques-admin');
 
     function carregarDestaquesAdmin() {
-      fetch('http://localhost:3000/destaques')
+      fetch('https://escola-backend-45kv.onrender.com/destaques')
         .then(res => res.json())
         .then(destaques => {
           listaDestaquesAdmin.innerHTML = '';
@@ -446,7 +508,7 @@
       e.preventDefault();
       const texto = document.getElementById('novoDestaque').value;
       const token = localStorage.getItem('token');
-      fetch('http://localhost:3000/destaques', {
+      fetch('https://escola-backend-45kv.onrender.com/destaques', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -464,7 +526,7 @@
 
     window.editarDestaque = function(idx, texto) {
       const token = localStorage.getItem('token');
-      fetch(`http://localhost:3000/destaques/${idx}`, {
+      fetch(`https://escola-backend-45kv.onrender.com/destaques/${idx}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -481,7 +543,7 @@
 
     window.excluirDestaque = function(idx) {
       const token = localStorage.getItem('token');
-      fetch(`http://localhost:3000/destaques/${idx}`, {
+      fetch(`https://escola-backend-45kv.onrender.com/destaques/${idx}`, {
         method: 'DELETE',
         headers: { 'Authorization': 'Bearer ' + token }
       })
@@ -497,7 +559,7 @@
     const textoQuemSomos = document.getElementById('textoQuemSomos');
 
     function carregarQuemSomosAdmin() {
-      fetch('http://localhost:3000/quem-somos')
+      fetch('https://escola-backend-45kv.onrender.com/quem-somos')
         .then(res => res.json())
         .then(data => {
           textoQuemSomos.value = data.texto;
@@ -508,7 +570,7 @@
       e.preventDefault();
       const texto = textoQuemSomos.value;
       const token = localStorage.getItem('token');
-      fetch('http://localhost:3000/quem-somos', {
+      fetch('https://escola-backend-45kv.onrender.com/quem-somos', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -522,29 +584,35 @@
       });
     });
 
-    // Alterar senha do admin
-    document.getElementById('form-alterar-senha').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const novaSenha = document.getElementById('novaSenha').value;
-      const token = localStorage.getItem('token');
-      fetch('http://localhost:3000/alterar-senha', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + token
-        },
-        body: JSON.stringify({ novaSenha })
-      })
-      .then(res => res.json())
-      .then(data => {
-        if (data.success) {
-          mostrarMensagem('Senha alterada com sucesso!');
-          document.getElementById('form-alterar-senha').reset();
-        } else {
-          mostrarMensagem(data.error || 'Erro ao alterar senha.', 'erro');
-        }
-      });
-    });
+    // Mostrar/esconder sidebar no mobile
+    const menuBtn = document.getElementById('dashboardMenuBtn');
+    const sidebar = document.querySelector('.dashboard-sidebar');
+    const overlay = document.getElementById('dashboardOverlay');
+
+    function toggleSidebar(show) {
+      if (show) {
+        sidebar.classList.add('show');
+        overlay.classList.add('show');
+      } else {
+        sidebar.classList.remove('show');
+        overlay.classList.remove('show');
+      }
+    }
+
+    function checkMobileMenu() {
+      if (window.innerWidth <= 900) {
+        menuBtn.style.display = 'flex';
+        toggleSidebar(false);
+      } else {
+        menuBtn.style.display = 'none';
+        toggleSidebar(false);
+      }
+    }
+    window.addEventListener('resize', checkMobileMenu);
+    document.addEventListener('DOMContentLoaded', checkMobileMenu);
+
+    menuBtn.addEventListener('click', () => toggleSidebar(true));
+    overlay.addEventListener('click', () => toggleSidebar(false));
   </script>
 </body>
 </html>

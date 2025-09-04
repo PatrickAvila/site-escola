@@ -1,64 +1,65 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Galeria - Escola Antonio Austregésio</title>
-  <link rel="stylesheet" href="css/style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Galeria - Escola Antonio Austregésio</title>
+    <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <header>
-  <div style="display:flex;align-items:center;justify-content:center;gap:24px;padding-top:12px;">
-    <img src="imagens/fundoMenu.png" alt="Prefeitura do Rio de Janeiro" style="height:100px;">
-    <h1 style="margin:0;">Escola Antonio Austregésio</h1>
-  </div>
-  <nav aria-label="Menu principal">
-    <button id="menu-btn" aria-label="Abrir menu" class="menu-btn">
-      <span></span><span></span><span></span>
-    </button>
-    <ul id="menu-list">
-      <li><a href="index.html">Início</a></li>
-      <li><a href="quem-somos.html">Quem Somos</a></li>
-      <li><a href="professores.html">Professores</a></li>
-      <li><a href="avisos.html">Avisos</a></li>
-      <li><a href="galeria.html">Galeria</a></li>
-      <li><a href="contato.html">Contato</a></li>
-      <li><a href="admin.html">Admin</a></li>
-    </ul>
-  </nav>
-</header>
-  <main>
-    <section class="galeria">
-      <h2>Galeria de Fotos</h2>
-      <div class="fotos" id="fotos"></div>
-    </section>
-  </main>
-  <footer>
-    <p>&copy; 2025 Escola Antonio Austregésio</p>
-  </footer>
-  <script>
-    // Menu hambúrguer responsivo
-    const menuBtn = document.getElementById('menu-btn');
-    const menuList = document.getElementById('menu-list');
-    menuBtn.addEventListener('click', () => {
-      menuList.classList.toggle('show');
-    });
-    document.addEventListener('click', function(e) {
-      if (window.innerWidth <= 900 && !menuBtn.contains(e.target) && !menuList.contains(e.target)) {
-        menuList.classList.remove('show');
-      }
-    });
-
-    // Galeria dinâmica
-    fetch('http://localhost:3000/galeria')
-      .then(res => res.json())
-      .then(imagens => {
-        const galeria = document.getElementById('fotos');
-        galeria.innerHTML = '';
-        imagens.slice().reverse().forEach(img => {
-          galeria.innerHTML += `<img src="http://localhost:3000${img.url}" alt="${img.nome}" title="${img.nome}" />`;
+    <header>
+        <div class="menu-superior">
+            <img src="imagens/transferir.jpg" alt="Transferir" class="menu-img">
+            <h1 class="menu-titulo">Antonio Austregésio</h1>
+            <img src="imagens/fundoMenu.png" alt="Prefeitura do Rio de Janeiro" class="menu-img">
+        </div>
+        <nav aria-label="Menu principal">
+            <button id="menu-btn" aria-label="Abrir menu" class="menu-btn">
+                <span></span><span></span><span></span>
+            </button>
+            <ul id="menu-list">
+                <li><a href="index.html">Início</a></li>
+                <li><a href="quem-somos.html">Quem Somos</a></li>
+                <li><a href="professores.html">Professores</a></li>
+                <li><a href="avisos.html">Avisos</a></li>
+                <li><a href="galeria.html">Galeria</a></li>
+                <li><a href="contato.html">Contato</a></li>
+                <li><a href="admin.html">Admin</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="galeria">
+            <h2>Galeria de Fotos</h2>
+            <div class="fotos" id="fotos"></div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Escola Antonio Austregésio</p>
+    </footer>
+    <script>
+        // Menu hambúrguer responsivo
+        const menuBtn = document.getElementById('menu-btn');
+        const menuList = document.getElementById('menu-list');
+        menuBtn.addEventListener('click', () => {
+            menuList.classList.toggle('show');
         });
-      });
-  </script>
+        document.addEventListener('click', function(e) {
+            if (window.innerWidth <= 900 && !menuBtn.contains(e.target) && !menuList.contains(e.target)) {
+                menuList.classList.remove('show');
+            }
+        });
+
+        // Galeria dinâmica
+        fetch('https://escola-backend-45kv.onrender.com/galeria')
+            .then(res => res.json())
+            .then(imagens => {
+                const galeria = document.getElementById('fotos');
+                galeria.innerHTML = '';
+                imagens.slice().reverse().forEach(img => {
+                    galeria.innerHTML += `<img src="https://escola-backend-45kv.onrender.com${img.url}" alt="${img.nome}" title="${img.nome}" />`;
+                });
+            });
+    </script>
 </body>
 </html>
