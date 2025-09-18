@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard Admin - Escola Antonio Austregésio</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
+
 <body>
   <header>
     <div class="menu-superior">
@@ -159,7 +161,7 @@
       // Adiciona o evento de alterar senha quando o painel está visível
       const formAlterarSenha = document.getElementById('form-alterar-senha');
       if (formAlterarSenha && !formAlterarSenha.dataset.listener) {
-        formAlterarSenha.addEventListener('submit', function(e) {
+        formAlterarSenha.addEventListener('submit', function (e) {
           e.preventDefault();
           const novaSenha = document.getElementById('novaSenha').value;
           const token = localStorage.getItem('token');
@@ -171,15 +173,15 @@
             },
             body: JSON.stringify({ novaSenha })
           })
-          .then(res => res.json())
-          .then(data => {
-            if (data.success) {
-              mostrarMensagem('Senha alterada com sucesso!');
-              formAlterarSenha.reset();
-            } else {
-              mostrarMensagem(data.error || 'Erro ao alterar senha.', 'erro');
-            }
-          });
+            .then(res => res.json())
+            .then(data => {
+              if (data.success) {
+                mostrarMensagem('Senha alterada com sucesso!');
+                formAlterarSenha.reset();
+              } else {
+                mostrarMensagem(data.error || 'Erro ao alterar senha.', 'erro');
+              }
+            });
         });
         formAlterarSenha.dataset.listener = "true";
       }
@@ -187,7 +189,7 @@
 
     // Sidebar navegação
     document.querySelectorAll('.sidebar-btn').forEach(btn => {
-      btn.addEventListener('click', function() {
+      btn.addEventListener('click', function () {
         if (btn.id === 'logout-btn') {
           localStorage.removeItem('token');
           adminArea.style.display = "none";
@@ -223,7 +225,7 @@
     }
 
     // Login JWT
-    loginForm.addEventListener('submit', function(e) {
+    loginForm.addEventListener('submit', function (e) {
       e.preventDefault();
       const usuario = document.getElementById('usuario').value;
       const senha = document.getElementById('senha').value;
@@ -232,21 +234,21 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ usuario, senha })
       })
-      .then(res => res.json())
-      .then(data => {
-        if (data.token) {
-          localStorage.setItem('token', data.token);
-          mostrarPainel();
-          mostrarMensagem('Login realizado com sucesso!');
-        } else {
+        .then(res => res.json())
+        .then(data => {
+          if (data.token) {
+            localStorage.setItem('token', data.token);
+            mostrarPainel();
+            mostrarMensagem('Login realizado com sucesso!');
+          } else {
+            loginErro.style.display = "block";
+            mostrarMensagem('Usuário ou senha incorretos.', 'erro');
+          }
+        })
+        .catch(() => {
           loginErro.style.display = "block";
-          mostrarMensagem('Usuário ou senha incorretos.', 'erro');
-        }
-      })
-      .catch(() => {
-        loginErro.style.display = "block";
-        mostrarMensagem('Erro de conexão.', 'erro');
-      });
+          mostrarMensagem('Erro de conexão.', 'erro');
+        });
     });
 
     // CRUD Avisos
@@ -259,18 +261,18 @@
         .then(data => {
           listaAvisos.innerHTML = '';
           data.slice().reverse().forEach(aviso => {
-            listaAvisos.innerHTML += `
-              <div class="card">
-                <strong>${aviso.titulo}</strong>
-                <span>${aviso.texto}</span>
-                <button class="btn" onclick="editarAviso(${aviso.id}, '${aviso.titulo.replace(/'/g, "\\'")}', '${aviso.texto.replace(/'/g, "\\'")}')">Editar</button>
-                <button class="btn" onclick="excluirAviso(${aviso.id})">Excluir</button>
-              </div>`;
-          });
+  listaAvisos.innerHTML += `
+    <div class="card">
+      <strong>${aviso.titulo}</strong>
+      <span>${aviso.texto}</span>
+      <button class="btn" onclick="editarAviso('${aviso._id}', '${aviso.titulo.replace(/'/g, "\\'")}', '${aviso.texto.replace(/'/g, "\\'")}')">Editar</button>
+      <button class="btn" onclick="excluirAviso('${aviso._id}')">Excluir</button>
+    </div>`;
+});
         });
     }
 
-    formAvisos.addEventListener('submit', function(e) {
+    formAvisos.addEventListener('submit', function (e) {
       e.preventDefault();
       const titulo = formAvisos.titulo.value;
       const texto = formAvisos.texto.value;
@@ -284,14 +286,14 @@
           },
           body: JSON.stringify({ titulo, texto })
         })
-        .then(res => res.json())
-        .then(() => {
-          formAvisos.reset();
-          delete formAvisos.dataset.editando;
-          formAvisos.querySelector('button').textContent = 'Adicionar Aviso';
-          carregarAvisos();
-          mostrarMensagem('Aviso editado com sucesso!');
-        });
+          .then(res => res.json())
+          .then(() => {
+            formAvisos.reset();
+            delete formAvisos.dataset.editando;
+            formAvisos.querySelector('button').textContent = 'Adicionar Aviso';
+            carregarAvisos();
+            mostrarMensagem('Aviso editado com sucesso!');
+          });
       } else {
         fetch('https://escola-backend-45kv.onrender.com/avisos', {
           method: 'POST',
@@ -301,34 +303,34 @@
           },
           body: JSON.stringify({ titulo, texto })
         })
-        .then(res => res.json())
-        .then(() => {
-          formAvisos.reset();
-          carregarAvisos();
-          mostrarMensagem('Aviso adicionado com sucesso!');
-        });
+          .then(res => res.json())
+          .then(() => {
+            formAvisos.reset();
+            carregarAvisos();
+            mostrarMensagem('Aviso adicionado com sucesso!');
+          });
       }
     });
 
-    window.editarAviso = function(id, titulo, texto) {
+    window.editarAviso = function (id, titulo, texto) {
       formAvisos.titulo.value = titulo;
       formAvisos.texto.value = texto;
       formAvisos.dataset.editando = id;
       formAvisos.querySelector('button').textContent = 'Salvar Edição';
     };
 
-    window.excluirAviso = function(id) {
+    window.excluirAviso = function (id) {
       const token = localStorage.getItem('token');
       if (confirm('Deseja realmente excluir este aviso?')) {
         fetch(`https://escola-backend-45kv.onrender.com/avisos/${id}`, {
           method: 'DELETE',
           headers: { 'Authorization': 'Bearer ' + token }
         })
-        .then(res => res.json())
-        .then(() => {
-          carregarAvisos();
-          mostrarMensagem('Aviso excluído com sucesso!');
-        });
+          .then(res => res.json())
+          .then(() => {
+            carregarAvisos();
+            mostrarMensagem('Aviso excluído com sucesso!');
+          });
       }
     };
 
@@ -343,17 +345,17 @@
           listaProfessores.innerHTML = '';
           data.forEach(prof => {
             listaProfessores.innerHTML += `
-              <div class="card">
-                <strong>${prof.nome}</strong>
-                <span>${prof.disciplina}</span>
-                <button class="btn" onclick="editarProfessor(${prof.id}, '${prof.nome.replace(/'/g, "\\'")}', '${prof.disciplina.replace(/'/g, "\\'")}')">Editar</button>
-                <button class="btn" onclick="excluirProfessor(${prof.id})">Excluir</button>
-              </div>`;
+    <div class="card">
+      <strong>${prof.nome}</strong>
+      <span>${prof.disciplina}</span>
+      <button class="btn" onclick="editarProfessor('${prof._id}', '${prof.nome.replace(/'/g, "\\'")}', '${prof.disciplina.replace(/'/g, "\\'")}')">Editar</button>
+      <button class="btn" onclick="excluirProfessor('${prof._id}')">Excluir</button>
+    </div>`;
           });
         });
     }
 
-    formProfessores.addEventListener('submit', function(e) {
+    formProfessores.addEventListener('submit', function (e) {
       e.preventDefault();
       const nome = formProfessores.nome.value;
       const disciplina = formProfessores.disciplina.value;
@@ -367,14 +369,14 @@
           },
           body: JSON.stringify({ nome, disciplina })
         })
-        .then(res => res.json())
-        .then(() => {
-          formProfessores.reset();
-          delete formProfessores.dataset.editando;
-          formProfessores.querySelector('button').textContent = 'Adicionar Professor';
-          carregarProfessores();
-          mostrarMensagem('Professor editado com sucesso!');
-        });
+          .then(res => res.json())
+          .then(() => {
+            formProfessores.reset();
+            delete formProfessores.dataset.editando;
+            formProfessores.querySelector('button').textContent = 'Adicionar Professor';
+            carregarProfessores();
+            mostrarMensagem('Professor editado com sucesso!');
+          });
       } else {
         fetch('https://escola-backend-45kv.onrender.com/professores', {
           method: 'POST',
@@ -384,34 +386,34 @@
           },
           body: JSON.stringify({ nome, disciplina })
         })
-        .then(res => res.json())
-        .then(() => {
-          formProfessores.reset();
-          carregarProfessores();
-          mostrarMensagem('Professor adicionado com sucesso!');
-        });
+          .then(res => res.json())
+          .then(() => {
+            formProfessores.reset();
+            carregarProfessores();
+            mostrarMensagem('Professor adicionado com sucesso!');
+          });
       }
     });
 
-    window.editarProfessor = function(id, nome, disciplina) {
+    window.editarProfessor = function (id, nome, disciplina) {
       formProfessores.nome.value = nome;
       formProfessores.disciplina.value = disciplina;
       formProfessores.dataset.editando = id;
       formProfessores.querySelector('button').textContent = 'Salvar Edição';
     };
 
-    window.excluirProfessor = function(id) {
+    window.excluirProfessor = function (id) {
       const token = localStorage.getItem('token');
       if (confirm('Deseja realmente excluir este professor?')) {
         fetch(`https://escola-backend-45kv.onrender.com/professores/${id}`, {
           method: 'DELETE',
           headers: { 'Authorization': 'Bearer ' + token }
         })
-        .then(res => res.json())
-        .then(() => {
-          carregarProfessores();
-          mostrarMensagem('Professor excluído com sucesso!');
-        });
+          .then(res => res.json())
+          .then(() => {
+            carregarProfessores();
+            mostrarMensagem('Professor excluído com sucesso!');
+          });
       }
     };
 
@@ -426,16 +428,16 @@
           listaGaleria.innerHTML = '';
           data.slice().reverse().forEach(img => {
             listaGaleria.innerHTML += `
-              <div class="card">
-                <img src="https://escola-backend-45kv.onrender.com${img.url}" alt="${img.nome}" style="max-width:100%;border-radius:8px;" />
-                <input type="text" value="${img.nome}" onchange="editarNomeImagem(${img.id}, this.value)" style="margin:5px 0; width:100%;" />
-                <button class="btn" onclick="excluirImagem(${img.id})">Excluir</button>
-              </div>`;
+    <div class="card">
+      <img src="https://escola-backend-45kv.onrender.com${img.url}" alt="${img.nome}" style="max-width:100%;border-radius:8px;" />
+      <input type="text" value="${img.nome}" onchange="editarNomeImagem('${img._id}', this.value)" style="margin:5px 0; width:100%;" />
+      <button class="btn" onclick="excluirImagem('${img._id}')">Excluir</button>
+    </div>`;
           });
         });
     }
 
-    formGaleria.addEventListener('submit', function(e) {
+    formGaleria.addEventListener('submit', function (e) {
       e.preventDefault();
       const formData = new FormData(formGaleria);
       const token = localStorage.getItem('token');
@@ -444,15 +446,15 @@
         headers: { 'Authorization': 'Bearer ' + token },
         body: formData
       })
-      .then(res => res.json())
-      .then(() => {
-        formGaleria.reset();
-        carregarGaleria();
-        mostrarMensagem('Imagem adicionada com sucesso!');
-      });
+        .then(res => res.json())
+        .then(() => {
+          formGaleria.reset();
+          carregarGaleria();
+          mostrarMensagem('Imagem adicionada com sucesso!');
+        });
     });
 
-    window.editarNomeImagem = function(id, novoNome) {
+    window.editarNomeImagem = function (id, novoNome) {
       const token = localStorage.getItem('token');
       fetch(`https://escola-backend-45kv.onrender.com/galeria/${id}`, {
         method: 'PUT',
@@ -462,25 +464,25 @@
         },
         body: JSON.stringify({ nome: novoNome })
       })
-      .then(res => res.json())
-      .then(() => {
-        carregarGaleria();
-        mostrarMensagem('Nome da imagem editado!');
-      });
+        .then(res => res.json())
+        .then(() => {
+          carregarGaleria();
+          mostrarMensagem('Nome da imagem editado!');
+        });
     };
 
-    window.excluirImagem = function(id) {
+    window.excluirImagem = function (id) {
       const token = localStorage.getItem('token');
       if (confirm('Deseja realmente excluir esta imagem?')) {
         fetch(`https://escola-backend-45kv.onrender.com/galeria/${id}`, {
           method: 'DELETE',
           headers: { 'Authorization': 'Bearer ' + token }
         })
-        .then(res => res.json())
-        .then(() => {
-          carregarGaleria();
-          mostrarMensagem('Imagem excluída com sucesso!');
-        });
+          .then(res => res.json())
+          .then(() => {
+            carregarGaleria();
+            mostrarMensagem('Imagem excluída com sucesso!');
+          });
       }
     };
 
@@ -493,18 +495,20 @@
         .then(res => res.json())
         .then(destaques => {
           listaDestaquesAdmin.innerHTML = '';
-          destaques.slice().reverse().forEach((item, idx) => {
-            const originalIdx = destaques.length - 1 - idx;
+          const icons = ['🎉', '📅', '⭐', '📢', '🏫', '📝', '🎓', '🏆', '📷', '💡'];
+          destaques.forEach((item, idx) => {
             listaDestaquesAdmin.innerHTML += `
-              <div class="destaque-edit">
-                <input type="text" value="${item.texto}" onchange="editarDestaque(${originalIdx}, this.value)" style="flex:1;" />
-                <button class="btn" onclick="excluirDestaque(${originalIdx})">Excluir</button>
-              </div>`;
+    <div class="card" id="destaque-card-${item._id}" style="display:flex;align-items:center;gap:12px;">
+      <span class="icon" style="font-size:1.5em;flex-shrink:0;">${icons[idx % icons.length]}</span>
+      <input type="text" id="destaque-input-${item._id}" value="${item.texto}" disabled style="flex:1;min-width:120px;margin-left:8px;" />
+      <button class="btn btn-editar" id="editar-btn-${item._id}" onclick="habilitarEdicaoDestaque('${item._id}')">Editar</button>
+      <button class="btn btn-excluir" onclick="excluirDestaque('${item._id}')">Excluir</button>
+    </div>`;
           });
         });
     }
 
-    formDestaque.addEventListener('submit', function(e) {
+    formDestaque.addEventListener('submit', function (e) {
       e.preventDefault();
       const texto = document.getElementById('novoDestaque').value;
       const token = localStorage.getItem('token');
@@ -516,17 +520,28 @@
         },
         body: JSON.stringify({ texto })
       })
-      .then(res => res.json())
-      .then(() => {
-        formDestaque.reset();
-        carregarDestaquesAdmin();
-        mostrarMensagem('Destaque adicionado!');
-      });
+        .then(res => res.json())
+        .then(() => {
+          formDestaque.reset();
+          carregarDestaquesAdmin();
+          mostrarMensagem('Destaque adicionado!');
+        });
     });
 
-    window.editarDestaque = function(idx, texto) {
+    window.habilitarEdicaoDestaque = function (id) {
+      const input = document.getElementById(`destaque-input-${id}`);
+      input.disabled = false;
+      input.focus();
+      const editarBtn = document.getElementById(`editar-btn-${id}`);
+      editarBtn.textContent = 'Salvar';
+      editarBtn.onclick = function () { salvarEdicaoDestaque(id); };
+    };
+
+    window.salvarEdicaoDestaque = function (id) {
+      const input = document.getElementById(`destaque-input-${id}`);
+      const texto = input.value;
       const token = localStorage.getItem('token');
-      fetch(`https://escola-backend-45kv.onrender.com/destaques/${idx}`, {
+      fetch(`https://escola-backend-45kv.onrender.com/destaques/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -534,24 +549,26 @@
         },
         body: JSON.stringify({ texto })
       })
-      .then(res => res.json())
-      .then(() => {
-        carregarDestaquesAdmin();
-        mostrarMensagem('Destaque editado!');
-      });
+        .then(res => res.json())
+        .then(() => {
+          carregarDestaquesAdmin();
+          mostrarMensagem('Destaque editado!');
+        });
     };
 
-    window.excluirDestaque = function(idx) {
+    window.excluirDestaque = function (id) {
       const token = localStorage.getItem('token');
-      fetch(`https://escola-backend-45kv.onrender.com/destaques/${idx}`, {
-        method: 'DELETE',
-        headers: { 'Authorization': 'Bearer ' + token }
-      })
-      .then(res => res.json())
-      .then(() => {
-        carregarDestaquesAdmin();
-        mostrarMensagem('Destaque excluído!');
-      });
+      if (confirm('Deseja realmente excluir este destaque?')) {
+        fetch(`https://escola-backend-45kv.onrender.com/destaques/${id}`, {
+          method: 'DELETE',
+          headers: { 'Authorization': 'Bearer ' + token }
+        })
+          .then(res => res.json())
+          .then(() => {
+            carregarDestaquesAdmin();
+            mostrarMensagem('Destaque excluído!');
+          });
+      }
     };
 
     // CRUD Quem Somos
@@ -566,7 +583,7 @@
         });
     }
 
-    formQuemSomos.addEventListener('submit', function(e) {
+    formQuemSomos.addEventListener('submit', function (e) {
       e.preventDefault();
       const texto = textoQuemSomos.value;
       const token = localStorage.getItem('token');
@@ -578,10 +595,10 @@
         },
         body: JSON.stringify({ texto })
       })
-      .then(res => res.json())
-      .then(() => {
-        mostrarMensagem('Texto "Quem Somos" atualizado!');
-      });
+        .then(res => res.json())
+        .then(() => {
+          mostrarMensagem('Texto "Quem Somos" atualizado!');
+        });
     });
 
     // Mostrar/esconder sidebar no mobile
@@ -615,4 +632,5 @@
     overlay.addEventListener('click', () => toggleSidebar(false));
   </script>
 </body>
+
 </html>

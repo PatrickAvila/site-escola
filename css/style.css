@@ -81,26 +81,31 @@ nav a:hover {
         background: #0059b3;
         width: 180px;
         border-radius: 0 0 0 12px;
-        box-shadow: 0 2px 8px rgba(0,89,179,0.12);
+        box-shadow: 0 2px 8px rgba(0, 89, 179, 0.12);
         display: none;
         padding: 18px 0;
         gap: 0;
         z-index: 1000;
     }
+
     nav ul.show {
         display: flex;
     }
+
     nav ul li {
         margin: 0;
         border-bottom: 1px solid #003d80;
     }
+
     nav ul li:last-child {
         border-bottom: none;
     }
+
     nav a {
         display: block;
         padding: 12px 18px;
     }
+
     .menu-btn {
         display: flex;
     }
@@ -140,14 +145,14 @@ nav a:hover {
     margin-bottom: 10px;
     font-weight: 700;
     letter-spacing: 1px;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .hero-desc {
     font-size: 1.25em;
     margin-bottom: 22px;
     line-height: 1.5;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .hero-btn {
@@ -159,7 +164,7 @@ nav a:hover {
     border-radius: 30px;
     font-size: 1.1em;
     text-decoration: none;
-    box-shadow: 0 2px 8px rgba(0,89,179,0.10);
+    box-shadow: 0 2px 8px rgba(0, 89, 179, 0.10);
     transition: background 0.2s, color 0.2s;
 }
 
@@ -172,15 +177,19 @@ nav a:hover {
     .hero-banner {
         padding: 32px 0 24px 0;
     }
+
     .hero-content {
         max-width: 95vw;
     }
+
     .hero-banner h2 {
         font-size: 2em;
     }
+
     .hero-icon {
         font-size: 2.5em;
     }
+
     .hero-btn {
         font-size: 1em;
         padding: 10px 18px;
@@ -193,7 +202,7 @@ nav a:hover {
     margin: 32px auto 0 auto;
     background: #fff;
     border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,89,179,0.08);
+    box-shadow: 0 2px 8px rgba(0, 89, 179, 0.08);
     padding: 18px 24px;
     color: #0059b3;
     font-size: 1.1em;
@@ -233,7 +242,7 @@ nav a:hover {
 .card-destaque {
     background: #fff;
     border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,89,179,0.10);
+    box-shadow: 0 2px 8px rgba(0, 89, 179, 0.10);
     padding: 18px 20px;
     flex: 1 1 260px;
     min-width: 220px;
@@ -262,7 +271,7 @@ nav a:hover {
     padding: 24px;
     background: #fff;
     border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,89,179,0.08);
+    box-shadow: 0 2px 8px rgba(0, 89, 179, 0.08);
 }
 
 .videos h3 {
@@ -281,7 +290,7 @@ nav a:hover {
 
 .video-grid iframe {
     border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,89,179,0.10);
+    box-shadow: 0 2px 8px rgba(0, 89, 179, 0.10);
     width: 320px;
     height: 180px;
     background: #000;
@@ -294,7 +303,7 @@ nav a:hover {
     margin: 40px auto;
     background: #fff;
     border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,89,179,0.08);
+    box-shadow: 0 2px 8px rgba(0, 89, 179, 0.08);
     padding: 24px;
 }
 
@@ -317,7 +326,7 @@ nav a:hover {
     margin: 40px auto;
     background: #fff;
     border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,89,179,0.08);
+    box-shadow: 0 2px 8px rgba(0, 89, 179, 0.08);
     padding: 32px;
 }
 
@@ -361,7 +370,7 @@ nav a:hover {
     margin: 40px auto;
     background: #fff;
     border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,89,179,0.08);
+    box-shadow: 0 2px 8px rgba(0, 89, 179, 0.08);
     padding: 32px;
 }
 
@@ -400,7 +409,7 @@ nav a:hover {
     margin: 40px auto;
     background: #fff;
     border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,89,179,0.08);
+    box-shadow: 0 2px 8px rgba(0, 89, 179, 0.08);
     padding: 32px;
 }
 
@@ -418,7 +427,7 @@ nav a:hover {
 
 .fotos img {
     border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,89,179,0.10);
+    box-shadow: 0 2px 8px rgba(0, 89, 179, 0.10);
     max-width: 220px;
     width: 100%;
     height: auto;
@@ -430,7 +439,7 @@ nav a:hover {
 
 .fotos img:hover {
     transform: scale(1.05);
-    box-shadow: 0 4px 16px rgba(0,89,179,0.15);
+    box-shadow: 0 4px 16px rgba(0, 89, 179, 0.15);
     border-color: #0059b3;
 }
 
@@ -440,7 +449,7 @@ nav a:hover {
     margin: 40px auto;
     background: #fff;
     border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,89,179,0.08);
+    box-shadow: 0 2px 8px rgba(0, 89, 179, 0.08);
     padding: 32px;
 }
 
@@ -485,19 +494,23 @@ nav a:hover {
 
 /* Responsividade para seções */
 @media (max-width: 900px) {
+
     .professores,
     .avisos,
     .galeria,
     .contato {
         padding: 12px;
     }
+
     .missao-visao {
         flex-direction: column;
         gap: 12px;
     }
+
     .fotos {
         gap: 12px;
     }
+
     .fotos img {
         max-width: 100px;
     }
@@ -518,7 +531,7 @@ footer {
     margin: 40px auto;
     background: #fff;
     border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,89,179,0.08);
+    box-shadow: 0 2px 8px rgba(0, 89, 179, 0.08);
     padding: 32px;
 }
 
@@ -558,7 +571,7 @@ footer {
     margin: 40px auto;
     background: #fff;
     border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,89,179,0.08);
+    box-shadow: 0 2px 8px rgba(0, 89, 179, 0.08);
     padding: 32px;
 }
 
@@ -665,6 +678,7 @@ footer {
     .painel {
         padding: 12px;
     }
+
     .card-list {
         flex-direction: column;
         gap: 12px;
@@ -707,17 +721,20 @@ footer {
         height: 60px;
         max-width: 80px;
     }
+
     .menu-superior {
         gap: 12px;
         padding-top: 8px;
         flex-wrap: nowrap;
     }
+
     .menu-titulo {
         font-size: 1.2em;
         line-height: 60px;
         height: 60px;
     }
 }
+
 /* Dashboard Admin - Sidebar vertical à esquerda */
 .dashboard-layout {
     display: flex;
@@ -735,7 +752,7 @@ footer {
     flex-direction: column;
     align-items: flex-start;
     height: auto;
-    box-shadow: 2px 0 8px rgba(0,89,179,0.08);
+    box-shadow: 2px 0 8px rgba(0, 89, 179, 0.08);
     position: relative;
 }
 
@@ -786,6 +803,7 @@ footer {
     .dashboard-layout {
         flex-direction: column;
     }
+
     .dashboard-sidebar {
         min-width: 100%;
         max-width: 100%;
@@ -794,20 +812,24 @@ footer {
         justify-content: flex-start;
         box-shadow: none;
     }
+
     .dashboard-sidebar nav ul {
         flex-direction: row;
         align-items: center;
         padding: 0 0 0 8px;
     }
+
     .dashboard-sidebar nav ul li {
         margin-bottom: 0;
         width: auto;
     }
+
     .sidebar-btn {
         width: auto;
         padding: 10px 14px;
         font-size: 1em;
     }
+
     .dashboard-content {
         padding: 16px 4vw;
     }
@@ -819,7 +841,7 @@ footer {
     margin: 60px auto;
     background: #fff;
     border-radius: 12px;
-    box-shadow: 0 2px 12px rgba(0,89,179,0.12);
+    box-shadow: 0 2px 12px rgba(0, 89, 179, 0.12);
     padding: 32px 28px;
     display: flex;
     flex-direction: column;
@@ -897,7 +919,7 @@ footer {
 .dashboard-section {
     background: #fff;
     border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,89,179,0.08);
+    box-shadow: 0 2px 8px rgba(0, 89, 179, 0.08);
     padding: 32px 28px;
     margin-bottom: 32px;
     width: 100%;
@@ -1012,10 +1034,12 @@ footer {
     .dashboard-content {
         padding: 16px 2vw;
     }
+
     .dashboard-section {
         padding: 16px 8px;
         max-width: 98vw;
     }
+
     .card {
         padding: 12px;
         font-size: 0.95em;
@@ -1044,7 +1068,7 @@ footer {
 .dashboard-section {
     background: #fff;
     border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,89,179,0.08);
+    box-shadow: 0 2px 8px rgba(0, 89, 179, 0.08);
     padding: 32px 28px;
     margin-bottom: 32px;
     width: 100%;
@@ -1060,16 +1084,19 @@ footer {
     .dashboard-content {
         padding: 12px 0;
     }
+
     .dashboard-section {
         padding: 12px 6px;
         margin-bottom: 18px;
         border-radius: 8px;
-        box-shadow: 0 1px 4px rgba(0,89,179,0.08);
+        box-shadow: 0 1px 4px rgba(0, 89, 179, 0.08);
     }
+
     .card {
         padding: 10px;
         font-size: 0.95em;
     }
+
     .card-list {
         gap: 8px;
     }
@@ -1079,28 +1106,34 @@ footer {
     .dashboard-content {
         padding: 4px 0;
     }
+
     .dashboard-section {
         padding: 6px 2px;
         margin-bottom: 12px;
         border-radius: 6px;
         box-shadow: none;
     }
+
     .dashboard-section h2 {
         font-size: 1.1em;
         margin-bottom: 10px;
     }
+
     .dashboard-section form {
         gap: 8px;
     }
+
     .dashboard-section input,
     .dashboard-section textarea {
         font-size: 1em;
         padding: 8px 6px;
     }
+
     .dashboard-section button {
         padding: 10px 0;
         font-size: 1em;
     }
+
     .card {
         padding: 8px;
         font-size: 0.92em;
@@ -1112,26 +1145,30 @@ footer {
     .dashboard-layout {
         flex-direction: column;
     }
+
     .dashboard-sidebar {
         min-width: 180px;
         max-width: 200px;
         flex-direction: column;
         padding: 32px 0 0 0;
         align-items: flex-start;
-        box-shadow: 2px 0 8px rgba(0,89,179,0.08);
+        box-shadow: 2px 0 8px rgba(0, 89, 179, 0.08);
         background: #0059b3;
         position: relative;
     }
+
     .dashboard-sidebar nav ul {
         flex-direction: column;
         align-items: flex-start;
         padding: 0 0 0 18px;
         width: 100%;
     }
+
     .dashboard-sidebar nav ul li {
         margin-bottom: 8px;
         width: 100%;
     }
+
     .sidebar-btn {
         width: 100%;
         padding: 12px 0 12px 8px;
@@ -1140,6 +1177,7 @@ footer {
         margin: 0;
         display: block;
     }
+
     .dashboard-content {
         padding: 40px 0;
         min-height: 70vh;
@@ -1150,17 +1188,20 @@ footer {
         max-width: none;
         margin: 0;
     }
+
     .dashboard-section {
         padding: 32px 28px;
         margin-bottom: 32px;
         width: 100%;
         max-width: none;
         border-radius: 12px;
-        box-shadow: 0 2px 8px rgba(0,89,179,0.08);
+        box-shadow: 0 2px 8px rgba(0, 89, 179, 0.08);
     }
+
     .card-list {
         gap: 14px;
     }
+
     .card {
         padding: 18px;
         font-size: 1em;
@@ -1172,27 +1213,33 @@ footer {
     .dashboard-content {
         padding: 8px 0;
     }
+
     .dashboard-section {
         padding: 12px 4px;
         margin-bottom: 16px;
         border-radius: 8px;
     }
+
     .dashboard-section h2 {
         font-size: 1.1em;
         margin-bottom: 10px;
     }
+
     .dashboard-section form {
         gap: 8px;
     }
+
     .dashboard-section input,
     .dashboard-section textarea {
         font-size: 1em;
         padding: 8px 6px;
     }
+
     .dashboard-section button {
         padding: 10px 0;
         font-size: 1em;
     }
+
     .card {
         padding: 10px;
         font-size: 0.95em;
@@ -1210,22 +1257,26 @@ footer {
         background: #0059b3;
         z-index: 1001;
         transition: left 0.3s;
-        box-shadow: 2px 0 8px rgba(0,89,179,0.12);
+        box-shadow: 2px 0 8px rgba(0, 89, 179, 0.12);
         padding-top: 60px;
     }
+
     .dashboard-sidebar.show {
         left: 0;
     }
+
     .dashboard-sidebar nav ul {
         flex-direction: column;
         align-items: flex-start;
         padding: 0 0 0 18px;
         width: 100%;
     }
+
     .dashboard-sidebar nav ul li {
         margin-bottom: 8px;
         width: 100%;
     }
+
     .sidebar-btn {
         width: 100%;
         padding: 12px 0 12px 8px;
@@ -1234,6 +1285,7 @@ footer {
         margin: 0;
         display: block;
     }
+
     /* Botão hambúrguer */
     .dashboard-menu-btn {
         display: flex;
@@ -1249,6 +1301,7 @@ footer {
         flex-direction: column;
         gap: 5px;
     }
+
     .dashboard-menu-btn span {
         display: block;
         width: 28px;
@@ -1257,6 +1310,7 @@ footer {
         border-radius: 2px;
         transition: 0.3s;
     }
+
     /* Escurece fundo ao abrir menu */
     .dashboard-overlay {
         display: none;
@@ -1265,12 +1319,14 @@ footer {
         left: 0;
         width: 100vw;
         height: 100vh;
-        background: rgba(0,0,0,0.3);
+        background: rgba(0, 0, 0, 0.3);
         z-index: 1000;
     }
+
     .dashboard-overlay.show {
         display: block;
     }
+
     .dashboard-content {
         padding: 16px 4vw;
     }
@@ -1282,11 +1338,13 @@ footer {
         height: 60px;
         max-width: 80px;
     }
+
     .menu-superior {
         gap: 12px;
         padding-top: 8px;
         flex-wrap: nowrap;
     }
+
     .menu-titulo {
         font-size: 1.2em;
         line-height: 60px;

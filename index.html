@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Site oficial da Escola Antonio Austregésio. Informações sobre matrículas, avisos, professores e eventos." />
+    <meta name="description"
+        content="Site oficial da Escola Antonio Austregésio. Informações sobre matrículas, avisos, professores e eventos." />
     <title>Escola Antonio Austregésio</title>
     <link rel="stylesheet" href="css/style.css" />
 </head>
+
 <body>
     <header>
         <div class="menu-superior">
@@ -35,7 +38,8 @@
             <div>
                 <strong>Matrículas abertas para 2025!</strong><br>
                 Venha conhecer nossa escola, agende uma visita pelo WhatsApp:
-                <a href="https://wa.me/5588999999999" target="_blank" style="color:#0059b3;text-decoration:underline;">Clique aqui</a><br>
+                <a href="https://wa.me/5588999999999" target="_blank"
+                    style="color:#0059b3;text-decoration:underline;">Clique aqui</a><br>
                 Endereço: Rua das Flores, 123 - Centro, Cidade/UF
             </div>
         </section>
@@ -46,15 +50,19 @@
         <section class="videos">
             <h3>Vídeos da Escola</h3>
             <div class="video-grid">
-                <iframe src="https://www.youtube.com/embed/2Vv-BfVoq4g" title="Vídeo Institucional" allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/embed/2Vv-BfVoq4g" title="Vídeo Institucional"
+                    allowfullscreen></iframe>
                 <iframe src="https://www.youtube.com/embed/3fumBcKC6RE" title="Evento Escolar" allowfullscreen></iframe>
-                <iframe src="https://www.youtube.com/embed/5qap5aO4i9A" title="Apresentação dos Alunos" allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/embed/5qap5aO4i9A" title="Apresentação dos Alunos"
+                    allowfullscreen></iframe>
             </div>
         </section>
         <section class="depoimentos">
             <h3>Depoimentos</h3>
-            <div class="depoimento">"A escola mudou a vida do meu filho, só tenho a agradecer!"<br><strong>- Maria, mãe de aluno</strong></div>
-            <div class="depoimento">"Aqui aprendi a ser cidadão e a sonhar alto."<br><strong>- João, ex-aluno</strong></div>
+            <div class="depoimento">"A escola mudou a vida do meu filho, só tenho a agradecer!"<br><strong>- Maria, mãe
+                    de aluno</strong></div>
+            <div class="depoimento">"Aqui aprendi a ser cidadão e a sonhar alto."<br><strong>- João, ex-aluno</strong>
+            </div>
             <div class="depoimento">"Equipe dedicada e ambiente acolhedor."<br><strong>- Ana, professora</strong></div>
         </section>
     </main>
@@ -68,7 +76,7 @@
         menuBtn.addEventListener('click', () => {
             menuList.classList.toggle('show');
         });
-        document.addEventListener('click', function(e) {
+        document.addEventListener('click', function (e) {
             if (window.innerWidth <= 900 && !menuBtn.contains(e.target) && !menuList.contains(e.target)) {
                 menuList.classList.remove('show');
             }
@@ -80,7 +88,7 @@
             .then(destaques => {
                 const cards = document.getElementById('destaque-cards');
                 cards.innerHTML = '';
-                const icons = ['🎉','📅','⭐','📢','🏫','📝','🎓','🏆','📷','💡'];
+                const icons = ['🎉', '📅', '⭐', '📢', '🏫', '📝', '🎓', '🏆', '📷', '💡'];
                 destaques.slice().reverse().forEach((item, idx) => {
                     cards.innerHTML += `
                         <div class="card-destaque">
@@ -91,4 +99,5 @@
             });
     </script>
 </body>
+
 </html>

@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contato - Escola Antonio Austregésio</title>
     <link rel="stylesheet" href="css/style.css" />
 </head>
+
 <body>
     <header>
         <div class="menu-superior">
@@ -55,18 +57,19 @@
         menuBtn.addEventListener('click', () => {
             menuList.classList.toggle('show');
         });
-        document.addEventListener('click', function(e) {
+        document.addEventListener('click', function (e) {
             if (window.innerWidth <= 900 && !menuBtn.contains(e.target) && !menuList.contains(e.target)) {
                 menuList.classList.remove('show');
             }
         });
 
         // Simulação de envio de contato
-        document.getElementById('form-contato').addEventListener('submit', function(e) {
+        document.getElementById('form-contato').addEventListener('submit', function (e) {
             e.preventDefault();
             document.getElementById('msg-contato').textContent = "Mensagem enviada! Em breve entraremos em contato.";
             this.reset();
         });
     </script>
 </body>
+
 </html>
