@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 
 <head>
+    <script src="backEnd/config.js"></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Professores - Escola Antonio Austregésio</title>
@@ -53,17 +54,30 @@
         });
 
         // Professores dinâmico
-        fetch('https://escola-backend-45kv.onrender.com/professores')
+        fetch(`${API_URL}/professores`)
             .then(res => res.json())
             .then(profs => {
                 const cards = document.getElementById('prof-cards');
                 cards.innerHTML = '';
                 profs.forEach(prof => {
-                    cards.innerHTML += `
-                        <div class="card-prof">
-                            <strong>${prof.nome}</strong>
-                            <span>${prof.disciplina}</span>
-                        </div>`;
+                    const card = document.createElement('div');
+                    card.className = 'card-prof';
+
+                    const fotoElem = document.createElement('img');
+                    fotoElem.src = prof.foto ? prof.foto : 'imagens/professor-generico.png';
+                    fotoElem.alt = `Foto de ${prof.nome || ''}`;
+                    fotoElem.className = 'foto-prof';
+                    card.appendChild(fotoElem);
+
+                    const nomeElem = document.createElement('strong');
+                    nomeElem.textContent = prof.nome || '';
+                    card.appendChild(nomeElem);
+
+                    const disciplinaElem = document.createElement('span');
+                    disciplinaElem.textContent = prof.disciplina || '';
+                    card.appendChild(disciplinaElem);
+
+                    cards.appendChild(card);
                 });
             });
     </script>

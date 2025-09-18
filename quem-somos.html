@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 
 <head>
+    <script src="backEnd/config.js"></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Quem Somos - Escola Antonio Austregésio</title>
@@ -63,10 +64,11 @@
         });
 
         // Quem somos dinâmico
-        fetch('https://escola-backend-45kv.onrender.com/quem-somos')
+        fetch(`${API_URL}/quem-somos`)
             .then(res => res.json())
             .then(data => {
-                document.getElementById('texto-quem-somos').textContent = data.texto;
+                const textoElem = document.getElementById('quem-somos-texto');
+                textoElem.textContent = data.texto;
             });
     </script>
 </body>

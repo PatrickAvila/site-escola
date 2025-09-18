@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 
 <head>
+    <script src="backEnd/config.js"></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Avisos - Escola Antonio Austregésio</title>
@@ -53,17 +54,24 @@
         });
 
         // Avisos dinâmico
-        fetch('https://escola-backend-45kv.onrender.com/avisos')
+        fetch(`${API_URL}/avisos`)
             .then(res => res.json())
             .then(avisos => {
                 const cards = document.getElementById('aviso-cards');
                 cards.innerHTML = '';
                 avisos.slice().reverse().forEach(aviso => {
-                    cards.innerHTML += `
-                        <div class="card-aviso">
-                            <strong>${aviso.titulo}</strong>
-                            <span>${aviso.texto}</span>
-                        </div>`;
+                    const card = document.createElement('div');
+                    card.className = 'card-aviso';
+
+                    const tituloElem = document.createElement('strong');
+                    tituloElem.textContent = aviso.titulo;
+                    card.appendChild(tituloElem);
+
+                    const textoElem = document.createElement('span');
+                    textoElem.textContent = aviso.texto;
+                    card.appendChild(textoElem);
+
+                    cards.appendChild(card);
                 });
             });
     </script>

@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 
 <head>
+    <script src="backEnd/config.js"></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Galeria - Escola Antonio Austregésio</title>
@@ -53,13 +54,26 @@
         });
 
         // Galeria dinâmica
-        fetch('https://escola-backend-45kv.onrender.com/galeria')
+        fetch(`${API_URL}/galeria`)
             .then(res => res.json())
             .then(imagens => {
-                const galeria = document.getElementById('fotos');
+                const galeria = document.getElementById('galeria-cards');
                 galeria.innerHTML = '';
                 imagens.slice().reverse().forEach(img => {
-                    galeria.innerHTML += `<img src="https://escola-backend-45kv.onrender.com${img.url}" alt="${img.nome}" title="${img.nome}" />`;
+                    const card = document.createElement('div');
+                    card.className = 'card-galeria';
+
+                    const imagemElem = document.createElement('img');
+                    imagemElem.src = img.url;
+                    imagemElem.alt = img.nome;
+                    imagemElem.style = "max-width:100%;border-radius:8px;";
+                    card.appendChild(imagemElem);
+
+                    const nomeElem = document.createElement('span');
+                    nomeElem.textContent = img.nome;
+                    card.appendChild(nomeElem);
+
+                    galeria.appendChild(card);
                 });
             });
     </script>

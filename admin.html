@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 
 <head>
+  <script src="backEnd/config.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard Admin - Escola Antonio Austregésio</title>
@@ -63,6 +64,7 @@
             <form id="form-professores">
               <input type="text" name="nome" placeholder="Nome do professor" required />
               <input type="text" name="disciplina" placeholder="Disciplina" required />
+              <input type="file" name="foto" accept="image/*" />
               <button type="submit" class="btn">Adicionar Professor</button>
             </form>
             <div class="card-list" id="lista-professores"></div>
@@ -121,7 +123,7 @@
       const token = localStorage.getItem('token');
       if (!token) return false;
       try {
-        const res = await fetch('https://escola-backend-45kv.onrender.com/validar-token', {
+        const res = await fetch(`${API_URL}/validar-token`, {
           headers: { 'Authorization': 'Bearer ' + token }
         });
         return res.ok;
@@ -165,7 +167,7 @@
           e.preventDefault();
           const novaSenha = document.getElementById('novaSenha').value;
           const token = localStorage.getItem('token');
-          fetch('https://escola-backend-45kv.onrender.com/alterar-senha', {
+          fetch(`${API_URL}/alterar-senha`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -229,7 +231,7 @@
       e.preventDefault();
       const usuario = document.getElementById('usuario').value;
       const senha = document.getElementById('senha').value;
-      fetch('https://escola-backend-45kv.onrender.com/login', {
+      fetch(`${API_URL}/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ usuario, senha })
@@ -256,19 +258,40 @@
     const listaAvisos = document.getElementById('lista-avisos');
 
     function carregarAvisos() {
-      fetch('https://escola-backend-45kv.onrender.com/avisos')
+      fetch(`${API_URL}/avisos`)
         .then(res => res.json())
         .then(data => {
           listaAvisos.innerHTML = '';
           data.slice().reverse().forEach(aviso => {
-  listaAvisos.innerHTML += `
-    <div class="card">
-      <strong>${aviso.titulo}</strong>
-      <span>${aviso.texto}</span>
-      <button class="btn" onclick="editarAviso('${aviso._id}', '${aviso.titulo.replace(/'/g, "\\'")}', '${aviso.texto.replace(/'/g, "\\'")}')">Editar</button>
-      <button class="btn" onclick="excluirAviso('${aviso._id}')">Excluir</button>
-    </div>`;
-});
+            const card = document.createElement('div');
+            card.className = 'card';
+
+            const tituloElem = document.createElement('strong');
+            tituloElem.textContent = aviso.titulo;
+            card.appendChild(tituloElem);
+
+            const textoElem = document.createElement('span');
+            textoElem.textContent = aviso.texto;
+            card.appendChild(textoElem);
+
+            const btnEditar = document.createElement('button');
+            btnEditar.className = 'btn';
+            btnEditar.textContent = 'Editar';
+            btnEditar.onclick = function () {
+              editarAviso(aviso._id, aviso.titulo, aviso.texto);
+            };
+            card.appendChild(btnEditar);
+
+            const btnExcluir = document.createElement('button');
+            btnExcluir.className = 'btn';
+            btnExcluir.textContent = 'Excluir';
+            btnExcluir.onclick = function () {
+              excluirAviso(aviso._id);
+            };
+            card.appendChild(btnExcluir);
+
+            listaAvisos.appendChild(card);
+          });
         });
     }
 
@@ -278,7 +301,7 @@
       const texto = formAvisos.texto.value;
       const token = localStorage.getItem('token');
       if (formAvisos.dataset.editando) {
-        fetch(`https://escola-backend-45kv.onrender.com/avisos/${formAvisos.dataset.editando}`, {
+        fetch(`${API_URL}/avisos/${formAvisos.dataset.editando}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -295,7 +318,7 @@
             mostrarMensagem('Aviso editado com sucesso!');
           });
       } else {
-        fetch('https://escola-backend-45kv.onrender.com/avisos', {
+        fetch(`${API_URL}/avisos`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -322,7 +345,7 @@
     window.excluirAviso = function (id) {
       const token = localStorage.getItem('token');
       if (confirm('Deseja realmente excluir este aviso?')) {
-        fetch(`https://escola-backend-45kv.onrender.com/avisos/${id}`, {
+        fetch(`${API_URL}/avisos/${id}`, {
           method: 'DELETE',
           headers: { 'Authorization': 'Bearer ' + token }
         })
@@ -339,35 +362,59 @@
     const listaProfessores = document.getElementById('lista-professores');
 
     function carregarProfessores() {
-      fetch('https://escola-backend-45kv.onrender.com/professores')
+      fetch(`${API_URL}/professores`)
         .then(res => res.json())
         .then(data => {
           listaProfessores.innerHTML = '';
           data.forEach(prof => {
-            listaProfessores.innerHTML += `
-    <div class="card">
-      <strong>${prof.nome}</strong>
-      <span>${prof.disciplina}</span>
-      <button class="btn" onclick="editarProfessor('${prof._id}', '${prof.nome.replace(/'/g, "\\'")}', '${prof.disciplina.replace(/'/g, "\\'")}')">Editar</button>
-      <button class="btn" onclick="excluirProfessor('${prof._id}')">Excluir</button>
-    </div>`;
+            const card = document.createElement('div');
+            card.className = 'card';
+
+            const foto = document.createElement('img');
+            foto.src = prof.foto ? prof.foto : 'imagens/professor-generico.png';
+            foto.alt = `Foto de ${prof.nome || ''}`;
+            foto.className = 'foto-prof';
+            foto.style = "width:60px;height:60px;border-radius:50%;object-fit:cover;margin-bottom:8px;";
+            card.appendChild(foto);
+
+            const nomeElem = document.createElement('strong');
+            nomeElem.textContent = prof.nome || '';
+            card.appendChild(nomeElem);
+
+            const disciplinaElem = document.createElement('span');
+            disciplinaElem.textContent = prof.disciplina || '';
+            card.appendChild(disciplinaElem);
+
+            const btnEditar = document.createElement('button');
+            btnEditar.className = 'btn';
+            btnEditar.textContent = 'Editar';
+            btnEditar.onclick = function () {
+              editarProfessor(prof._id, prof.nome || '', prof.disciplina || '');
+            };
+            card.appendChild(btnEditar);
+
+            const btnExcluir = document.createElement('button');
+            btnExcluir.className = 'btn';
+            btnExcluir.textContent = 'Excluir';
+            btnExcluir.onclick = function () {
+              excluirProfessor(prof._id);
+            };
+            card.appendChild(btnExcluir);
+
+            listaProfessores.appendChild(card);
           });
         });
     }
 
     formProfessores.addEventListener('submit', function (e) {
       e.preventDefault();
-      const nome = formProfessores.nome.value;
-      const disciplina = formProfessores.disciplina.value;
+      const formData = new FormData(formProfessores);
       const token = localStorage.getItem('token');
       if (formProfessores.dataset.editando) {
-        fetch(`https://escola-backend-45kv.onrender.com/professores/${formProfessores.dataset.editando}`, {
+        fetch(`${API_URL}/professores/${formProfessores.dataset.editando}`, {
           method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + token
-          },
-          body: JSON.stringify({ nome, disciplina })
+          headers: { 'Authorization': 'Bearer ' + token },
+          body: formData
         })
           .then(res => res.json())
           .then(() => {
@@ -378,13 +425,10 @@
             mostrarMensagem('Professor editado com sucesso!');
           });
       } else {
-        fetch('https://escola-backend-45kv.onrender.com/professores', {
+        fetch(`${API_URL}/professores`, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + token
-          },
-          body: JSON.stringify({ nome, disciplina })
+          headers: { 'Authorization': 'Bearer ' + token },
+          body: formData
         })
           .then(res => res.json())
           .then(() => {
@@ -405,7 +449,7 @@
     window.excluirProfessor = function (id) {
       const token = localStorage.getItem('token');
       if (confirm('Deseja realmente excluir este professor?')) {
-        fetch(`https://escola-backend-45kv.onrender.com/professores/${id}`, {
+        fetch(`${API_URL}/professores/${id}`, {
           method: 'DELETE',
           headers: { 'Authorization': 'Bearer ' + token }
         })
@@ -422,17 +466,38 @@
     const listaGaleria = document.getElementById('lista-galeria');
 
     function carregarGaleria() {
-      fetch('https://escola-backend-45kv.onrender.com/galeria')
+      fetch(`${API_URL}/galeria`)
         .then(res => res.json())
         .then(data => {
           listaGaleria.innerHTML = '';
           data.slice().reverse().forEach(img => {
-            listaGaleria.innerHTML += `
-    <div class="card">
-      <img src="https://escola-backend-45kv.onrender.com${img.url}" alt="${img.nome}" style="max-width:100%;border-radius:8px;" />
-      <input type="text" value="${img.nome}" onchange="editarNomeImagem('${img._id}', this.value)" style="margin:5px 0; width:100%;" />
-      <button class="btn" onclick="excluirImagem('${img._id}')">Excluir</button>
-    </div>`;
+            const card = document.createElement('div');
+            card.className = 'card';
+
+            const imagemElem = document.createElement('img');
+            imagemElem.src = img.url;
+            imagemElem.alt = img.nome;
+            imagemElem.style = "max-width:100%;border-radius:8px;";
+            card.appendChild(imagemElem);
+
+            const inputNome = document.createElement('input');
+            inputNome.type = 'text';
+            inputNome.value = img.nome;
+            inputNome.style = "margin:5px 0; width:100%;";
+            inputNome.onchange = function () {
+              editarNomeImagem(img._id, inputNome.value);
+            };
+            card.appendChild(inputNome);
+
+            const btnExcluir = document.createElement('button');
+            btnExcluir.className = 'btn';
+            btnExcluir.textContent = 'Excluir';
+            btnExcluir.onclick = function () {
+              excluirImagem(img._id);
+            };
+            card.appendChild(btnExcluir);
+
+            listaGaleria.appendChild(card);
           });
         });
     }
@@ -441,7 +506,7 @@
       e.preventDefault();
       const formData = new FormData(formGaleria);
       const token = localStorage.getItem('token');
-      fetch('https://escola-backend-45kv.onrender.com/galeria', {
+      fetch(`${API_URL}/galeria`, {
         method: 'POST',
         headers: { 'Authorization': 'Bearer ' + token },
         body: formData
@@ -456,7 +521,7 @@
 
     window.editarNomeImagem = function (id, novoNome) {
       const token = localStorage.getItem('token');
-      fetch(`https://escola-backend-45kv.onrender.com/galeria/${id}`, {
+      fetch(`${API_URL}/galeria/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -474,7 +539,7 @@
     window.excluirImagem = function (id) {
       const token = localStorage.getItem('token');
       if (confirm('Deseja realmente excluir esta imagem?')) {
-        fetch(`https://escola-backend-45kv.onrender.com/galeria/${id}`, {
+        fetch(`${API_URL}/galeria/${id}`, {
           method: 'DELETE',
           headers: { 'Authorization': 'Bearer ' + token }
         })
@@ -491,19 +556,49 @@
     const listaDestaquesAdmin = document.getElementById('lista-destaques-admin');
 
     function carregarDestaquesAdmin() {
-      fetch('https://escola-backend-45kv.onrender.com/destaques')
+      fetch(`${API_URL}/destaques`)
         .then(res => res.json())
         .then(destaques => {
           listaDestaquesAdmin.innerHTML = '';
           const icons = ['🎉', '📅', '⭐', '📢', '🏫', '📝', '🎓', '🏆', '📷', '💡'];
           destaques.forEach((item, idx) => {
-            listaDestaquesAdmin.innerHTML += `
-    <div class="card" id="destaque-card-${item._id}" style="display:flex;align-items:center;gap:12px;">
-      <span class="icon" style="font-size:1.5em;flex-shrink:0;">${icons[idx % icons.length]}</span>
-      <input type="text" id="destaque-input-${item._id}" value="${item.texto}" disabled style="flex:1;min-width:120px;margin-left:8px;" />
-      <button class="btn btn-editar" id="editar-btn-${item._id}" onclick="habilitarEdicaoDestaque('${item._id}')">Editar</button>
-      <button class="btn btn-excluir" onclick="excluirDestaque('${item._id}')">Excluir</button>
-    </div>`;
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.id = `destaque-card-${item._id}`;
+            card.style = "display:flex;align-items:center;gap:12px;";
+
+            const iconElem = document.createElement('span');
+            iconElem.className = 'icon';
+            iconElem.textContent = icons[idx % icons.length];
+            iconElem.style = "font-size:1.5em;flex-shrink:0;";
+            card.appendChild(iconElem);
+
+            const inputElem = document.createElement('input');
+            inputElem.type = 'text';
+            inputElem.id = `destaque-input-${item._id}`;
+            inputElem.value = item.texto;
+            inputElem.disabled = true;
+            inputElem.style = "flex:1;min-width:120px;margin-left:8px;";
+            card.appendChild(inputElem);
+
+            const btnEditar = document.createElement('button');
+            btnEditar.className = 'btn btn-editar';
+            btnEditar.id = `editar-btn-${item._id}`;
+            btnEditar.textContent = 'Editar';
+            btnEditar.onclick = function () {
+              habilitarEdicaoDestaque(item._id);
+            };
+            card.appendChild(btnEditar);
+
+            const btnExcluir = document.createElement('button');
+            btnExcluir.className = 'btn btn-excluir';
+            btnExcluir.textContent = 'Excluir';
+            btnExcluir.onclick = function () {
+              excluirDestaque(item._id);
+            };
+            card.appendChild(btnExcluir);
+
+            listaDestaquesAdmin.appendChild(card);
           });
         });
     }
@@ -512,7 +607,7 @@
       e.preventDefault();
       const texto = document.getElementById('novoDestaque').value;
       const token = localStorage.getItem('token');
-      fetch('https://escola-backend-45kv.onrender.com/destaques', {
+      fetch(`${API_URL}/destaques`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -541,7 +636,7 @@
       const input = document.getElementById(`destaque-input-${id}`);
       const texto = input.value;
       const token = localStorage.getItem('token');
-      fetch(`https://escola-backend-45kv.onrender.com/destaques/${id}`, {
+      fetch(`${API_URL}/destaques/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -559,7 +654,7 @@
     window.excluirDestaque = function (id) {
       const token = localStorage.getItem('token');
       if (confirm('Deseja realmente excluir este destaque?')) {
-        fetch(`https://escola-backend-45kv.onrender.com/destaques/${id}`, {
+        fetch(`${API_URL}/destaques/${id}`, {
           method: 'DELETE',
           headers: { 'Authorization': 'Bearer ' + token }
         })
@@ -576,7 +671,7 @@
     const textoQuemSomos = document.getElementById('textoQuemSomos');
 
     function carregarQuemSomosAdmin() {
-      fetch('https://escola-backend-45kv.onrender.com/quem-somos')
+      fetch(`${API_URL}/quem-somos`)
         .then(res => res.json())
         .then(data => {
           textoQuemSomos.value = data.texto;
@@ -587,7 +682,7 @@
       e.preventDefault();
       const texto = textoQuemSomos.value;
       const token = localStorage.getItem('token');
-      fetch('https://escola-backend-45kv.onrender.com/quem-somos', {
+      fetch(`${API_URL}/quem-somos`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
