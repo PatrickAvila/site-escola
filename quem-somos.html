@@ -67,7 +67,7 @@
         fetch(`${API_URL}/quem-somos`)
             .then(res => res.json())
             .then(data => {
-                const textoElem = document.getElementById('quem-somos-texto');
+                const textoElem = document.getElementById('texto-quem-somos');
                 textoElem.textContent = data.texto;
             });
     </script>

@@ -87,7 +87,7 @@
         fetch(`${API_URL}/destaques`)
             .then(res => res.json())
             .then(destaques => {
-                const lista = document.getElementById('destaques-lista');
+                const lista = document.getElementById('destaque-cards');
                 lista.innerHTML = '';
                 const icons = ['🎉', '📅', '⭐', '📢', '🏫', '📝', '🎓', '🏆', '📷', '💡'];
                 destaques.forEach((item, idx) => {
