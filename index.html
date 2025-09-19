@@ -91,8 +91,8 @@
                 lista.innerHTML = '';
                 const icons = ['🎉', '📅', '⭐', '📢', '🏫', '📝', '🎓', '🏆', '📷', '💡'];
                 destaques.forEach((item, idx) => {
-                    const li = document.createElement('li');
-                    li.className = 'destaque-item';
+                    const li = document.createElement('div');
+                    li.className = 'card-destaque';
 
                     const iconElem = document.createElement('span');
                     iconElem.textContent = icons[idx % icons.length];
