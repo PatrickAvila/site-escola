@@ -59,18 +59,18 @@
             .then(imagens => {
                 const galeria = document.getElementById('galeria-cards');
                 galeria.innerHTML = '';
-                imagens.slice().reverse().forEach(img => {
+                imagens.forEach(img => {
                     const card = document.createElement('div');
                     card.className = 'card-galeria';
 
                     const imagemElem = document.createElement('img');
                     imagemElem.src = img.url;
                     imagemElem.alt = img.nome;
-                    imagemElem.style = "max-width:100%;border-radius:8px;";
                     card.appendChild(imagemElem);
 
                     const nomeElem = document.createElement('span');
                     nomeElem.textContent = img.nome;
+                    nomeElem.className = 'nome-imagem';
                     card.appendChild(nomeElem);
 
                     galeria.appendChild(card);

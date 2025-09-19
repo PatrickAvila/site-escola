@@ -11,7 +11,6 @@ header {
     color: #fff;
     padding: 0 0 12px 0;
 }
-
 header h1 {
     margin: 0;
     padding: 18px 0 0 0;
@@ -24,7 +23,6 @@ header h1 {
 nav {
     position: relative;
 }
-
 nav ul {
     display: flex;
     justify-content: center;
@@ -33,7 +31,6 @@ nav ul {
     padding: 0;
     margin: 18px 0 0 0;
 }
-
 nav a {
     color: #fff;
     text-decoration: none;
@@ -43,7 +40,6 @@ nav a {
     border-radius: 4px;
     transition: background 0.2s;
 }
-
 nav a:hover {
     background: #003d80;
 }
@@ -61,7 +57,6 @@ nav a:hover {
     top: 18px;
     z-index: 10;
 }
-
 .menu-btn span {
     display: block;
     width: 28px;
@@ -87,25 +82,20 @@ nav a:hover {
         gap: 0;
         z-index: 1000;
     }
-
     nav ul.show {
         display: flex;
     }
-
     nav ul li {
         margin: 0;
         border-bottom: 1px solid #003d80;
     }
-
     nav ul li:last-child {
         border-bottom: none;
     }
-
     nav a {
         display: block;
         padding: 12px 18px;
     }
-
     .menu-btn {
         display: flex;
     }
@@ -120,26 +110,20 @@ nav a:hover {
     position: relative;
     overflow: hidden;
 }
-
 .hero-content {
     max-width: 600px;
     margin: 0 auto;
     position: relative;
     z-index: 2;
 }
-
 .hero-icon {
     font-size: 4em;
     margin-bottom: 12px;
     animation: bounce 1.2s infinite alternate;
 }
-
 @keyframes bounce {
-    to {
-        transform: translateY(-10px);
-    }
+    to { transform: translateY(-10px); }
 }
-
 .hero-banner h2 {
     font-size: 2.7em;
     margin-bottom: 10px;
@@ -147,14 +131,12 @@ nav a:hover {
     letter-spacing: 1px;
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
-
 .hero-desc {
     font-size: 1.25em;
     margin-bottom: 22px;
     line-height: 1.5;
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
-
 .hero-btn {
     display: inline-block;
     background: #fff;
@@ -167,33 +149,16 @@ nav a:hover {
     box-shadow: 0 2px 8px rgba(0, 89, 179, 0.10);
     transition: background 0.2s, color 0.2s;
 }
-
 .hero-btn:hover {
     background: #0059b3;
     color: #fff;
 }
-
 @media (max-width: 900px) {
-    .hero-banner {
-        padding: 32px 0 24px 0;
-    }
-
-    .hero-content {
-        max-width: 95vw;
-    }
-
-    .hero-banner h2 {
-        font-size: 2em;
-    }
-
-    .hero-icon {
-        font-size: 2.5em;
-    }
-
-    .hero-btn {
-        font-size: 1em;
-        padding: 10px 18px;
-    }
+    .hero-banner { padding: 32px 0 24px 0; }
+    .hero-content { max-width: 95vw; }
+    .hero-banner h2 { font-size: 2em; }
+    .hero-icon { font-size: 2.5em; }
+    .hero-btn { font-size: 1em; padding: 10px 18px; }
 }
 
 /* Info rápida */
@@ -210,35 +175,25 @@ nav a:hover {
     align-items: center;
     gap: 24px;
 }
-
-.info-rapida strong {
-    font-size: 1.15em;
-}
-
-.info-rapida .icon {
-    font-size: 2em;
-    margin-right: 12px;
-}
+.info-rapida strong { font-size: 1.15em; }
+.info-rapida .icon { font-size: 2em; margin-right: 12px; }
 
 /* Destaques */
 .destaques {
     max-width: 1100px;
     margin: 40px auto 0 auto;
 }
-
 .destaques h3 {
     color: #0059b3;
     margin-bottom: 18px;
     font-size: 1.3em;
     text-align: left;
 }
-
 .destaque-cards {
     display: flex;
     flex-wrap: wrap;
     gap: 24px;
 }
-
 .card-destaque {
     background: #fff;
     border-radius: 10px;
@@ -252,13 +207,11 @@ nav a:hover {
     gap: 12px;
     position: relative;
 }
-
 .card-destaque .icon {
     font-size: 1.7em;
     color: #0059b3;
     margin-right: 8px;
 }
-
 .card-destaque span {
     font-size: 1.08em;
     color: #222;
@@ -273,21 +226,18 @@ nav a:hover {
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0, 89, 179, 0.08);
 }
-
 .videos h3 {
     color: #0059b3;
     margin-bottom: 18px;
     text-align: left;
     font-size: 1.25em;
 }
-
 .video-grid {
     display: flex;
     flex-wrap: wrap;
     gap: 32px;
     justify-content: flex-start;
 }
-
 .video-grid iframe {
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0, 89, 179, 0.10);
@@ -306,12 +256,10 @@ nav a:hover {
     box-shadow: 0 2px 8px rgba(0, 89, 179, 0.08);
     padding: 24px;
 }
-
 .depoimentos h3 {
     color: #0059b3;
     margin-bottom: 18px;
 }
-
 .depoimento {
     background: #eaf6ff;
     border-radius: 8px;
@@ -329,18 +277,15 @@ nav a:hover {
     box-shadow: 0 2px 8px rgba(0, 89, 179, 0.08);
     padding: 32px;
 }
-
 .professores h2 {
     color: #0059b3;
     margin-bottom: 18px;
 }
-
 .prof-cards {
     display: flex;
     flex-wrap: wrap;
     gap: 24px;
 }
-
 .card-prof {
     background: #eaf6ff;
     border-radius: 8px;
@@ -352,18 +297,15 @@ nav a:hover {
     flex-direction: column;
     align-items: flex-start;
 }
-
 .card-prof strong {
     color: #0059b3;
     font-size: 1.08em;
 }
-
 .card-prof span {
     color: #222;
     font-size: 1em;
     margin-top: 6px;
 }
-
 /* Estilo para fotos de perfil dos professores */
 .foto-prof {
     width: 60px;
@@ -382,29 +324,24 @@ nav a:hover {
     box-shadow: 0 2px 8px rgba(0, 89, 179, 0.08);
     padding: 32px;
 }
-
 .avisos h2 {
     color: #0059b3;
     margin-bottom: 18px;
 }
-
 .aviso-cards {
     display: flex;
     flex-direction: column;
     gap: 18px;
 }
-
 .card-aviso {
     background: #eaf6ff;
     border-radius: 8px;
     padding: 18px;
 }
-
 .card-aviso strong {
     color: #0059b3;
     font-size: 1.08em;
 }
-
 .card-aviso span {
     color: #222;
     font-size: 1em;
@@ -421,35 +358,54 @@ nav a:hover {
     box-shadow: 0 2px 8px rgba(0, 89, 179, 0.08);
     padding: 32px;
 }
-
 .galeria h2 {
     color: #0059b3;
     margin-bottom: 18px;
 }
-
 .fotos {
     display: flex;
     flex-wrap: wrap;
     gap: 24px;
     justify-content: flex-start;
 }
-
 .fotos img {
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0, 89, 179, 0.10);
-    max-width: 220px;
-    width: 100%;
-    height: auto;
+    width: 180px;
+    height: 120px;
+    object-fit: cover;
     background: #f5f5f5;
     border: 2px solid #eee;
     transition: transform 0.2s, box-shadow 0.2s;
     cursor: pointer;
 }
-
 .fotos img:hover {
     transform: scale(1.05);
     box-shadow: 0 4px 16px rgba(0, 89, 179, 0.15);
     border-color: #0059b3;
+}
+
+/* Galeria do dashboard */
+#listaGaleria {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+.card-galeria {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 8px;
+}
+.card-galeria img {
+    margin-bottom: 8px;
+}
+.nome-imagem {
+    font-size: 1em;
+    color: #0059b3;
+    text-align: center;
+    margin-top: 4px;
+    word-break: break-word;
 }
 
 /* Contato */
@@ -461,19 +417,16 @@ nav a:hover {
     box-shadow: 0 2px 8px rgba(0, 89, 179, 0.08);
     padding: 32px;
 }
-
 .contato h2,
 .contato h3 {
     color: #0059b3;
     margin-bottom: 18px;
 }
-
 .contato form {
     display: flex;
     flex-direction: column;
     gap: 12px;
 }
-
 .contato input,
 .contato textarea {
     padding: 10px;
@@ -481,7 +434,6 @@ nav a:hover {
     border: 1px solid #ccc;
     font-size: 1em;
 }
-
 .contato button {
     background: #0059b3;
     color: #fff;
@@ -491,38 +443,12 @@ nav a:hover {
     font-size: 1em;
     cursor: pointer;
 }
-
 .contato button:hover {
     background: #003d80;
 }
-
 .contato-info {
     margin-top: 24px;
     color: #0059b3;
-}
-
-/* Responsividade para seções */
-@media (max-width: 900px) {
-
-    .professores,
-    .avisos,
-    .galeria,
-    .contato {
-        padding: 12px;
-    }
-
-    .missao-visao {
-        flex-direction: column;
-        gap: 12px;
-    }
-
-    .fotos {
-        gap: 12px;
-    }
-
-    .fotos img {
-        max-width: 100px;
-    }
 }
 
 /* Rodapé */
@@ -543,24 +469,20 @@ footer {
     box-shadow: 0 2px 8px rgba(0, 89, 179, 0.08);
     padding: 32px;
 }
-
 .quem-somos h2 {
     color: #0059b3;
     margin-bottom: 18px;
 }
-
 .quem-somos p {
     font-size: 1.15em;
     color: #222;
     line-height: 1.7;
 }
-
 .missao-visao {
     margin-top: 32px;
     display: flex;
     gap: 32px;
 }
-
 .missao,
 .visao {
     background: #eaf6ff;
@@ -568,7 +490,6 @@ footer {
     padding: 18px;
     flex: 1;
 }
-
 .missao strong,
 .visao strong {
     color: #0059b3;
@@ -583,23 +504,19 @@ footer {
     box-shadow: 0 2px 8px rgba(0, 89, 179, 0.08);
     padding: 32px;
 }
-
 .painel h2 {
     color: #0059b3;
     margin-bottom: 18px;
 }
-
 .painel section {
     margin-bottom: 40px;
 }
-
 .painel form {
     display: flex;
     flex-direction: column;
     gap: 12px;
     margin-bottom: 18px;
 }
-
 .painel input,
 .painel textarea,
 .painel select {
@@ -608,7 +525,6 @@ footer {
     border: 1px solid #ccc;
     font-size: 1em;
 }
-
 .painel button,
 .btn {
     background: #0059b3;
@@ -619,407 +535,47 @@ footer {
     font-size: 1em;
     cursor: pointer;
 }
-
 .painel button:hover,
 .btn:hover {
     background: #003d80;
 }
 
+/* Cards do dashboard admin */
 .card-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 24px;
-}
-
-.card {
-    background: #eaf6ff;
-    border-radius: 8px;
-    padding: 18px;
-    flex: 1 1 220px;
-    min-width: 180px;
-    max-width: 340px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    position: relative;
-}
-
-.card strong {
-    color: #0059b3;
-    font-size: 1.08em;
-}
-
-.card span {
-    color: #222;
-    font-size: 1em;
-}
-
-.destaque-edit {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 8px;
-    align-items: center;
-}
-
-/* Mensagens de feedback */
-.msg-sucesso {
-    background: #d4edda;
-    color: #155724;
-    border-radius: 6px;
-    padding: 8px;
-    margin-bottom: 12px;
-}
-
-.msg-erro {
-    background: #f8d7da;
-    color: #721c24;
-    border-radius: 6px;
-    padding: 8px;
-    margin-bottom: 12px;
-}
-
-#mensagem-admin {
-    display: none;
-}
-
-/* Responsividade painel admin */
-@media (max-width: 900px) {
-    .painel {
-        padding: 12px;
-    }
-
-    .card-list {
-        flex-direction: column;
-        gap: 12px;
-    }
-}
-
-/* Menu superior */
-.menu-superior {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 24px;
-    padding-top: 12px;
-}
-
-.menu-img {
-    height: 100px;
-    width: auto;
-    max-width: 120px;
-    object-fit: contain;
-    margin: 0;
-    display: block;
-}
-
-.menu-titulo {
-    margin: 0;
-    font-size: 2em;
-    text-align: center;
-    flex-shrink: 1;
-    display: flex;
-    align-items: center;
-    height: 100px;
-    padding: 0;
-    line-height: normal;
-}
-
-/* Responsivo */
-@media (max-width: 700px) {
-    .menu-img {
-        height: 60px;
-        max-width: 80px;
-    }
-
-    .menu-superior {
-        gap: 12px;
-        padding-top: 8px;
-        flex-wrap: nowrap;
-    }
-
-    .menu-titulo {
-        font-size: 1.2em;
-        line-height: 60px;
-        height: 60px;
-    }
-}
-
-/* Dashboard Admin - Sidebar vertical à esquerda */
-.dashboard-layout {
-    display: flex;
-    min-height: 70vh;
-    background: #f2f6fa;
-}
-
-.dashboard-sidebar {
-    background: #0059b3;
-    color: #fff;
-    min-width: 180px;
-    max-width: 200px;
-    padding: 32px 0 0 0;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    height: auto;
-    box-shadow: 2px 0 8px rgba(0, 89, 179, 0.08);
-    position: relative;
-}
-
-.dashboard-sidebar nav ul {
-    list-style: none;
-    padding: 0 0 0 18px;
-    margin: 0;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.dashboard-sidebar nav ul li {
-    width: 100%;
-    margin-bottom: 8px;
-}
-
-.sidebar-btn {
-    width: 100%;
-    background: none;
-    border: none;
-    color: #fff;
-    font-size: 1.08em;
-    padding: 12px 0 12px 8px;
-    text-align: left;
-    cursor: pointer;
-    border-radius: 6px;
-    transition: background 0.2s, color 0.2s;
-    margin: 0;
-    display: block;
-}
-
-.sidebar-btn:hover,
-.sidebar-btn:focus {
-    background: #003d80;
-    color: #fff;
-    outline: none;
-}
-
-.dashboard-content {
-    flex: 1;
-    padding: 40px 5vw;
-    min-height: 70vh;
-}
-
-@media (max-width: 900px) {
-    .dashboard-layout {
-        flex-direction: column;
-    }
-
-    .dashboard-sidebar {
-        min-width: 100%;
-        max-width: 100%;
-        flex-direction: row;
-        padding: 0;
-        justify-content: flex-start;
-        box-shadow: none;
-    }
-
-    .dashboard-sidebar nav ul {
-        flex-direction: row;
-        align-items: center;
-        padding: 0 0 0 8px;
-    }
-
-    .dashboard-sidebar nav ul li {
-        margin-bottom: 0;
-        width: auto;
-    }
-
-    .sidebar-btn {
-        width: auto;
-        padding: 10px 14px;
-        font-size: 1em;
-    }
-
-    .dashboard-content {
-        padding: 16px 4vw;
-    }
-}
-
-/* Estilo para a tela de login do admin */
-.dashboard-login {
-    max-width: 400px;
-    margin: 60px auto;
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 2px 12px rgba(0, 89, 179, 0.12);
-    padding: 32px 28px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 18px;
-}
-
-.dashboard-login h2 {
-    color: #0059b3;
-    margin-bottom: 18px;
-    text-align: center;
-    font-size: 1.4em;
-    font-weight: 600;
-}
-
-.dashboard-login form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    align-items: center;
-}
-
-.dashboard-login input {
-    width: 100%;
-    font-size: 1.08em;
-    padding: 10px 12px;
-    border-radius: 6px;
-    border: 1px solid #b3d1f7;
-    margin-bottom: 4px;
-    box-sizing: border-box;
-    transition: border 0.2s;
-}
-
-.dashboard-login input:focus {
-    border: 2px solid #0059b3;
-    outline: none;
-}
-
-.dashboard-login button {
-    width: 100%;
-    background: #0059b3;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    padding: 12px 0;
-    font-size: 1.08em;
-    font-weight: 600;
-    cursor: pointer;
-    margin-top: 8px;
-    transition: background 0.2s;
-}
-
-.dashboard-login button:hover {
-    background: #003d80;
-}
-
-.dashboard-login p {
-    text-align: center;
-    margin-top: 8px;
-    font-size: 1em;
-}
-
-/* Conteúdo das páginas do admin */
-.dashboard-content {
-    flex: 1;
-    padding: 40px 5vw;
-    min-height: 70vh;
-    background: #f2f6fa;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.dashboard-section {
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 89, 179, 0.08);
-    padding: 32px 28px;
-    margin-bottom: 32px;
-    width: 100%;
-    max-width: 600px;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-}
-
-.dashboard-section h2 {
-    color: #0059b3;
-    margin-bottom: 18px;
-    font-size: 1.3em;
-    text-align: center;
-}
-
-.dashboard-section form {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    margin-bottom: 18px;
-    align-items: stretch;
-}
-
-.dashboard-section input,
-.dashboard-section textarea {
-    font-size: 1.08em;
-    padding: 10px 12px;
-    border-radius: 6px;
-    border: 1px solid #b3d1f7;
-    margin-bottom: 4px;
-    box-sizing: border-box;
-    transition: border 0.2s;
-    width: 100%;
-    background: #f7fbff;
-}
-
-.dashboard-section input:focus,
-.dashboard-section textarea:focus {
-    border: 2px solid #0059b3;
-    outline: none;
-    background: #eaf6ff;
-}
-
-.dashboard-section button {
-    width: 100%;
-    background: #0059b3;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    padding: 12px 0;
-    font-size: 1.08em;
-    font-weight: 600;
-    cursor: pointer;
-    margin-top: 8px;
-    transition: background 0.2s;
-}
-
-.dashboard-section button:hover {
-    background: #003d80;
-}
-
-/* Listas de cards dentro do admin */
-.card-list {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
+    gap: 16px;
     margin-top: 10px;
+    justify-content: flex-start;
+    align-items: stretch;
 }
-
 .card {
-    background: #eaf6ff;
+    width: 220px;
+    background: #fff;
     border-radius: 8px;
-    padding: 18px;
-    min-width: 180px;
-    max-width: 100%;
+    box-shadow: 0 2px 8px #0001;
+    padding: 12px;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    align-items: center;
     margin-bottom: 0;
-    box-sizing: border-box;
 }
-
 .card strong {
     color: #0059b3;
     font-size: 1.08em;
 }
-
 .card span {
     color: #222;
     font-size: 1em;
+}
+.card iframe,
+.card video {
+    width: 100%;
+    max-width: 320px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px #0001;
+    background: #000;
+    margin: 8px 0;
 }
 
 /* Destaque edit */
@@ -1038,27 +594,68 @@ footer {
     margin-bottom: 12px;
 }
 
-/* Responsivo para admin */
-@media (max-width: 700px) {
-    .dashboard-content {
-        padding: 16px 2vw;
-    }
-
-    .dashboard-section {
-        padding: 16px 8px;
-        max-width: 98vw;
-    }
-
-    .card {
-        padding: 12px;
-        font-size: 0.95em;
-    }
-}
-
 /* Acessibilidade */
 :focus {
     outline: 2px solid #0059b3;
     outline-offset: 2px;
+}
+
+/* Dashboard Admin - Sidebar vertical à esquerda */
+.dashboard-layout {
+    display: flex;
+    min-height: 70vh;
+    background: #f2f6fa;
+}
+.dashboard-sidebar {
+    background: #0059b3;
+    color: #fff;
+    min-width: 180px;
+    max-width: 200px;
+    padding: 32px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
+    box-shadow: 2px 0 8px rgba(0, 89, 179, 0.08);
+    position: relative;
+}
+.dashboard-sidebar nav ul {
+    list-style: none;
+    padding: 0 0 0 18px;
+    margin: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.dashboard-sidebar nav ul li {
+    width: 100%;
+    margin-bottom: 8px;
+}
+.sidebar-btn {
+    width: 100%;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.08em;
+    padding: 12px 0 12px 8px;
+    text-align: left;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background 0.2s, color 0.2s;
+    margin: 0;
+    display: block;
+}
+.sidebar-btn:hover,
+.sidebar-btn:focus {
+    background: #003d80;
+    color: #fff;
+    outline: none;
+}
+.dashboard-content {
+    flex: 1;
+    padding: 40px 5vw;
+    min-height: 70vh;
 }
 
 /* Dashboard Admin - conteúdo preenchendo todo o espaço */
@@ -1073,7 +670,6 @@ footer {
     max-width: none;
     margin: 0;
 }
-
 .dashboard-section {
     background: #fff;
     border-radius: 12px;
@@ -1087,273 +683,268 @@ footer {
     align-items: stretch;
     box-sizing: border-box;
 }
+.dashboard-section h2 {
+    color: #0059b3;
+    margin-bottom: 18px;
+    font-size: 1.3em;
+    text-align: center;
+}
+.dashboard-section form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 18px;
+    align-items: stretch;
+}
+.dashboard-section input,
+.dashboard-section textarea {
+    font-size: 1.08em;
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid #b3d1f7;
+    margin-bottom: 4px;
+    box-sizing: border-box;
+    transition: border 0.2s;
+    width: 100%;
+    background: #f7fbff;
+}
+.dashboard-section input:focus,
+.dashboard-section textarea:focus {
+    border: 2px solid #0059b3;
+    outline: none;
+    background: #eaf6ff;
+}
+.dashboard-section button {
+    width: 100%;
+    background: #0059b3;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 0;
+    font-size: 1.08em;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background 0.2s;
+}
+.dashboard-section button:hover {
+    background: #003d80;
+}
 
-/* Responsivo para admin */
+/* Formulário de destaque */
+#form-destaque {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+#form-destaque select,
+#form-destaque input,
+#form-destaque button {
+    margin: 0;
+    min-width: 0;
+    flex: 0 1 auto;
+}
+.dashboard-section #form-destaque {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* Select de ícones dos destaques */
+#novoIcone {
+    font-size: 1.5em;
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid #b3c6e0;
+    background: #f8fbff;
+    color: #0059b3;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.2s;
+}
+#novoIcone:focus {
+    border-color: #0059b3;
+    background: #e6f0ff;
+}
+
+/* Cards de vídeo no admin */
+.card-video {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px #0001;
+    padding: 12px;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 220px;
+}
+#lista-videos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: flex-start;
+    align-items: stretch;
+}
+
+/* Cards padrão para destaques, vídeos e depoimentos */
+.card-padrao {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px #0002;
+    padding: 18px;
+    margin-bottom: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    transition: box-shadow 0.2s;
+}
+.card-padrao:hover {
+    box-shadow: 0 4px 18px #0059b322;
+}
+.cards-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: center;
+    align-items: stretch;
+}
+.card-padrao .icon {
+    font-size: 2em;
+    color: #0059b3;
+}
+.card-padrao iframe,
+.card-padrao video {
+    width: 320px;
+    height: 180px;
+    border-radius: 8px;
+    background: #000;
+    box-shadow: 0 2px 8px #0001;
+}
+.card-padrao .depoimento-texto {
+    font-size: 1.1em;
+    color: #333;
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+/* Justificar texto do Quem Somos */
+#texto-quem-somos {
+    text-align: justify;
+}
+
+/* Mensagens de feedback */
+.msg-sucesso {
+    background: #d4edda;
+    color: #155724;
+    border-radius: 6px;
+    padding: 8px;
+    margin-bottom: 12px;
+}
+.msg-erro {
+    background: #f8d7da;
+    color: #721c24;
+    border-radius: 6px;
+    padding: 8px;
+    margin-bottom: 12px;
+}
+#mensagem-admin {
+    display: none;
+}
+
+/* Destaques admin */
+#lista-destaques-admin {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: flex-start;
+    align-items: stretch;
+}
+
+/* Responsividade geral */
 @media (max-width: 900px) {
-    .dashboard-content {
-        padding: 12px 0;
+    .professores,
+    .avisos,
+    .galeria,
+    .contato {
+        padding: 12px;
     }
-
-    .dashboard-section {
-        padding: 12px 6px;
-        margin-bottom: 18px;
-        border-radius: 8px;
-        box-shadow: 0 1px 4px rgba(0, 89, 179, 0.08);
-    }
-
-    .card {
-        padding: 10px;
-        font-size: 0.95em;
-    }
-
-    .card-list {
-        gap: 8px;
-    }
+    .missao-visao { flex-direction: column; gap: 12px; }
+    .fotos { gap: 12px; }
+    .fotos img { max-width: 100px; }
+    .painel { padding: 12px; }
+    .card-list { gap: 14px; }
+    .dashboard-content { padding: 12px 0; }
+    .dashboard-section { padding: 12px 6px; margin-bottom: 18px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0, 89, 179, 0.08); }
+    .card { padding: 18px; font-size: 1em; }
 }
-
-@media (max-width: 600px) {
-    .dashboard-content {
-        padding: 4px 0;
-    }
-
-    .dashboard-section {
-        padding: 6px 2px;
-        margin-bottom: 12px;
-        border-radius: 6px;
-        box-shadow: none;
-    }
-
-    .dashboard-section h2 {
-        font-size: 1.1em;
-        margin-bottom: 10px;
-    }
-
-    .dashboard-section form {
-        gap: 8px;
-    }
-
-    .dashboard-section input,
-    .dashboard-section textarea {
-        font-size: 1em;
-        padding: 8px 6px;
-    }
-
-    .dashboard-section button {
-        padding: 10px 0;
-        font-size: 1em;
-    }
-
-    .card {
-        padding: 8px;
-        font-size: 0.92em;
-    }
-}
-
-/* Dashboard Admin - sidebar e conteúdo igual ao desktop no mobile */
-@media (max-width: 900px) {
-    .dashboard-layout {
-        flex-direction: column;
-    }
-
-    .dashboard-sidebar {
-        min-width: 180px;
-        max-width: 200px;
-        flex-direction: column;
-        padding: 32px 0 0 0;
-        align-items: flex-start;
-        box-shadow: 2px 0 8px rgba(0, 89, 179, 0.08);
-        background: #0059b3;
-        position: relative;
-    }
-
-    .dashboard-sidebar nav ul {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 0 0 0 18px;
-        width: 100%;
-    }
-
-    .dashboard-sidebar nav ul li {
-        margin-bottom: 8px;
-        width: 100%;
-    }
-
-    .sidebar-btn {
-        width: 100%;
-        padding: 12px 0 12px 8px;
-        font-size: 1.08em;
-        text-align: left;
-        margin: 0;
-        display: block;
-    }
-
-    .dashboard-content {
-        padding: 40px 0;
-        min-height: 70vh;
-        background: #f2f6fa;
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        max-width: none;
-        margin: 0;
-    }
-
-    .dashboard-section {
-        padding: 32px 28px;
-        margin-bottom: 32px;
-        width: 100%;
-        max-width: none;
-        border-radius: 12px;
-        box-shadow: 0 2px 8px rgba(0, 89, 179, 0.08);
-    }
-
-    .card-list {
-        gap: 14px;
-    }
-
-    .card {
-        padding: 18px;
-        font-size: 1em;
-    }
-}
-
-/* Ajuste para telas muito pequenas */
-@media (max-width: 600px) {
-    .dashboard-content {
-        padding: 8px 0;
-    }
-
-    .dashboard-section {
-        padding: 12px 4px;
-        margin-bottom: 16px;
-        border-radius: 8px;
-    }
-
-    .dashboard-section h2 {
-        font-size: 1.1em;
-        margin-bottom: 10px;
-    }
-
-    .dashboard-section form {
-        gap: 8px;
-    }
-
-    .dashboard-section input,
-    .dashboard-section textarea {
-        font-size: 1em;
-        padding: 8px 6px;
-    }
-
-    .dashboard-section button {
-        padding: 10px 0;
-        font-size: 1em;
-    }
-
-    .card {
-        padding: 10px;
-        font-size: 0.95em;
-    }
-}
-
-/* Dashboard Admin - Sidebar como menu hambúrguer no mobile */
-@media (max-width: 900px) {
-    .dashboard-sidebar {
-        position: fixed;
-        top: 0;
-        left: -220px;
-        width: 220px;
-        height: 100vh;
-        background: #0059b3;
-        z-index: 1001;
-        transition: left 0.3s;
-        box-shadow: 2px 0 8px rgba(0, 89, 179, 0.12);
-        padding-top: 60px;
-    }
-
-    .dashboard-sidebar.show {
-        left: 0;
-    }
-
-    .dashboard-sidebar nav ul {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 0 0 0 18px;
-        width: 100%;
-    }
-
-    .dashboard-sidebar nav ul li {
-        margin-bottom: 8px;
-        width: 100%;
-    }
-
-    .sidebar-btn {
-        width: 100%;
-        padding: 12px 0 12px 8px;
-        font-size: 1.08em;
-        text-align: left;
-        margin: 0;
-        display: block;
-    }
-
-    /* Botão hambúrguer */
-    .dashboard-menu-btn {
-        display: flex;
-        position: fixed;
-        top: 18px;
-        left: 18px;
-        z-index: 1100;
-        background: #0059b3;
-        border: none;
-        border-radius: 6px;
-        padding: 8px 10px;
-        cursor: pointer;
-        flex-direction: column;
-        gap: 5px;
-    }
-
-    .dashboard-menu-btn span {
-        display: block;
-        width: 28px;
-        height: 4px;
-        background: #fff;
-        border-radius: 2px;
-        transition: 0.3s;
-    }
-
-    /* Escurece fundo ao abrir menu */
-    .dashboard-overlay {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background: rgba(0, 0, 0, 0.3);
-        z-index: 1000;
-    }
-
-    .dashboard-overlay.show {
-        display: block;
-    }
-
-    .dashboard-content {
-        padding: 16px 4vw;
-    }
-}
-
-/* Responsivo */
 @media (max-width: 700px) {
-    .menu-img {
-        height: 60px;
-        max-width: 80px;
-    }
+    .menu-img { height: 60px; max-width: 80px; }
+    .menu-superior { gap: 12px; padding-top: 8px; flex-wrap: nowrap; }
+    .menu-titulo { font-size: 1.2em; line-height: 60px; height: 60px; }
+    .dashboard-content { padding: 16px 2vw; }
+    .dashboard-section { padding: 16px 8px; max-width: 98vw; }
+    .card { padding: 12px; font-size: 0.95em; }
+}
+@media (max-width: 600px) {
+    .dashboard-content { padding: 4px 0; }
+    .dashboard-section { padding: 6px 2px; margin-bottom: 12px; border-radius: 6px; box-shadow: none; }
+    .dashboard-section h2 { font-size: 1.1em; margin-bottom: 10px; }
+    .dashboard-section form { gap: 8px; }
+    .dashboard-section input,
+    .dashboard-section textarea { font-size: 1em; padding: 8px 6px; }
+    .dashboard-section button { padding: 10px 0; font-size: 1em; }
+    .card { padding: 8px; font-size: 0.92em; }
+}
 
+/* Acessibilidade */
+:focus {
+    outline: 2px solid #0059b3;
+    outline-offset: 2px;
+}
+
+/* Bloco do topo com logo e nome da escola */
+.menu-superior {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    padding-top: 18px;
+    padding-bottom: 12px;
+}
+
+.menu-img {
+    height: 80px;
+    max-width: 120px;
+    object-fit: contain;
+}
+
+.menu-titulo {
+    font-size: 2.2em;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 2px;
+    line-height: 80px;
+    height: 80px;
+    margin: 0;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.10);
+}
+
+/* Responsividade para o topo */
+@media (max-width: 700px) {
     .menu-superior {
         gap: 12px;
         padding-top: 8px;
         flex-wrap: nowrap;
     }
-
+    .menu-img {
+        height: 60px;
+        max-width: 80px;
+    }
     .menu-titulo {
         font-size: 1.2em;
         line-height: 60px;

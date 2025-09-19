@@ -39,6 +39,7 @@
               <li><button class="sidebar-btn" data-section="avisos">Avisos</button></li>
               <li><button class="sidebar-btn" data-section="professores">Professores</button></li>
               <li><button class="sidebar-btn" data-section="galeria">Galeria</button></li>
+              <li><button class="sidebar-btn" data-section="videos">Vídeos</button></li>
               <li><button class="sidebar-btn" data-section="destaques">Destaques</button></li>
               <li><button class="sidebar-btn" data-section="quem-somos">Quem Somos</button></li>
               <li><button class="sidebar-btn" data-section="alterar-senha">Alterar Senha</button></li>
@@ -56,6 +57,13 @@
               <textarea name="texto" placeholder="Texto do aviso" required></textarea>
               <button type="submit" class="btn">Adicionar Aviso</button>
             </form>
+            <div class="ordenacao-container">
+              <label for="ordenacao-avisos">Ordenar:</label>
+              <select id="ordenacao-avisos">
+                <option value="desc">Mais novo primeiro</option>
+                <option value="asc">Mais antigo primeiro</option>
+              </select>
+            </div>
             <div class="card-list" id="lista-avisos"></div>
           </div>
           <!-- Professores -->
@@ -67,6 +75,13 @@
               <input type="file" name="foto" accept="image/*" />
               <button type="submit" class="btn">Adicionar Professor</button>
             </form>
+            <div class="ordenacao-container">
+              <label for="ordenacao-professores">Ordenar:</label>
+              <select id="ordenacao-professores">
+                <option value="desc">Mais novo primeiro</option>
+                <option value="asc">Mais antigo primeiro</option>
+              </select>
+            </div>
             <div class="card-list" id="lista-professores"></div>
           </div>
           <!-- Galeria -->
@@ -76,15 +91,59 @@
               <input type="file" name="imagem" accept="image/*" required />
               <button type="submit" class="btn">Adicionar Foto</button>
             </form>
+            <div class="ordenacao-container">
+              <label for="ordenacao-galeria">Ordenar:</label>
+              <select id="ordenacao-galeria">
+                <option value="desc">Mais novo primeiro</option>
+                <option value="asc">Mais antigo primeiro</option>
+              </select>
+            </div>
             <div class="card-list" id="lista-galeria"></div>
+          </div>
+          <!-- Vídeos -->
+          <div id="section-videos" class="dashboard-section" style="display:none;">
+            <h2>Vídeos</h2>
+            <form id="form-video" enctype="multipart/form-data" style="display: flex; align-items: center; gap: 10px;">
+              <input type="text" id="nomeVideo" placeholder="Nome do vídeo" required />
+              <input type="file" id="arquivoVideo" accept="video/*" />
+              <input type="url" id="urlYoutube" placeholder="URL do YouTube" />
+              <button type="submit" class="btn">Adicionar Vídeo</button>
+            </form>
+            <div class="ordenacao-container">
+              <label for="ordenacao-videos">Ordenar:</label>
+              <select id="ordenacao-videos">
+                <option value="desc">Mais novo primeiro</option>
+                <option value="asc">Mais antigo primeiro</option>
+              </select>
+            </div>
+            <div class="card-list" id="lista-videos"></div>
           </div>
           <!-- Destaques -->
           <div id="section-destaques" class="dashboard-section" style="display:none;">
             <h2>Destaques</h2>
-            <form id="form-destaque">
+            <form id="form-destaque" style="display: flex; align-items: center; gap: 10px;">
+              <select id="novoIcone">
+                <option value="🎉">🎉</option>
+                <option value="📅">📅</option>
+                <option value="⭐">⭐</option>
+                <option value="📢">📢</option>
+                <option value="🏫">🏫</option>
+                <option value="📝">📝</option>
+                <option value="🎓">🎓</option>
+                <option value="🏆">🏆</option>
+                <option value="📷">📷</option>
+                <option value="💡">💡</option>
+              </select>
               <input type="text" id="novoDestaque" placeholder="Novo destaque" required />
               <button type="submit" class="btn">Adicionar Destaque</button>
             </form>
+            <div class="ordenacao-container">
+              <label for="ordenacao-destaques">Ordenar:</label>
+              <select id="ordenacao-destaques">
+                <option value="desc">Mais novo primeiro</option>
+                <option value="asc">Mais antigo primeiro</option>
+              </select>
+            </div>
             <div id="lista-destaques-admin"></div>
           </div>
           <!-- Quem Somos -->
@@ -157,6 +216,7 @@
       carregarAvisos();
       carregarProfessores();
       carregarGaleria();
+      carregarVideos();
       carregarDestaquesAdmin();
       carregarQuemSomosAdmin();
 
@@ -208,6 +268,7 @@
         'avisos',
         'professores',
         'galeria',
+        'videos',
         'destaques',
         'quem-somos',
         'alterar-senha'
@@ -256,13 +317,19 @@
     // CRUD Avisos
     const formAvisos = document.getElementById('form-avisos');
     const listaAvisos = document.getElementById('lista-avisos');
+    const ordenacaoAvisos = document.getElementById('ordenacao-avisos');
+    ordenacaoAvisos.addEventListener('change', carregarAvisos);
 
     function carregarAvisos() {
       fetch(`${API_URL}/avisos`)
         .then(res => res.json())
         .then(data => {
           listaAvisos.innerHTML = '';
-          data.slice().reverse().forEach(aviso => {
+          let avisosOrdenados = [...data];
+          if (ordenacaoAvisos.value === 'desc') {
+            avisosOrdenados = avisosOrdenados.slice().reverse();
+          }
+          avisosOrdenados.forEach(aviso => {
             const card = document.createElement('div');
             card.className = 'card';
 
@@ -360,13 +427,19 @@
     // CRUD Professores
     const formProfessores = document.getElementById('form-professores');
     const listaProfessores = document.getElementById('lista-professores');
+    const ordenacaoProfessores = document.getElementById('ordenacao-professores');
+    ordenacaoProfessores.addEventListener('change', carregarProfessores);
 
     function carregarProfessores() {
       fetch(`${API_URL}/professores`)
         .then(res => res.json())
         .then(data => {
           listaProfessores.innerHTML = '';
-          data.forEach(prof => {
+          let profsOrdenados = [...data];
+          if (ordenacaoProfessores.value === 'desc') {
+            profsOrdenados = profsOrdenados.slice().reverse();
+          }
+          profsOrdenados.forEach(prof => {
             const card = document.createElement('div');
             card.className = 'card';
 
@@ -464,31 +537,75 @@
     // CRUD Galeria
     const formGaleria = document.getElementById('form-galeria');
     const listaGaleria = document.getElementById('lista-galeria');
+    const ordenacaoGaleria = document.getElementById('ordenacao-galeria');
+    ordenacaoGaleria.addEventListener('change', carregarGaleria);
+
 
     function carregarGaleria() {
       fetch(`${API_URL}/galeria`)
         .then(res => res.json())
         .then(data => {
           listaGaleria.innerHTML = '';
-          data.slice().reverse().forEach(img => {
+          let imagensOrdenadas = [...data];
+          if (ordenacaoGaleria.value === 'desc') {
+            imagensOrdenadas = imagensOrdenadas.slice().reverse();
+          }
+          imagensOrdenadas.forEach(img => {
             const card = document.createElement('div');
             card.className = 'card';
 
             const imagemElem = document.createElement('img');
             imagemElem.src = img.url;
             imagemElem.alt = img.nome;
-            imagemElem.style = "max-width:100%;border-radius:8px;";
             card.appendChild(imagemElem);
 
+            // Nome da imagem (input desabilitado por padrão)
             const inputNome = document.createElement('input');
             inputNome.type = 'text';
             inputNome.value = img.nome;
+            inputNome.disabled = true;
             inputNome.style = "margin:5px 0; width:100%;";
-            inputNome.onchange = function () {
-              editarNomeImagem(img._id, inputNome.value);
-            };
             card.appendChild(inputNome);
 
+            // Botão Editar
+            const btnEditar = document.createElement('button');
+            btnEditar.className = 'btn';
+            btnEditar.textContent = 'Editar';
+            btnEditar.onclick = function () {
+              inputNome.disabled = false;
+              inputNome.focus();
+              btnEditar.style.display = 'none';
+              btnSalvar.style.display = 'inline-block';
+            };
+            card.appendChild(btnEditar);
+
+            // Botão Salvar
+            const btnSalvar = document.createElement('button');
+            btnSalvar.className = 'btn';
+            btnSalvar.textContent = 'Salvar';
+            btnSalvar.style.display = 'none';
+            btnSalvar.onclick = function () {
+              btnSalvar.disabled = true;
+              fetch(`${API_URL}/galeria/${img._id}`, {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': 'Bearer ' + localStorage.getItem('token')
+                },
+                body: JSON.stringify({ nome: inputNome.value })
+              })
+                .then(res => res.json())
+                .then(() => {
+                  inputNome.disabled = true;
+                  btnEditar.style.display = 'inline-block';
+                  btnSalvar.style.display = 'none';
+                  btnSalvar.disabled = false;
+                  mostrarMensagem('Nome da imagem atualizado com sucesso!');
+                });
+            };
+            card.appendChild(btnSalvar);
+
+            // Botão Excluir
             const btnExcluir = document.createElement('button');
             btnExcluir.className = 'btn';
             btnExcluir.textContent = 'Excluir';
@@ -554,6 +671,9 @@
     // CRUD Destaques
     const formDestaque = document.getElementById('form-destaque');
     const listaDestaquesAdmin = document.getElementById('lista-destaques-admin');
+    const ordenacaoDestaques = document.getElementById('ordenacao-destaques');
+    ordenacaoDestaques.addEventListener('change', carregarDestaquesAdmin);
+
 
     function carregarDestaquesAdmin() {
       fetch(`${API_URL}/destaques`)
@@ -561,7 +681,11 @@
         .then(destaques => {
           listaDestaquesAdmin.innerHTML = '';
           const icons = ['🎉', '📅', '⭐', '📢', '🏫', '📝', '🎓', '🏆', '📷', '💡'];
-          destaques.forEach((item, idx) => {
+          let destaquesOrdenados = [...destaques];
+          if (ordenacaoDestaques.value === 'desc') {
+            destaquesOrdenados = destaquesOrdenados.slice().reverse();
+          }
+          destaquesOrdenados.forEach((item, idx) => {
             const card = document.createElement('div');
             card.className = 'card';
             card.id = `destaque-card-${item._id}`;
@@ -606,6 +730,7 @@
     formDestaque.addEventListener('submit', function (e) {
       e.preventDefault();
       const texto = document.getElementById('novoDestaque').value;
+      const icone = document.getElementById('novoIcone').value;
       const token = localStorage.getItem('token');
       fetch(`${API_URL}/destaques`, {
         method: 'POST',
@@ -613,7 +738,7 @@
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ' + token
         },
-        body: JSON.stringify({ texto })
+        body: JSON.stringify({ texto, icone })
       })
         .then(res => res.json())
         .then(() => {
@@ -725,6 +850,97 @@
 
     menuBtn.addEventListener('click', () => toggleSidebar(true));
     overlay.addEventListener('click', () => toggleSidebar(false));
+
+    // CRUD Vídeos
+    const formVideo = document.getElementById('form-video');
+    const listaVideos = document.getElementById('lista-videos');
+    const ordenacaoVideos = document.getElementById('ordenacao-videos');
+    ordenacaoVideos.addEventListener('change', carregarVideos);
+
+    function extrairIdYoutube(url) {
+      const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+      const match = url.match(regExp);
+      return (match && match[2].length === 11) ? match[2] : '';
+    }
+
+    function carregarVideos() {
+      fetch(`${API_URL}/videos`)
+        .then(res => res.json())
+        .then(videos => {
+          listaVideos.innerHTML = '';
+          let videosOrdenados = [...videos];
+          if (ordenacaoVideos.value === 'desc') {
+            videosOrdenados = videosOrdenados.slice().reverse();
+          }
+          videosOrdenados.forEach(video => {
+            const card = document.createElement('div');
+            card.className = 'card'; // Use a mesma classe das outras abas
+
+            const nomeElem = document.createElement('strong');
+            nomeElem.textContent = video.nome;
+            card.appendChild(nomeElem);
+
+            if (video.url.includes('youtube.com') || video.url.includes('youtu.be')) {
+              const youtubeId = extrairIdYoutube(video.url);
+              const iframe = document.createElement('iframe');
+              iframe.src = `https://www.youtube.com/embed/${youtubeId}`;
+              iframe.width = "100%";
+              iframe.height = "180";
+              iframe.frameBorder = "0";
+              iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+              iframe.allowFullscreen = true;
+              iframe.style = "border-radius:8px;box-shadow:0 2px 8px #0001;background:#000;margin:8px 0;";
+              card.appendChild(iframe);
+            } else {
+              const videoElem = document.createElement('video');
+              videoElem.src = video.url;
+              videoElem.controls = true;
+              videoElem.style = "width:100%;max-width:320px;margin:8px 0;border-radius:8px;box-shadow:0 2px 8px #0001;background:#000;";
+              card.appendChild(videoElem);
+            }
+
+            const btnExcluir = document.createElement('button');
+            btnExcluir.className = 'btn';
+            btnExcluir.textContent = 'Excluir';
+            btnExcluir.onclick = function () {
+              fetch(`${API_URL}/videos/${video._id}`, {
+                method: 'DELETE',
+                headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
+              })
+                .then(() => carregarVideos());
+            };
+            card.appendChild(btnExcluir);
+
+            listaVideos.appendChild(card);
+          });
+        });
+    }
+
+    formVideo.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const formData = new FormData();
+      formData.append('nome', nomeVideo.value);
+
+      if (arquivoVideo.files[0]) {
+        formData.append('video', arquivoVideo.files[0]);
+      }
+      if (urlYoutube.value.trim()) {
+        formData.append('youtube', urlYoutube.value.trim());
+      }
+
+      fetch(`${API_URL}/videos`, {
+        method: 'POST',
+        headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') },
+        body: formData
+      })
+        .then(res => res.json())
+        .then(() => {
+          formVideo.reset();
+          carregarVideos();
+          mostrarMensagem('Vídeo adicionado com sucesso!');
+        });
+    });
+
   </script>
 </body>
 
