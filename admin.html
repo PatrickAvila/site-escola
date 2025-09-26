@@ -105,8 +105,8 @@
             <h2>Vídeos</h2>
             <form id="form-video" enctype="multipart/form-data" style="display: flex; align-items: center; gap: 10px;">
               <input type="text" id="nomeVideo" placeholder="Nome do vídeo" required />
-              <input type="file" id="arquivoVideo" accept="video/*" />
-              <input type="url" id="urlYoutube" placeholder="URL do YouTube" />
+              <input type="file" id="arquivoVideo" accept="video/*" class="oculto-upload" />
+              <input type="url" id="urlYoutube" placeholder="URL do YouTube" required />
               <button type="submit" class="btn">Adicionar Vídeo</button>
             </form>
             <div class="ordenacao-container">
@@ -921,6 +921,7 @@
       const formData = new FormData();
       formData.append('nome', nomeVideo.value);
 
+      // O campo de arquivo está oculto, mas o código permanece
       if (arquivoVideo.files[0]) {
         formData.append('video', arquivoVideo.files[0]);
       }

@@ -58,17 +58,29 @@
         menuBtn.addEventListener('click', () => {
             menuList.classList.toggle('show');
         });
-        document.addEventListener('click', function (e) {
-            if (window.innerWidth <= 900 && !menuBtn.contains(e.target) && !menuList.contains(e.target)) {
-                menuList.classList.remove('show');
-            }
-        });
-
-        // Simulação de envio de contato
-        document.getElementById('form-contato').addEventListener('submit', function (e) {
+        document.querySelector('form').addEventListener('submit', function (e) {
             e.preventDefault();
-            document.getElementById('msg-contato').textContent = "Mensagem enviada! Em breve entraremos em contato.";
-            this.reset();
+            const nome = this.nome.value;
+            const email = this.email.value;
+            const mensagem = this.mensagem.value;
+
+            fetch(`${API_URL}/contato`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ nome, email, mensagem })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById('msg-contato').textContent = 'Mensagem enviada! Em breve entraremos em contato.';
+                        this.reset();
+                    } else {
+                        document.getElementById('msg-contato').textContent = 'Erro ao enviar mensagem. Tente novamente.';
+                    }
+                })
+                .catch(() => {
+                    document.getElementById('msg-contato').textContent = 'Erro ao enviar mensagem. Tente novamente.';
+                });
         });
     </script>
 </body>

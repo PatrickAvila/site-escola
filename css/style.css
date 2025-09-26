@@ -951,3 +951,7 @@ footer {
         height: 60px;
     }
 }
+
+.oculto-upload {
+  display: none;
+}
