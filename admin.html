@@ -64,6 +64,9 @@
                 <option value="asc">Mais antigo primeiro</option>
               </select>
             </div>
+            <div class="busca-container">
+              <input type="text" id="busca-avisos" placeholder="Buscar avisos..." />
+            </div>
             <div class="card-list" id="lista-avisos"></div>
           </div>
           <!-- Professores -->
@@ -82,6 +85,9 @@
                 <option value="asc">Mais antigo primeiro</option>
               </select>
             </div>
+            <div class="busca-container">
+              <input type="text" id="busca-professores" placeholder="Buscar professores..." />
+            </div>
             <div class="card-list" id="lista-professores"></div>
           </div>
           <!-- Galeria -->
@@ -98,6 +104,9 @@
                 <option value="asc">Mais antigo primeiro</option>
               </select>
             </div>
+            <div class="busca-container">
+              <input type="text" id="busca-galeria" placeholder="Buscar fotos..." />
+            </div>
             <div class="card-list" id="lista-galeria"></div>
           </div>
           <!-- Vídeos -->
@@ -107,6 +116,8 @@
               <input type="text" id="nomeVideo" placeholder="Nome do vídeo" required />
               <input type="file" id="arquivoVideo" accept="video/*" class="oculto-upload" />
               <input type="url" id="urlYoutube" placeholder="URL do YouTube" required />
+              <textarea id="descricaoVideo" name="descricao" placeholder="Descrição (opcional, 500 chars)"
+                maxlength="500"></textarea>
               <button type="submit" class="btn">Adicionar Vídeo</button>
             </form>
             <div class="ordenacao-container">
@@ -115,6 +126,9 @@
                 <option value="desc">Mais novo primeiro</option>
                 <option value="asc">Mais antigo primeiro</option>
               </select>
+            </div>
+            <div class="busca-container">
+              <input type="text" id="busca-videos" placeholder="Buscar vídeos..." />
             </div>
             <div class="card-list" id="lista-videos"></div>
           </div>
@@ -143,6 +157,9 @@
                 <option value="desc">Mais novo primeiro</option>
                 <option value="asc">Mais antigo primeiro</option>
               </select>
+            </div>
+            <div class="busca-container">
+              <input type="text" id="busca-destaques" placeholder="Buscar destaques..." />
             </div>
             <div id="lista-destaques-admin"></div>
           </div>
@@ -319,6 +336,10 @@
     const listaAvisos = document.getElementById('lista-avisos');
     const ordenacaoAvisos = document.getElementById('ordenacao-avisos');
     ordenacaoAvisos.addEventListener('change', carregarAvisos);
+    const buscaAvisos = document.getElementById('busca-avisos');
+    buscaAvisos.addEventListener('input', function () {
+      carregarAvisos();
+    });
 
     function carregarAvisos() {
       fetch(`${API_URL}/avisos`)
@@ -329,7 +350,16 @@
           if (ordenacaoAvisos.value === 'desc') {
             avisosOrdenados = avisosOrdenados.slice().reverse();
           }
+          // FILTRO DE BUSCA
+          const filtro = buscaAvisos.value.trim().toLowerCase();
+          if (filtro) {
+            avisosOrdenados = avisosOrdenados.filter(aviso =>
+              (aviso.titulo && aviso.titulo.toLowerCase().includes(filtro)) ||
+              (aviso.texto && aviso.texto.toLowerCase().includes(filtro))
+            );
+          }
           avisosOrdenados.forEach(aviso => {
+            // ...restante do seu código para montar os cards...
             const card = document.createElement('div');
             card.className = 'card';
 
@@ -424,11 +454,17 @@
       }
     };
 
+
+
     // CRUD Professores
     const formProfessores = document.getElementById('form-professores');
     const listaProfessores = document.getElementById('lista-professores');
     const ordenacaoProfessores = document.getElementById('ordenacao-professores');
     ordenacaoProfessores.addEventListener('change', carregarProfessores);
+    const buscaProfessores = document.getElementById('busca-professores');
+    buscaProfessores.addEventListener('input', function () {
+      carregarProfessores();
+    });
 
     function carregarProfessores() {
       fetch(`${API_URL}/professores`)
@@ -438,6 +474,14 @@
           let profsOrdenados = [...data];
           if (ordenacaoProfessores.value === 'desc') {
             profsOrdenados = profsOrdenados.slice().reverse();
+          }
+          // FILTRO DE BUSCA
+          const filtro = buscaProfessores.value.trim().toLowerCase();
+          if (filtro) {
+            profsOrdenados = profsOrdenados.filter(prof =>
+              (prof.nome && prof.nome.toLowerCase().includes(filtro)) ||
+              (prof.disciplina && prof.disciplina.toLowerCase().includes(filtro))
+            );
           }
           profsOrdenados.forEach(prof => {
             const card = document.createElement('div');
@@ -541,6 +585,11 @@
     ordenacaoGaleria.addEventListener('change', carregarGaleria);
 
 
+    const buscaGaleria = document.getElementById('busca-galeria');
+    buscaGaleria.addEventListener('input', function () {
+      carregarGaleria();
+    });
+
     function carregarGaleria() {
       fetch(`${API_URL}/galeria`)
         .then(res => res.json())
@@ -549,6 +598,13 @@
           let imagensOrdenadas = [...data];
           if (ordenacaoGaleria.value === 'desc') {
             imagensOrdenadas = imagensOrdenadas.slice().reverse();
+          }
+          // FILTRO DE BUSCA
+          const filtro = buscaGaleria.value.trim().toLowerCase();
+          if (filtro) {
+            imagensOrdenadas = imagensOrdenadas.filter(img =>
+              img.nome && img.nome.toLowerCase().includes(filtro)
+            );
           }
           imagensOrdenadas.forEach(img => {
             const card = document.createElement('div');
@@ -673,6 +729,10 @@
     const listaDestaquesAdmin = document.getElementById('lista-destaques-admin');
     const ordenacaoDestaques = document.getElementById('ordenacao-destaques');
     ordenacaoDestaques.addEventListener('change', carregarDestaquesAdmin);
+    const buscaDestaques = document.getElementById('busca-destaques');
+    buscaDestaques.addEventListener('input', function () {
+      carregarDestaquesAdmin();
+    });
 
 
     function carregarDestaquesAdmin() {
@@ -684,6 +744,13 @@
           let destaquesOrdenados = [...destaques];
           if (ordenacaoDestaques.value === 'desc') {
             destaquesOrdenados = destaquesOrdenados.slice().reverse();
+          }
+          // FILTRO DE BUSCA
+          const filtro = buscaDestaques.value.trim().toLowerCase();
+          if (filtro) {
+            destaquesOrdenados = destaquesOrdenados.filter(item =>
+              (item.texto && item.texto.toLowerCase().includes(filtro))
+            );
           }
           destaquesOrdenados.forEach((item, idx) => {
             const card = document.createElement('div');
@@ -863,6 +930,11 @@
       return (match && match[2].length === 11) ? match[2] : '';
     }
 
+    const buscaVideos = document.getElementById('busca-videos');
+    buscaVideos.addEventListener('input', function () {
+      carregarVideos();
+    });
+
     function carregarVideos() {
       fetch(`${API_URL}/videos`)
         .then(res => res.json())
@@ -871,6 +943,13 @@
           let videosOrdenados = [...videos];
           if (ordenacaoVideos.value === 'desc') {
             videosOrdenados = videosOrdenados.slice().reverse();
+          }
+          // FILTRO DE BUSCA
+          const filtro = buscaVideos.value.trim().toLowerCase();
+          if (filtro) {
+            videosOrdenados = videosOrdenados.filter(video =>
+              video.nome && video.nome.toLowerCase().includes(filtro)
+            );
           }
           videosOrdenados.forEach(video => {
             const card = document.createElement('div');
@@ -940,6 +1019,40 @@
           carregarVideos();
           mostrarMensagem('Vídeo adicionado com sucesso!');
         });
+    });
+
+    document.getElementById('form-video').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const form = new FormData();
+      const nome = document.getElementById('nomeVideo').value.trim();
+      const arquivo = document.getElementById('arquivoVideo').files[0];
+      const youtube = document.getElementById('youtubeVideo').value.trim();
+      const descricao = document.getElementById('descricaoVideo').value.trim();
+
+      if (!nome) return alert('Informe o nome do vídeo.');
+
+      form.append('nome', nome);
+      if (arquivo) form.append('video', arquivo);
+      if (youtube) form.append('youtube', youtube);
+      if (descricao) form.append('descricao', descricao);
+
+      const token = localStorage.getItem('token'); // ou onde você guarda o token
+      const res = await fetch(`${API_URL}/videos`, {
+        method: 'POST',
+        headers: token ? { 'Authorization': 'Bearer ' + token } : {},
+        body: form
+      });
+      const data = await res.json();
+      if (res.ok) {
+        // sucesso: atualizar lista / mostrar notificação
+        alert('Vídeo cadastrado');
+        // chamar função para recarregar lista de vídeos no admin se tiver
+        carregarVideosAdmin && carregarVideosAdmin();
+        this.reset();
+      } else {
+        console.error(data);
+        alert(data.error || 'Erro ao adicionar vídeo');
+      }
     });
 
   </script>

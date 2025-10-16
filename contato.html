@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contato - Escola Antonio Austregésio</title>
     <link rel="stylesheet" href="css/style.css" />
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
 <body>
@@ -38,6 +39,7 @@
                 <input type="text" name="nome" placeholder="Seu nome" required />
                 <input type="email" name="email" placeholder="Seu e-mail" required />
                 <textarea name="mensagem" rows="4" placeholder="Sua mensagem" required></textarea>
+                <div class="g-recaptcha" data-sitekey="6LfPO-krAAAAAGqHieXJaL5A2IQsdH_LInl9Bs34"></div>
                 <button type="submit">Enviar</button>
             </form>
             <div class="contato-info">
@@ -45,7 +47,7 @@
                 <strong>E-mail:</strong> contato@escolaaustregesio.com.br<br>
                 <strong>Endereço:</strong> Rua das Flores, 123 - Centro, Cidade/UF
             </div>
-            <div id="msg-contato" style="margin-top:12px;color:#0059b3;"></div>
+            <div id="msg-contato"></div>
         </section>
     </main>
     <footer>
@@ -58,29 +60,61 @@
         menuBtn.addEventListener('click', () => {
             menuList.classList.toggle('show');
         });
-        document.querySelector('form').addEventListener('submit', function (e) {
-            e.preventDefault();
-            const nome = this.nome.value;
-            const email = this.email.value;
-            const mensagem = this.mensagem.value;
 
-            fetch(`${API_URL}/contato`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ nome, email, mensagem })
-            })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.success) {
-                        document.getElementById('msg-contato').textContent = 'Mensagem enviada! Em breve entraremos em contato.';
-                        this.reset();
-                    } else {
-                        document.getElementById('msg-contato').textContent = 'Erro ao enviar mensagem. Tente novamente.';
-                    }
+        // Função para mostrar alerta estilizado
+        function mostrarAlertaContato(msg, tipo = 'sucesso') {
+            const msgDiv = document.getElementById('msg-contato');
+            msgDiv.innerHTML = `
+        <div class="alert-overlay"></div>
+        <div class="alert-contato ${tipo === 'sucesso' ? '' : 'alert-erro'}" tabindex="0">
+            <button class="alert-close" aria-label="Fechar aviso" onclick="fecharAlertaContato()">&times;</button>
+            <span class="alert-msg">${msg}</span>
+        </div>
+    `;
+            document.querySelector('.alert-contato').focus();
+            document.body.style.overflow = 'hidden';
+        }
+
+        function fecharAlertaContato() {
+            document.getElementById('msg-contato').innerHTML = '';
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('form-contato');
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const nome = this.nome.value;
+                const email = this.email.value;
+                const mensagem = this.mensagem.value;
+                const recaptchaToken = grecaptcha.getResponse();
+
+                if (!recaptchaToken) {
+                    mostrarAlertaContato('Por favor, marque o reCAPTCHA.', 'erro');
+                    return;
+                }
+
+                fetch(`${API_URL}/contato`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nome, email, mensagem, recaptchaToken })
                 })
-                .catch(() => {
-                    document.getElementById('msg-contato').textContent = 'Erro ao enviar mensagem. Tente novamente.';
-                });
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.success) {
+                            form.reset();
+                            grecaptcha.reset();
+                            setTimeout(() => {
+                                mostrarAlertaContato('Mensagem enviada! Em breve entraremos em contato.', 'sucesso');
+                            }, 100);
+                        } else {
+                            mostrarAlertaContato(data.error || 'Erro ao enviar mensagem. Tente novamente.', 'erro');
+                        }
+                    })
+                    .catch(() => {
+                        mostrarAlertaContato('Erro ao enviar mensagem. Tente novamente.', 'erro');
+                    });
+            });
         });
     </script>
 </body>

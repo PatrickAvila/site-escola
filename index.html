@@ -8,7 +8,7 @@
     <meta name="description"
         content="Site oficial da Escola Antonio Austregésio. Informações sobre matrículas, avisos, professores e eventos." />
     <title>Escola Antonio Austregésio</title>
-    <link rel="stylesheet" href="css/style.css" />  
+    <link rel="stylesheet" href="css/style.css" />
 </head>
 
 <body>
@@ -34,7 +34,8 @@
         </nav>
     </header>
     <main>
-        <section class="info-rapida">
+        <!-- Tirar comentários quando começar o periodo de rematricula -->
+        <!-- <section class="info-rapida">
             <span class="icon">📢</span>
             <div>
                 <strong>Matrículas abertas para 2025!</strong><br>
@@ -43,15 +44,22 @@
                     style="color:#0059b3;text-decoration:underline;">Clique aqui</a><br>
                 Endereço: Rua das Flores, 123 - Centro, Cidade/UF
             </div>
-        </section>
+        </section> -->
         <section class="destaques" aria-labelledby="destaques">
             <h3 id="destaques">Destaques</h3>
             <div class="destaque-cards" id="destaque-cards"></div>
         </section>
         <section class="videos">
-            <h3>Vídeos da Escola</h3>
-            <div class="video-grid" id="video-grid"></div>
-        </section>
+  <h3>Vídeos da Escola</h3>
+
+  <div class="video-carousel" id="video-carousel">
+    <button class="carousel-btn carousel-prev" aria-label="Anterior">&#10094;</button>
+    <div class="carousel-viewport">
+      <div class="carousel-track" id="video-track"></div>
+    </div>
+    <button class="carousel-btn carousel-next" aria-label="Próximo">&#10095;</button>
+  </div>
+</section>
         <section class="depoimentos">
             <h3>Depoimentos</h3>
             <div class="depoimento">"A escola mudou a vida do meu filho, só tenho a agradecer!"<br><strong>- Maria, mãe
@@ -100,54 +108,127 @@
                     lista.appendChild(li);
                 });
             });
-        fetch(`${API_URL}/videos`)
-            .then(res => res.json())
-            .then(videos => {
-                const grid = document.getElementById('video-grid');
-                // Adicione os vídeos fixos do YouTube
-                const videosFixos = [
-                    //"2Vv-BfVoq4g",
-                    //"3fumBcKC6RE",
-                    //"5qap5aO4i9A"
-                ];
-                videosFixos.forEach(id => {
-                    const iframe = document.createElement('iframe');
-                    iframe.src = `https://www.youtube.com/embed/${id}`;
-                    iframe.title = "Vídeo Institucional";
-                    iframe.allowFullscreen = true;
-                    grid.appendChild(iframe);
-                });
-
-                // Adicione os vídeos cadastrados pelo admin
-                videos.forEach(video => {
-                    if (video.url.includes('youtube.com') || video.url.includes('youtu.be')) {
-                        // YouTube embed
-                        const youtubeId = extrairIdYoutube(video.url);
-                        if (youtubeId) {
-                            const iframe = document.createElement('iframe');
-                            iframe.src = `https://www.youtube.com/embed/${youtubeId}`;
-                            iframe.title = video.nome;
-                            iframe.allowFullscreen = true;
-                            grid.appendChild(iframe);
-                        }
-                    } else {
-                        // Vídeo enviado
-                        const videoElem = document.createElement('video');
-                        videoElem.src = video.url;
-                        videoElem.controls = true;
-                        videoElem.style = "width:320px;height:180px;border-radius:10px;box-shadow:0 2px 8px #0001;background:#000;margin:8px 0;";
-                        grid.appendChild(videoElem);
-                    }
-                });
-            });
-
-        // Função para extrair ID do YouTube
-        function extrairIdYoutube(url) {
-            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-            const match = url.match(regExp);
-            return (match && match[2].length === 11) ? match[2] : '';
+        // Função auxiliar para escapar HTML
+        function escapeHtml(str) {
+            return String(str || '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
         }
-    </script>
+
+        function extrairIdYoutube(url) {
+            if (!url || typeof url !== 'string') return null;
+            // regex que captura o ID de 11 caracteres
+            const m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|v\/|.+\bv=))([A-Za-z0-9_-]{11})/);
+            return m ? m[1] : null;
+        }
+
+        // Carrega e renderiza os vídeos em cards (com descrição)
+        async function carregarVideosPublico() {
+    const res = await fetch(`${API_URL}/videos`);
+    const videos = await res.json();
+    const track = document.getElementById('video-track');
+    track.innerHTML = '';
+
+    // monta slides
+    videos.forEach(v => {
+      const slide = document.createElement('div');
+      slide.className = 'carousel-slide';
+
+      let mediaHtml = '';
+      if (v.url && (v.url.includes('youtube.com') || v.url.includes('youtu.be'))) {
+        const youtubeId = extrairIdYoutube(v.url);
+        if (youtubeId) {
+          mediaHtml = `<iframe src="https://www.youtube.com/embed/${youtubeId}" title="${escapeHtml(v.nome)}" loading="lazy" frameborder="0" allowfullscreen></iframe>`;
+        } else {
+          mediaHtml = `<iframe src="${escapeHtml(v.url)}" title="${escapeHtml(v.nome)}" loading="lazy" frameborder="0" allowfullscreen></iframe>`;
+        }
+      } else {
+        mediaHtml = `<video controls preload="metadata" src="${escapeHtml(v.url)}"></video>`;
+      }
+
+      slide.innerHTML = `
+        <div class="video-media">${mediaHtml}</div>
+        <h4 class="video-title">${escapeHtml(v.nome)}</h4>
+        ${v.descricao ? `<p class="video-desc">${escapeHtml(v.descricao)}</p>` : ''}
+      `;
+      track.appendChild(slide);
+    });
+
+    initCarousel('#video-carousel', '#video-track');
+  }
+
+  // Carousel genérico (3/2/1 responsivo)
+  function initCarousel(carouselSelector, trackSelector) {
+    const carousel = document.querySelector(carouselSelector);
+    const track = document.querySelector(trackSelector);
+    const prevBtn = carousel.querySelector('.carousel-prev');
+    const nextBtn = carousel.querySelector('.carousel-next');
+    let slides = Array.from(track.children);
+    let slidesPerView = getSlidesPerView();
+    let index = 0;
+
+    function getSlidesPerView() {
+      const w = window.innerWidth;
+      if (w >= 1100) return 3;
+      if (w >= 700) return 2;
+      return 1;
+    }
+
+    function applySizes() {
+      slides = Array.from(track.children);
+      slidesPerView = getSlidesPerView();
+      slides.forEach(s => {
+        s.style.flex = `0 0 ${100 / slidesPerView}%`;
+      });
+      // garantir que index esteja no intervalo
+      index = Math.min(index, Math.max(0, slides.length - slidesPerView));
+      moveToIndex(index);
+      updateButtons();
+    }
+
+    function moveToIndex(i) {
+      const percent = (i * 100) / slidesPerView;
+      track.style.transform = `translateX(-${percent}%)`;
+    }
+
+    function updateButtons() {
+      prevBtn.disabled = index <= 0;
+      nextBtn.disabled = index >= Math.max(0, slides.length - slidesPerView);
+    }
+
+    prevBtn.onclick = () => {
+      index = Math.max(0, index - 1);
+      moveToIndex(index);
+      updateButtons();
+    };
+    nextBtn.onclick = () => {
+      index = Math.min(Math.max(0, slides.length - slidesPerView), index + 1);
+      moveToIndex(index);
+      updateButtons();
+    };
+
+    // teclado: ← e →
+    carousel.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') prevBtn.click();
+      if (e.key === 'ArrowRight') nextBtn.click();
+    });
+
+    // recalcular em resize
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(applySizes, 120);
+    });
+
+    // inicializa
+    applySizes();
+  }
+
+  document.addEventListener('DOMContentLoaded', carregarVideosPublico);
+</script>
 </body>
 
 </html>
