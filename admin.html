@@ -2,19 +2,23 @@
 <html lang="pt-BR">
 
 <head>
-  <script src="js/config.js"></script>
+  <script src="js/config.js?v=20261101-2"></script>
+  <script src="js/site.js?v=20261101-2" defer></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard Admin - Escola Antônio Austregésio</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/style.css?v=20261101-2" />
 </head>
 
 <body>
   <header>
     <div class="menu-superior">
-      <img src="imagens/transferir.jpg" alt="Transferir" class="menu-img">
-      <h1 class="menu-titulo">Escola Antônio Austregésio</h1>
-      <img src="imagens/fundoMenu.png" alt="Prefeitura do Rio de Janeiro" class="menu-img">
+      <img src="imagens/transferir.jpg" alt="Logo do Ginásio Educacional Tecnológico" class="menu-img">
+      <h1 class="menu-titulo">Antônio Austregésio</h1>
+      <img src="imagens/fundoMenu.png" alt="Brasão e marca da Prefeitura do Rio de Janeiro" class="menu-img">
+    </div>
+    <div class="voltar-site">
+      <a href="index.html">&larr; Voltar ao site</a>
     </div>
   </header>
   <main>
@@ -34,16 +38,23 @@
       <div class="dashboard-layout">
         <!-- Sidebar lateral -->
         <aside class="dashboard-sidebar">
+          <div class="sidebar-brand">
+            <span class="sidebar-brand-icon">🏫</span>
+            <div>
+              <strong>Painel da Escola</strong>
+              <small>Administração do site</small>
+            </div>
+          </div>
           <nav>
             <ul>
-              <li><button class="sidebar-btn" data-section="avisos">Avisos</button></li>
-              <li><button class="sidebar-btn" data-section="professores">Professores</button></li>
-              <li><button class="sidebar-btn" data-section="galeria">Galeria</button></li>
-              <li><button class="sidebar-btn" data-section="videos">Vídeos</button></li>
-              <li><button class="sidebar-btn" data-section="destaques">Destaques</button></li>
-              <li><button class="sidebar-btn" data-section="quem-somos">Quem Somos</button></li>
-              <li><button class="sidebar-btn" data-section="alterar-senha">Alterar Senha</button></li>
-              <li><button id="logout-btn" class="sidebar-btn">Sair</button></li>
+              <li><button class="sidebar-btn active" data-section="avisos"><span class="icon">📢</span>Avisos</button></li>
+              <li><button class="sidebar-btn" data-section="professores"><span class="icon">👩‍🏫</span>Professores</button></li>
+              <li><button class="sidebar-btn" data-section="galeria"><span class="icon">🖼️</span>Galeria</button></li>
+              <li><button class="sidebar-btn" data-section="videos"><span class="icon">🎬</span>Vídeos</button></li>
+              <li><button class="sidebar-btn" data-section="destaques"><span class="icon">⭐</span>Destaques</button></li>
+              <li><button class="sidebar-btn" data-section="quem-somos"><span class="icon">🏫</span>Quem Somos</button></li>
+              <li><button class="sidebar-btn" data-section="alterar-senha"><span class="icon">🔑</span>Alterar Senha</button></li>
+              <li><button id="logout-btn" class="sidebar-btn sidebar-logout"><span class="icon">🚪</span>Sair</button></li>
             </ul>
           </nav>
         </aside>
@@ -51,10 +62,22 @@
         <section class="dashboard-content">
           <!-- Avisos -->
           <div id="section-avisos" class="dashboard-section">
-            <h2>Avisos</h2>
+            <div class="secao-cabecalho">
+              <span class="icone">📢</span>
+              <div>
+                <h2>Avisos <span class="contagem"></span></h2>
+                <p>Publique comunicados que aparecem na página de Avisos do site.</p>
+              </div>
+            </div>
             <form id="form-avisos">
-              <input type="text" name="titulo" placeholder="Título do aviso" required />
-              <textarea name="texto" placeholder="Texto do aviso" required></textarea>
+              <label class="campo">
+                <span>Título do aviso</span>
+                <input type="text" name="titulo" placeholder="Ex.: Reunião de pais e mestres" required />
+              </label>
+              <label class="campo">
+                <span>Texto do aviso</span>
+                <textarea name="texto" placeholder="Ex.: A reunião acontecerá na próxima sexta-feira..." required></textarea>
+              </label>
               <button type="submit" class="btn">Adicionar Aviso</button>
             </form>
             <div class="ordenacao-container">
@@ -71,11 +94,26 @@
           </div>
           <!-- Professores -->
           <div id="section-professores" class="dashboard-section" style="display:none;">
-            <h2>Professores</h2>
+            <div class="secao-cabecalho">
+              <span class="icone">👩‍🏫</span>
+              <div>
+                <h2>Professores <span class="contagem"></span></h2>
+                <p>Cadastre a equipe com nome, disciplina e foto (opcional).</p>
+              </div>
+            </div>
             <form id="form-professores">
-              <input type="text" name="nome" placeholder="Nome do professor" required />
-              <input type="text" name="disciplina" placeholder="Disciplina" required />
-              <input type="file" name="foto" accept="image/*" />
+              <label class="campo">
+                <span>Nome do professor</span>
+                <input type="text" name="nome" placeholder="Ex.: Maria Silva" required />
+              </label>
+              <label class="campo">
+                <span>Disciplina</span>
+                <input type="text" name="disciplina" placeholder="Ex.: Matemática" required />
+              </label>
+              <label class="campo">
+                <span>Foto <span class="dica">(opcional — JPG ou PNG, até 2 MB)</span></span>
+                <input type="file" name="foto" accept="image/jpeg,image/png" />
+              </label>
               <button type="submit" class="btn">Adicionar Professor</button>
             </form>
             <div class="ordenacao-container">
@@ -92,9 +130,18 @@
           </div>
           <!-- Galeria -->
           <div id="section-galeria" class="dashboard-section" style="display:none;">
-            <h2>Galeria</h2>
+            <div class="secao-cabecalho">
+              <span class="icone">🖼️</span>
+              <div>
+                <h2>Galeria <span class="contagem"></span></h2>
+                <p>Envie fotos dos momentos da escola (JPG ou PNG, até 2 MB).</p>
+              </div>
+            </div>
             <form id="form-galeria" enctype="multipart/form-data">
-              <input type="file" name="imagem" accept="image/*" required />
+              <label class="campo">
+                <span>Foto</span>
+                <input type="file" name="imagem" accept="image/jpeg,image/png" required />
+              </label>
               <button type="submit" class="btn">Adicionar Foto</button>
             </form>
             <div class="ordenacao-container">
@@ -111,13 +158,28 @@
           </div>
           <!-- Vídeos -->
           <div id="section-videos" class="dashboard-section" style="display:none;">
-            <h2>Vídeos</h2>
-            <form id="form-video" enctype="multipart/form-data" style="display: flex; align-items: center; gap: 10px;">
-              <input type="text" id="nomeVideo" placeholder="Nome do vídeo" required />
+            <div class="secao-cabecalho">
+              <span class="icone">🎬</span>
+              <div>
+                <h2>Vídeos <span class="contagem"></span></h2>
+                <p>Cole o link de um vídeo do YouTube para exibir na página inicial.</p>
+              </div>
+            </div>
+            <form id="form-video" enctype="multipart/form-data">
+              <label class="campo">
+                <span>Nome do vídeo</span>
+                <input type="text" id="nomeVideo" placeholder="Ex.: Festa junina" required />
+              </label>
+              <label class="campo">
+                <span>Link do YouTube <span class="dica">(copie o endereço da página do vídeo)</span></span>
+                <input type="url" id="urlYoutube" placeholder="https://www.youtube.com/watch?v=..." required />
+              </label>
+              <label class="campo">
+                <span>Descrição <span class="dica">(opcional)</span></span>
+                <textarea id="descricaoVideo" name="descricao"
+                  placeholder="Ex.: Apresentação dos alunos no encerramento do ano" maxlength="500"></textarea>
+              </label>
               <input type="file" id="arquivoVideo" accept="video/*" class="oculto-upload" />
-              <input type="url" id="urlYoutube" placeholder="URL do YouTube" required />
-              <textarea id="descricaoVideo" name="descricao" placeholder="Descrição (opcional, 500 chars)"
-                maxlength="500"></textarea>
               <button type="submit" class="btn">Adicionar Vídeo</button>
             </form>
             <div class="ordenacao-container">
@@ -134,21 +196,33 @@
           </div>
           <!-- Destaques -->
           <div id="section-destaques" class="dashboard-section" style="display:none;">
-            <h2>Destaques</h2>
-            <form id="form-destaque" style="display: flex; align-items: center; gap: 10px;">
-              <select id="novoIcone">
-                <option value="🎉">🎉</option>
-                <option value="📅">📅</option>
-                <option value="⭐">⭐</option>
-                <option value="📢">📢</option>
-                <option value="🏫">🏫</option>
-                <option value="📝">📝</option>
-                <option value="🎓">🎓</option>
-                <option value="🏆">🏆</option>
-                <option value="📷">📷</option>
-                <option value="💡">💡</option>
-              </select>
-              <input type="text" id="novoDestaque" placeholder="Novo destaque" required />
+            <div class="secao-cabecalho">
+              <span class="icone">⭐</span>
+              <div>
+                <h2>Destaques <span class="contagem"></span></h2>
+                <p>Pequenos cartões com ícone exibidos na página inicial.</p>
+              </div>
+            </div>
+            <form id="form-destaque">
+              <label class="campo">
+                <span>Ícone</span>
+                <select id="novoIcone">
+                  <option value="🎉">🎉</option>
+                  <option value="📅">📅</option>
+                  <option value="⭐">⭐</option>
+                  <option value="📢">📢</option>
+                  <option value="🏫">🏫</option>
+                  <option value="📝">📝</option>
+                  <option value="🎓">🎓</option>
+                  <option value="🏆">🏆</option>
+                  <option value="📷">📷</option>
+                  <option value="💡">💡</option>
+                </select>
+              </label>
+              <label class="campo">
+                <span>Texto do destaque</span>
+                <input type="text" id="novoDestaque" placeholder="Ex.: Feira de ciências no dia 15" required />
+              </label>
               <button type="submit" class="btn">Adicionar Destaque</button>
             </form>
             <div class="ordenacao-container">
@@ -165,17 +239,35 @@
           </div>
           <!-- Quem Somos -->
           <div id="section-quem-somos" class="dashboard-section" style="display:none;">
-            <h2>Quem Somos</h2>
+            <div class="secao-cabecalho">
+              <span class="icone">🏫</span>
+              <div>
+                <h2>Quem Somos</h2>
+                <p>Texto institucional exibido na página Quem Somos do site.</p>
+              </div>
+            </div>
             <form id="form-quem-somos">
-              <textarea id="textoQuemSomos" rows="4" style="width: 100%;" required></textarea>
+              <label class="campo">
+                <span>Texto da página</span>
+                <textarea id="textoQuemSomos" rows="6" required></textarea>
+              </label>
               <button type="submit" class="btn">Salvar Texto</button>
             </form>
           </div>
           <!-- Alterar Senha -->
           <div id="section-alterar-senha" class="dashboard-section" style="display:none;">
-            <h2>Alterar Senha do Admin</h2>
+            <div class="secao-cabecalho">
+              <span class="icone">🔑</span>
+              <div>
+                <h2>Alterar Senha</h2>
+                <p>Troque a senha de acesso ao painel.</p>
+              </div>
+            </div>
             <form id="form-alterar-senha">
-              <input type="password" id="novaSenha" placeholder="Nova senha" required minlength="6" />
+              <label class="campo">
+                <span>Nova senha <span class="dica">(mínimo 6 caracteres)</span></span>
+                <input type="password" id="novaSenha" placeholder="Digite a nova senha" required minlength="6" />
+              </label>
               <button type="submit" class="btn">Alterar Senha</button>
             </form>
           </div>
@@ -191,7 +283,7 @@
   </button>
   <div class="dashboard-overlay" id="dashboardOverlay"></div>
   <footer>
-    <p>&copy; 2025 Escola Antônio Austregésio</p>
+    <p>&copy; <span data-current-year></span> Escola Antônio Austregésio</p>
   </footer>
   <script>
     // Validação do token no back-end
@@ -244,7 +336,7 @@
           e.preventDefault();
           const novaSenha = document.getElementById('novaSenha').value;
           const token = localStorage.getItem('token');
-          fetch(`${API_URL}/alterar-senha`, {
+          fetchAdmin(`${API_URL}/alterar-senha`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -304,6 +396,32 @@
       setTimeout(() => { div.style.display = 'none'; }, 3000);
     }
 
+    async function fetchAdmin(url, options) {
+      try {
+        const response = await fetch(url, options);
+        if (response.ok) return response;
+
+        let data = {};
+        try {
+          data = await response.clone().json();
+        } catch { }
+        const error = new Error(data.error || data.errors?.[0]?.msg || 'Não foi possível concluir a solicitação.');
+        error.name = 'AdminApiError';
+        throw error;
+      } catch (error) {
+        if (error.name === 'AdminApiError') throw error;
+        const connectionError = new Error('Erro de conexão com o servidor.');
+        connectionError.name = 'AdminApiError';
+        throw connectionError;
+      }
+    }
+
+    window.addEventListener('unhandledrejection', function (event) {
+      if (event.reason?.name !== 'AdminApiError') return;
+      event.preventDefault();
+      mostrarMensagem(event.reason.message, 'erro');
+    });
+
     // Login JWT
     loginForm.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -342,10 +460,12 @@
     });
 
     function carregarAvisos() {
-      fetch(`${API_URL}/avisos`)
+      fetchAdmin(`${API_URL}/avisos`)
         .then(res => res.json())
         .then(data => {
           listaAvisos.innerHTML = '';
+          document.querySelector('#section-avisos .contagem').textContent =
+            data.length ? `${data.length} ${data.length === 1 ? 'cadastrado' : 'cadastrados'}` : '';
           let avisosOrdenados = [...data];
           if (ordenacaoAvisos.value === 'desc') {
             avisosOrdenados = avisosOrdenados.slice().reverse();
@@ -358,8 +478,11 @@
               (aviso.texto && aviso.texto.toLowerCase().includes(filtro))
             );
           }
+          if (!avisosOrdenados.length) {
+            listaAvisos.innerHTML = `<div class="vazio">${data.length === 0 ? 'Nenhum aviso cadastrado ainda. Adicione o primeiro no formulário acima.' : 'Nenhum aviso encontrado para esta busca.'}</div>`;
+            return;
+          }
           avisosOrdenados.forEach(aviso => {
-            // ...restante do seu código para montar os cards...
             const card = document.createElement('div');
             card.className = 'card';
 
@@ -371,21 +494,26 @@
             textoElem.textContent = aviso.texto;
             card.appendChild(textoElem);
 
+            const acoes = document.createElement('div');
+            acoes.className = 'acoes';
+
             const btnEditar = document.createElement('button');
-            btnEditar.className = 'btn';
+            btnEditar.className = 'btn btn-editar';
             btnEditar.textContent = 'Editar';
             btnEditar.onclick = function () {
               editarAviso(aviso._id, aviso.titulo, aviso.texto);
             };
-            card.appendChild(btnEditar);
+            acoes.appendChild(btnEditar);
 
             const btnExcluir = document.createElement('button');
-            btnExcluir.className = 'btn';
+            btnExcluir.className = 'btn btn-perigo';
             btnExcluir.textContent = 'Excluir';
             btnExcluir.onclick = function () {
               excluirAviso(aviso._id);
             };
-            card.appendChild(btnExcluir);
+            acoes.appendChild(btnExcluir);
+
+            card.appendChild(acoes);
 
             listaAvisos.appendChild(card);
           });
@@ -398,7 +526,7 @@
       const texto = formAvisos.texto.value;
       const token = localStorage.getItem('token');
       if (formAvisos.dataset.editando) {
-        fetch(`${API_URL}/avisos/${formAvisos.dataset.editando}`, {
+        fetchAdmin(`${API_URL}/avisos/${formAvisos.dataset.editando}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -415,7 +543,7 @@
             mostrarMensagem('Aviso editado com sucesso!');
           });
       } else {
-        fetch(`${API_URL}/avisos`, {
+        fetchAdmin(`${API_URL}/avisos`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -442,7 +570,7 @@
     window.excluirAviso = function (id) {
       const token = localStorage.getItem('token');
       if (confirm('Deseja realmente excluir este aviso?')) {
-        fetch(`${API_URL}/avisos/${id}`, {
+        fetchAdmin(`${API_URL}/avisos/${id}`, {
           method: 'DELETE',
           headers: { 'Authorization': 'Bearer ' + token }
         })
@@ -467,10 +595,12 @@
     });
 
     function carregarProfessores() {
-      fetch(`${API_URL}/professores`)
+      fetchAdmin(`${API_URL}/professores`)
         .then(res => res.json())
         .then(data => {
           listaProfessores.innerHTML = '';
+          document.querySelector('#section-professores .contagem').textContent =
+            data.length ? `${data.length} ${data.length === 1 ? 'cadastrado' : 'cadastrados'}` : '';
           let profsOrdenados = [...data];
           if (ordenacaoProfessores.value === 'desc') {
             profsOrdenados = profsOrdenados.slice().reverse();
@@ -483,13 +613,24 @@
               (prof.disciplina && prof.disciplina.toLowerCase().includes(filtro))
             );
           }
+          if (!profsOrdenados.length) {
+            listaProfessores.innerHTML = `<div class="vazio">${data.length === 0 ? 'Nenhum professor cadastrado ainda. Adicione o primeiro no formulário acima.' : 'Nenhum professor encontrado para esta busca.'}</div>`;
+            return;
+          }
           profsOrdenados.forEach(prof => {
             const card = document.createElement('div');
             card.className = 'card';
 
             const foto = document.createElement('img');
-            foto.src = prof.foto ? prof.foto : 'imagens/professor-generico.png';
-            foto.alt = `Foto de ${prof.nome || ''}`;
+            const fallbackFoto = 'imagens/fundoProfessor.png';
+            foto.src = prof.foto || fallbackFoto;
+            foto.alt = prof.foto ? `Foto de ${prof.nome || 'professor'}` : 'Foto genérica de professor';
+            foto.loading = 'lazy';
+            foto.onerror = () => {
+              foto.onerror = null;
+              foto.src = fallbackFoto;
+              foto.alt = 'Foto genérica de professor';
+            };
             foto.className = 'foto-prof';
             foto.style = "width:60px;height:60px;border-radius:50%;object-fit:cover;margin-bottom:8px;";
             card.appendChild(foto);
@@ -502,21 +643,26 @@
             disciplinaElem.textContent = prof.disciplina || '';
             card.appendChild(disciplinaElem);
 
+            const acoes = document.createElement('div');
+            acoes.className = 'acoes';
+
             const btnEditar = document.createElement('button');
-            btnEditar.className = 'btn';
+            btnEditar.className = 'btn btn-editar';
             btnEditar.textContent = 'Editar';
             btnEditar.onclick = function () {
               editarProfessor(prof._id, prof.nome || '', prof.disciplina || '');
             };
-            card.appendChild(btnEditar);
+            acoes.appendChild(btnEditar);
 
             const btnExcluir = document.createElement('button');
-            btnExcluir.className = 'btn';
+            btnExcluir.className = 'btn btn-perigo';
             btnExcluir.textContent = 'Excluir';
             btnExcluir.onclick = function () {
               excluirProfessor(prof._id);
             };
-            card.appendChild(btnExcluir);
+            acoes.appendChild(btnExcluir);
+
+            card.appendChild(acoes);
 
             listaProfessores.appendChild(card);
           });
@@ -528,7 +674,7 @@
       const formData = new FormData(formProfessores);
       const token = localStorage.getItem('token');
       if (formProfessores.dataset.editando) {
-        fetch(`${API_URL}/professores/${formProfessores.dataset.editando}`, {
+        fetchAdmin(`${API_URL}/professores/${formProfessores.dataset.editando}`, {
           method: 'PUT',
           headers: { 'Authorization': 'Bearer ' + token },
           body: formData
@@ -542,7 +688,7 @@
             mostrarMensagem('Professor editado com sucesso!');
           });
       } else {
-        fetch(`${API_URL}/professores`, {
+        fetchAdmin(`${API_URL}/professores`, {
           method: 'POST',
           headers: { 'Authorization': 'Bearer ' + token },
           body: formData
@@ -566,7 +712,7 @@
     window.excluirProfessor = function (id) {
       const token = localStorage.getItem('token');
       if (confirm('Deseja realmente excluir este professor?')) {
-        fetch(`${API_URL}/professores/${id}`, {
+        fetchAdmin(`${API_URL}/professores/${id}`, {
           method: 'DELETE',
           headers: { 'Authorization': 'Bearer ' + token }
         })
@@ -591,10 +737,12 @@
     });
 
     function carregarGaleria() {
-      fetch(`${API_URL}/galeria`)
+      fetchAdmin(`${API_URL}/galeria`)
         .then(res => res.json())
         .then(data => {
           listaGaleria.innerHTML = '';
+          document.querySelector('#section-galeria .contagem').textContent =
+            data.length ? `${data.length} ${data.length === 1 ? 'foto' : 'fotos'}` : '';
           let imagensOrdenadas = [...data];
           if (ordenacaoGaleria.value === 'desc') {
             imagensOrdenadas = imagensOrdenadas.slice().reverse();
@@ -605,6 +753,10 @@
             imagensOrdenadas = imagensOrdenadas.filter(img =>
               img.nome && img.nome.toLowerCase().includes(filtro)
             );
+          }
+          if (!imagensOrdenadas.length) {
+            listaGaleria.innerHTML = `<div class="vazio">${data.length === 0 ? 'Nenhuma foto enviada ainda. Envie a primeira no formulário acima.' : 'Nenhuma foto encontrada para esta busca.'}</div>`;
+            return;
           }
           imagensOrdenadas.forEach(img => {
             const card = document.createElement('div');
@@ -623,9 +775,13 @@
             inputNome.style = "margin:5px 0; width:100%;";
             card.appendChild(inputNome);
 
+            // Ações do cartão
+            const acoes = document.createElement('div');
+            acoes.className = 'acoes';
+
             // Botão Editar
             const btnEditar = document.createElement('button');
-            btnEditar.className = 'btn';
+            btnEditar.className = 'btn btn-editar';
             btnEditar.textContent = 'Editar';
             btnEditar.onclick = function () {
               inputNome.disabled = false;
@@ -633,7 +789,7 @@
               btnEditar.style.display = 'none';
               btnSalvar.style.display = 'inline-block';
             };
-            card.appendChild(btnEditar);
+            acoes.appendChild(btnEditar);
 
             // Botão Salvar
             const btnSalvar = document.createElement('button');
@@ -642,7 +798,7 @@
             btnSalvar.style.display = 'none';
             btnSalvar.onclick = function () {
               btnSalvar.disabled = true;
-              fetch(`${API_URL}/galeria/${img._id}`, {
+              fetchAdmin(`${API_URL}/galeria/${img._id}`, {
                 method: 'PUT',
                 headers: {
                   'Content-Type': 'application/json',
@@ -659,16 +815,18 @@
                   mostrarMensagem('Nome da imagem atualizado com sucesso!');
                 });
             };
-            card.appendChild(btnSalvar);
+            acoes.appendChild(btnSalvar);
 
             // Botão Excluir
             const btnExcluir = document.createElement('button');
-            btnExcluir.className = 'btn';
+            btnExcluir.className = 'btn btn-perigo';
             btnExcluir.textContent = 'Excluir';
             btnExcluir.onclick = function () {
               excluirImagem(img._id);
             };
-            card.appendChild(btnExcluir);
+            acoes.appendChild(btnExcluir);
+
+            card.appendChild(acoes);
 
             listaGaleria.appendChild(card);
           });
@@ -679,22 +837,24 @@
       e.preventDefault();
       const formData = new FormData(formGaleria);
       const token = localStorage.getItem('token');
-      fetch(`${API_URL}/galeria`, {
+      fetchAdmin(`${API_URL}/galeria`, {
         method: 'POST',
         headers: { 'Authorization': 'Bearer ' + token },
         body: formData
       })
-        .then(res => res.json())
-        .then(() => {
+        .then(async res => {
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.error || 'Erro ao adicionar imagem.');
           formGaleria.reset();
           carregarGaleria();
           mostrarMensagem('Imagem adicionada com sucesso!');
-        });
+        })
+        .catch(error => mostrarMensagem(error.message || 'Erro ao adicionar imagem.', 'erro'));
     });
 
     window.editarNomeImagem = function (id, novoNome) {
       const token = localStorage.getItem('token');
-      fetch(`${API_URL}/galeria/${id}`, {
+      fetchAdmin(`${API_URL}/galeria/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -712,7 +872,7 @@
     window.excluirImagem = function (id) {
       const token = localStorage.getItem('token');
       if (confirm('Deseja realmente excluir esta imagem?')) {
-        fetch(`${API_URL}/galeria/${id}`, {
+        fetchAdmin(`${API_URL}/galeria/${id}`, {
           method: 'DELETE',
           headers: { 'Authorization': 'Bearer ' + token }
         })
@@ -736,10 +896,12 @@
 
 
     function carregarDestaquesAdmin() {
-      fetch(`${API_URL}/destaques`)
+      fetchAdmin(`${API_URL}/destaques`)
         .then(res => res.json())
         .then(destaques => {
           listaDestaquesAdmin.innerHTML = '';
+          document.querySelector('#section-destaques .contagem').textContent =
+            destaques.length ? `${destaques.length} ${destaques.length === 1 ? 'cadastrado' : 'cadastrados'}` : '';
           const icons = ['🎉', '📅', '⭐', '📢', '🏫', '📝', '🎓', '🏆', '📷', '💡'];
           let destaquesOrdenados = [...destaques];
           if (ordenacaoDestaques.value === 'desc') {
@@ -752,6 +914,10 @@
               (item.texto && item.texto.toLowerCase().includes(filtro))
             );
           }
+          if (!destaquesOrdenados.length) {
+            listaDestaquesAdmin.innerHTML = `<div class="vazio">${destaques.length === 0 ? 'Nenhum destaque cadastrado ainda. Adicione o primeiro no formulário acima.' : 'Nenhum destaque encontrado para esta busca.'}</div>`;
+            return;
+          }
           destaquesOrdenados.forEach((item, idx) => {
             const card = document.createElement('div');
             card.className = 'card';
@@ -760,7 +926,7 @@
 
             const iconElem = document.createElement('span');
             iconElem.className = 'icon';
-            iconElem.textContent = icons[idx % icons.length];
+            iconElem.textContent = item.icone || icons[idx % icons.length];
             iconElem.style = "font-size:1.5em;flex-shrink:0;";
             card.appendChild(iconElem);
 
@@ -799,7 +965,7 @@
       const texto = document.getElementById('novoDestaque').value;
       const icone = document.getElementById('novoIcone').value;
       const token = localStorage.getItem('token');
-      fetch(`${API_URL}/destaques`, {
+      fetchAdmin(`${API_URL}/destaques`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -828,7 +994,7 @@
       const input = document.getElementById(`destaque-input-${id}`);
       const texto = input.value;
       const token = localStorage.getItem('token');
-      fetch(`${API_URL}/destaques/${id}`, {
+      fetchAdmin(`${API_URL}/destaques/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -846,7 +1012,7 @@
     window.excluirDestaque = function (id) {
       const token = localStorage.getItem('token');
       if (confirm('Deseja realmente excluir este destaque?')) {
-        fetch(`${API_URL}/destaques/${id}`, {
+        fetchAdmin(`${API_URL}/destaques/${id}`, {
           method: 'DELETE',
           headers: { 'Authorization': 'Bearer ' + token }
         })
@@ -863,7 +1029,7 @@
     const textoQuemSomos = document.getElementById('textoQuemSomos');
 
     function carregarQuemSomosAdmin() {
-      fetch(`${API_URL}/quem-somos`)
+      fetchAdmin(`${API_URL}/quem-somos`)
         .then(res => res.json())
         .then(data => {
           textoQuemSomos.value = data.texto;
@@ -874,7 +1040,7 @@
       e.preventDefault();
       const texto = textoQuemSomos.value;
       const token = localStorage.getItem('token');
-      fetch(`${API_URL}/quem-somos`, {
+      fetchAdmin(`${API_URL}/quem-somos`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -936,12 +1102,14 @@
     });
 
     function carregarVideos() {
-      fetch(`${API_URL}/videos`)
+      fetchAdmin(`${API_URL}/videos`)
         .then(res => res.json())
         .then(videos => {
           listaVideos.innerHTML = '';
+          document.querySelector('#section-videos .contagem').textContent =
+            videos.length ? `${videos.length} ${videos.length === 1 ? 'vídeo' : 'vídeos'}` : '';
           let videosOrdenados = [...videos];
-          if (ordenacaoVideos.value === 'desc') {
+          if (ordenacaoVideos.value === 'asc') {
             videosOrdenados = videosOrdenados.slice().reverse();
           }
           // FILTRO DE BUSCA
@@ -951,9 +1119,13 @@
               video.nome && video.nome.toLowerCase().includes(filtro)
             );
           }
+          if (!videosOrdenados.length) {
+            listaVideos.innerHTML = `<div class="vazio">${videos.length === 0 ? 'Nenhum vídeo cadastrado ainda. Adicione o primeiro no formulário acima.' : 'Nenhum vídeo encontrado para esta busca.'}</div>`;
+            return;
+          }
           videosOrdenados.forEach(video => {
             const card = document.createElement('div');
-            card.className = 'card'; // Use a mesma classe das outras abas
+            card.className = 'card';
 
             const nomeElem = document.createElement('strong');
             nomeElem.textContent = video.nome;
@@ -978,81 +1150,68 @@
               card.appendChild(videoElem);
             }
 
+            const acoes = document.createElement('div');
+            acoes.className = 'acoes';
+
             const btnExcluir = document.createElement('button');
-            btnExcluir.className = 'btn';
+            btnExcluir.className = 'btn btn-perigo';
             btnExcluir.textContent = 'Excluir';
             btnExcluir.onclick = function () {
-              fetch(`${API_URL}/videos/${video._id}`, {
+              fetchAdmin(`${API_URL}/videos/${video._id}`, {
                 method: 'DELETE',
                 headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
               })
                 .then(() => carregarVideos());
             };
-            card.appendChild(btnExcluir);
+            acoes.appendChild(btnExcluir);
+            card.appendChild(acoes);
 
             listaVideos.appendChild(card);
           });
         });
     }
 
-    formVideo.addEventListener('submit', function (e) {
+    formVideo.addEventListener('submit', async function (e) {
       e.preventDefault();
-      const formData = new FormData();
-      formData.append('nome', nomeVideo.value);
-
-      // O campo de arquivo está oculto, mas o código permanece
-      if (arquivoVideo.files[0]) {
-        formData.append('video', arquivoVideo.files[0]);
-      }
-      if (urlYoutube.value.trim()) {
-        formData.append('youtube', urlYoutube.value.trim());
-      }
-
-      fetch(`${API_URL}/videos`, {
-        method: 'POST',
-        headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') },
-        body: formData
-      })
-        .then(res => res.json())
-        .then(() => {
-          formVideo.reset();
-          carregarVideos();
-          mostrarMensagem('Vídeo adicionado com sucesso!');
-        });
-    });
-
-    document.getElementById('form-video').addEventListener('submit', async function (e) {
-      e.preventDefault();
-      const form = new FormData();
       const nome = document.getElementById('nomeVideo').value.trim();
       const arquivo = document.getElementById('arquivoVideo').files[0];
-      const youtube = document.getElementById('youtubeVideo').value.trim();
+      const youtube = document.getElementById('urlYoutube').value.trim();
       const descricao = document.getElementById('descricaoVideo').value.trim();
+      const formData = new FormData();
+      formData.append('nome', nome);
 
-      if (!nome) return alert('Informe o nome do vídeo.');
+      if (arquivo) formData.append('video', arquivo);
+      if (youtube) formData.append('youtube', youtube);
+      if (descricao) formData.append('descricao', descricao);
 
-      form.append('nome', nome);
-      if (arquivo) form.append('video', arquivo);
-      if (youtube) form.append('youtube', youtube);
-      if (descricao) form.append('descricao', descricao);
+      try {
+        const token = localStorage.getItem('token');
+        const res = await fetch(`${API_URL}/videos`, {
+          method: 'POST',
+          headers: { 'Authorization': 'Bearer ' + token },
+          body: formData
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          mostrarMensagem(data.error || 'Erro ao adicionar vídeo.', 'erro');
+          return;
+        }
 
-      const token = localStorage.getItem('token'); // ou onde você guarda o token
-      const res = await fetch(`${API_URL}/videos`, {
-        method: 'POST',
-        headers: token ? { 'Authorization': 'Bearer ' + token } : {},
-        body: form
-      });
-      const data = await res.json();
-      if (res.ok) {
-        // sucesso: atualizar lista / mostrar notificação
-        alert('Vídeo cadastrado');
-        // chamar função para recarregar lista de vídeos no admin se tiver
-        carregarVideosAdmin && carregarVideosAdmin();
-        this.reset();
-      } else {
-        console.error(data);
-        alert(data.error || 'Erro ao adicionar vídeo');
+        formVideo.reset();
+        carregarVideos();
+        mostrarMensagem('Vídeo adicionado com sucesso!');
+      } catch {
+        mostrarMensagem('Erro de conexão ao adicionar vídeo.', 'erro');
       }
+    });
+
+    // Realce do item ativo na sidebar + fechar menu no mobile ao navegar
+    document.querySelectorAll('.sidebar-btn[data-section]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.sidebar-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        if (window.innerWidth <= 900) toggleSidebar(false);
+      });
     });
 
   </script>

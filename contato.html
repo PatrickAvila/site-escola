@@ -2,20 +2,21 @@
 <html lang="pt-BR">
 
 <head>
-    <script src="js/config.js"></script>
+    <script src="js/config.js?v=20261101-2"></script>
+    <script src="js/site.js?v=20261101-2" defer></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contato - Escola Antônio Austregésio</title>
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/style.css?v=20261101-2" />
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
 <body>
     <header>
         <div class="menu-superior">
-            <img src="imagens/transferir.jpg" alt="Transferir" class="menu-img">
+            <img src="imagens/transferir.jpg" alt="Logo do Ginásio Educacional Tecnológico" class="menu-img">
             <h1 class="menu-titulo">Antônio Austregésio</h1>
-            <img src="imagens/fundoMenu.png" alt="Prefeitura do Rio de Janeiro" class="menu-img">
+            <img src="imagens/fundoMenu.png" alt="Brasão e marca da Prefeitura do Rio de Janeiro" class="menu-img">
         </div>
         <nav aria-label="Menu principal">
             <button id="menu-btn" aria-label="Abrir menu" class="menu-btn">
@@ -33,8 +34,11 @@
         </nav>
     </header>
     <main>
-        <section class="contato">
+        <section class="page-hero">
             <h2>Fale Conosco</h2>
+            <p>Envie sua mensagem, dúvida ou sugestão para a escola.</p>
+        </section>
+        <section class="contato">
             <form id="form-contato">
                 <input type="text" name="nome" placeholder="Seu nome" required />
                 <input type="email" name="email" placeholder="Seu e-mail" required />
@@ -43,15 +47,16 @@
                 <button type="submit">Enviar</button>
             </form>
             <div class="contato-info">
-                <strong>WhatsApp:</strong> <a href="https://wa.me/5588999999999" target="_blank">Clique aqui</a><br>
-                <strong>E-mail:</strong> contato@escolaaustregesio.com.br<br>
-                <strong>Endereço:</strong> Rua das Flores, 123 - Centro, Cidade/UF
+                <strong>Prévia de informações de contato</strong><br>
+                <strong>WhatsApp:</strong> [inserir contato oficial]<br>
+                <strong>E-mail:</strong> [inserir e-mail oficial]<br>
+                <strong>Endereço:</strong> [inserir endereço oficial]
             </div>
             <div id="msg-contato"></div>
         </section>
     </main>
     <footer>
-        <p>&copy; 2025 Escola Antônio Austregésio</p>
+        <p>&copy; <span data-current-year></span> Escola Antônio Austregésio</p>
     </footer>
     <script>
         // Menu hambúrguer responsivo
@@ -64,19 +69,32 @@
         // Função para mostrar alerta estilizado
         function mostrarAlertaContato(msg, tipo = 'sucesso') {
             const msgDiv = document.getElementById('msg-contato');
-            msgDiv.innerHTML = `
-        <div class="alert-overlay"></div>
-        <div class="alert-contato ${tipo === 'sucesso' ? '' : 'alert-erro'}" tabindex="0">
-            <button class="alert-close" aria-label="Fechar aviso" onclick="fecharAlertaContato()">&times;</button>
-            <span class="alert-msg">${msg}</span>
-        </div>
-    `;
-            document.querySelector('.alert-contato').focus();
+            const overlay = document.createElement('div');
+            overlay.className = 'alert-overlay';
+
+            const alert = document.createElement('div');
+            alert.className = `alert-contato ${tipo === 'sucesso' ? '' : 'alert-erro'}`;
+            alert.tabIndex = 0;
+
+            const closeButton = document.createElement('button');
+            closeButton.type = 'button';
+            closeButton.className = 'alert-close';
+            closeButton.setAttribute('aria-label', 'Fechar aviso');
+            closeButton.textContent = '\u00d7';
+            closeButton.addEventListener('click', fecharAlertaContato);
+
+            const message = document.createElement('span');
+            message.className = 'alert-msg';
+            message.textContent = msg;
+
+            alert.append(closeButton, message);
+            msgDiv.replaceChildren(overlay, alert);
+            alert.focus();
             document.body.style.overflow = 'hidden';
         }
 
         function fecharAlertaContato() {
-            document.getElementById('msg-contato').innerHTML = '';
+            document.getElementById('msg-contato').replaceChildren();
             document.body.style.overflow = '';
         }
 

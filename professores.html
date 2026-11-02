@@ -2,19 +2,20 @@
 <html lang="pt-BR">
 
 <head>
-    <script src="js/config.js"></script>
+    <script src="js/config.js?v=20261101-2"></script>
+    <script src="js/site.js?v=20261101-2" defer></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Professores - Escola Antônio Austregésio</title>
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/style.css?v=20261101-2" />
 </head>
 
 <body>
     <header>
         <div class="menu-superior">
-            <img src="imagens/transferir.jpg" alt="Transferir" class="menu-img">
+            <img src="imagens/transferir.jpg" alt="Logo do Ginásio Educacional Tecnológico" class="menu-img">
             <h1 class="menu-titulo">Antônio Austregésio</h1>
-            <img src="imagens/fundoMenu.png" alt="Prefeitura do Rio de Janeiro" class="menu-img">
+            <img src="imagens/fundoMenu.png" alt="Brasão e marca da Prefeitura do Rio de Janeiro" class="menu-img">
         </div>
         <nav aria-label="Menu principal">
             <button id="menu-btn" aria-label="Abrir menu" class="menu-btn">
@@ -32,13 +33,16 @@
         </nav>
     </header>
     <main>
-        <section class="professores">
+        <section class="page-hero">
             <h2>Professores</h2>
+            <p>Conheça a equipe que faz a escola acontecer.</p>
+        </section>
+        <section class="professores">
             <div class="prof-cards" id="prof-cards"></div>
         </section>
     </main>
     <footer>
-        <p>&copy; 2025 Escola Antônio Austregésio</p>
+        <p>&copy; <span data-current-year></span> Escola Antônio Austregésio</p>
     </footer>
     <script>
         // Menu hambúrguer responsivo
@@ -55,17 +59,31 @@
 
         // Professores dinâmico
         fetch(`${API_URL}/professores`)
-            .then(res => res.json())
+            .then(res => {
+                if (!res.ok) throw new Error('Falha ao carregar professores.');
+                return res.json();
+            })
             .then(profs => {
                 const cards = document.getElementById('prof-cards');
                 cards.innerHTML = '';
+                if (!profs.length) {
+                    cards.innerHTML = '<div class="vazio">Nenhum professor cadastrado no momento.</div>';
+                    return;
+                }
                 profs.forEach(prof => {
                     const card = document.createElement('div');
                     card.className = 'card-prof';
 
                     const fotoElem = document.createElement('img');
-                    fotoElem.src = prof.foto ? prof.foto : 'imagens/professor-generico.png';
-                    fotoElem.alt = `Foto de ${prof.nome || ''}`;
+                    const fallbackFoto = 'imagens/fundoProfessor.png';
+                    fotoElem.src = prof.foto || fallbackFoto;
+                    fotoElem.alt = prof.foto ? `Foto de ${prof.nome || 'professor'}` : 'Foto genérica de professor';
+                    fotoElem.loading = 'lazy';
+                    fotoElem.onerror = () => {
+                        fotoElem.onerror = null;
+                        fotoElem.src = fallbackFoto;
+                        fotoElem.alt = 'Foto genérica de professor';
+                    };
                     fotoElem.className = 'foto-prof';
                     card.appendChild(fotoElem);
 
@@ -79,6 +97,10 @@
 
                     cards.appendChild(card);
                 });
+            })
+            .catch(() => {
+                const cards = document.getElementById('prof-cards');
+                cards.innerHTML = '<p>Não foi possível carregar os professores no momento. Tente novamente mais tarde.</p>';
             });
     </script>
 </body>

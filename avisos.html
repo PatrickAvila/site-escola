@@ -2,19 +2,20 @@
 <html lang="pt-BR">
 
 <head>
-    <script src="js/config.js"></script>
+    <script src="js/config.js?v=20261101-2"></script>
+    <script src="js/site.js?v=20261101-2" defer></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Avisos - Escola Antônio Austregésio</title>
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/style.css?v=20261101-2" />
 </head>
 
 <body>
     <header>
         <div class="menu-superior">
-            <img src="imagens/transferir.jpg" alt="Transferir" class="menu-img">
+            <img src="imagens/transferir.jpg" alt="Logo do Ginásio Educacional Tecnológico" class="menu-img">
             <h1 class="menu-titulo">Antônio Austregésio</h1>
-            <img src="imagens/fundoMenu.png" alt="Prefeitura do Rio de Janeiro" class="menu-img">
+            <img src="imagens/fundoMenu.png" alt="Brasão e marca da Prefeitura do Rio de Janeiro" class="menu-img">
         </div>
         <nav aria-label="Menu principal">
             <button id="menu-btn" aria-label="Abrir menu" class="menu-btn">
@@ -32,13 +33,16 @@
         </nav>
     </header>
     <main>
-        <section class="avisos">
+        <section class="page-hero">
             <h2>Avisos</h2>
+            <p>Fique por dentro dos comunicados e novidades da escola.</p>
+        </section>
+        <section class="avisos">
             <div class="aviso-cards" id="aviso-cards"></div>
         </section>
     </main>
     <footer>
-        <p>&copy; 2025 Escola Antônio Austregésio</p>
+        <p>&copy; <span data-current-year></span> Escola Antônio Austregésio</p>
     </footer>
     <script>
         // Menu hambúrguer responsivo
@@ -55,10 +59,17 @@
 
         // Avisos dinâmico
         fetch(`${API_URL}/avisos`)
-            .then(res => res.json())
+            .then(res => {
+                if (!res.ok) throw new Error('Falha ao carregar avisos.');
+                return res.json();
+            })
             .then(avisos => {
                 const cards = document.getElementById('aviso-cards');
                 cards.innerHTML = '';
+                if (!avisos.length) {
+                    cards.innerHTML = '<div class="vazio">Nenhum aviso publicado no momento.</div>';
+                    return;
+                }
                 avisos.slice().reverse().forEach(aviso => {
                     const card = document.createElement('div');
                     card.className = 'card-aviso';
@@ -73,6 +84,10 @@
 
                     cards.appendChild(card);
                 });
+            })
+            .catch(() => {
+                const cards = document.getElementById('aviso-cards');
+                cards.innerHTML = '<p>Não foi possível carregar os avisos no momento. Tente novamente mais tarde.</p>';
             });
     </script>
 </body>

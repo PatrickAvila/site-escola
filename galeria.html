@@ -2,19 +2,20 @@
 <html lang="pt-BR">
 
 <head>
-    <script src="js/config.js"></script>
+    <script src="js/config.js?v=20261101-2"></script>
+    <script src="js/site.js?v=20261101-2" defer></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Galeria - Escola Antônio Austregésio</title>
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/style.css?v=20261101-2" />
 </head>
 
 <body>
     <header>
         <div class="menu-superior">
-            <img src="imagens/transferir.jpg" alt="Transferir" class="menu-img">
+            <img src="imagens/transferir.jpg" alt="Logo do Ginásio Educacional Tecnológico" class="menu-img">
             <h1 class="menu-titulo">Antônio Austregésio</h1>
-            <img src="imagens/fundoMenu.png" alt="Prefeitura do Rio de Janeiro" class="menu-img">
+            <img src="imagens/fundoMenu.png" alt="Brasão e marca da Prefeitura do Rio de Janeiro" class="menu-img">
         </div>
         <nav aria-label="Menu principal">
             <button id="menu-btn" aria-label="Abrir menu" class="menu-btn">
@@ -32,13 +33,16 @@
         </nav>
     </header>
     <main>
-        <section class="galeria">
+        <section class="page-hero">
             <h2>Galeria de Fotos</h2>
+            <p>Momentos e registros da vida escolar.</p>
+        </section>
+        <section class="galeria">
             <div class="fotos" id="galeria-cards"></div>
         </section>
     </main>
     <footer>
-        <p>&copy; 2025 Escola Antônio Austregésio</p>
+        <p>&copy; <span data-current-year></span> Escola Antônio Austregésio</p>
     </footer>
     <script>
         // Menu hambúrguer responsivo
@@ -55,10 +59,17 @@
 
         // Galeria dinâmica
         fetch(`${API_URL}/galeria`)
-            .then(res => res.json())
+            .then(res => {
+                if (!res.ok) throw new Error('Falha ao carregar galeria.');
+                return res.json();
+            })
             .then(imagens => {
                 const galeria = document.getElementById('galeria-cards');
                 galeria.innerHTML = '';
+                if (!imagens.length) {
+                    galeria.innerHTML = '<div class="vazio">Nenhuma foto publicada no momento.</div>';
+                    return;
+                }
                 imagens.forEach(img => {
                     const card = document.createElement('div');
                     card.className = 'card-galeria';
@@ -75,6 +86,10 @@
 
                     galeria.appendChild(card);
                 });
+            })
+            .catch(() => {
+                const galeria = document.getElementById('galeria-cards');
+                galeria.innerHTML = '<p>Não foi possível carregar a galeria no momento. Tente novamente mais tarde.</p>';
             });
     </script>
 </body>

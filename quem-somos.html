@@ -2,19 +2,20 @@
 <html lang="pt-BR">
 
 <head>
-    <script src="js/config.js"></script>
+    <script src="js/config.js?v=20261101-2"></script>
+    <script src="js/site.js?v=20261101-2" defer></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Quem Somos - Escola Antônio Austregésio</title>
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/style.css?v=20261101-2" />
 </head>
 
 <body>
     <header>
         <div class="menu-superior">
-            <img src="imagens/transferir.jpg" alt="Transferir" class="menu-img">
+            <img src="imagens/transferir.jpg" alt="Logo do Ginásio Educacional Tecnológico" class="menu-img">
             <h1 class="menu-titulo">Antônio Austregésio</h1>
-            <img src="imagens/fundoMenu.png" alt="Prefeitura do Rio de Janeiro" class="menu-img">
+            <img src="imagens/fundoMenu.png" alt="Brasão e marca da Prefeitura do Rio de Janeiro" class="menu-img">
         </div>
         <nav aria-label="Menu principal">
             <button id="menu-btn" aria-label="Abrir menu" class="menu-btn">
@@ -32,8 +33,11 @@
         </nav>
     </header>
     <main>
-        <section class="quem-somos">
+        <section class="page-hero">
             <h2>Quem Somos</h2>
+            <p>Conheça nossa história, nossa missão e nossos valores.</p>
+        </section>
+        <section class="quem-somos">
             <p id="texto-quem-somos"></p>
             <div class="missao-visao">
                 <div class="missao">
@@ -48,7 +52,7 @@
         </section>
     </main>
     <footer>
-        <p>&copy; 2025 Escola Antônio Austregésio</p>
+        <p>&copy; <span data-current-year></span> Escola Antônio Austregésio</p>
     </footer>
     <script>
         // Menu hambúrguer responsivo
@@ -65,10 +69,17 @@
 
         // Quem somos dinâmico
         fetch(`${API_URL}/quem-somos`)
-            .then(res => res.json())
+            .then(res => {
+                if (!res.ok) throw new Error('Falha ao carregar conteúdo.');
+                return res.json();
+            })
             .then(data => {
                 const textoElem = document.getElementById('texto-quem-somos');
                 textoElem.textContent = data.texto;
+            })
+            .catch(() => {
+                const textoElem = document.getElementById('texto-quem-somos');
+                textoElem.textContent = 'Não foi possível carregar este conteúdo no momento. Tente novamente mais tarde.';
             });
     </script>
 </body>
