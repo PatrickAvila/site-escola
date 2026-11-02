@@ -1233,6 +1233,28 @@ body:has(.dashboard-layout) footer {
     }
 }
 
+/* Lightbox da galeria */
+.lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 20, 40, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    cursor: zoom-out;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.lightbox img {
+    max-width: 92vw;
+    max-height: 88vh;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    object-fit: contain;
+}
+
 /* Link de retorno ao site no painel admin */
 .voltar-site {
     text-align: center;

@@ -7,7 +7,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard Admin - Escola Antônio Austregésio</title>
-  <link rel="stylesheet" href="css/style.css?v=20261101-2" />
+  <link rel="stylesheet" href="css/style.css?v=20261101-3" />
 </head>
 
 <body>
@@ -27,8 +27,8 @@
     <div id="login-area" class="dashboard-login">
       <h2>Login do Administrador</h2>
       <form id="login-form">
-        <input type="text" id="usuario" placeholder="Usuário" required />
-        <input type="password" id="senha" placeholder="Senha" required />
+        <input type="text" id="usuario" placeholder="Usuário" required autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" />
+        <input type="password" id="senha" placeholder="Senha" required autocomplete="current-password" />
         <button type="submit" class="btn">Entrar</button>
       </form>
       <p id="login-erro" style="color: red; display: none;">Usuário ou senha incorretos.</p>

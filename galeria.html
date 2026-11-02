@@ -7,7 +7,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Galeria - Escola Antônio Austregésio</title>
-    <link rel="stylesheet" href="css/style.css?v=20261101-2" />
+    <link rel="stylesheet" href="css/style.css?v=20261101-3" />
 </head>
 
 <body>
@@ -57,6 +57,24 @@
             }
         });
 
+        // Lightbox: tocar na foto abre em tela cheia
+        function abrirLightbox(url, nome) {
+            const overlay = document.createElement('div');
+            overlay.className = 'lightbox';
+            overlay.setAttribute('role', 'dialog');
+            overlay.setAttribute('aria-label', nome || 'Foto ampliada');
+            const foto = document.createElement('img');
+            foto.src = url;
+            foto.alt = nome || '';
+            overlay.appendChild(foto);
+            overlay.addEventListener('click', () => {
+                overlay.remove();
+                document.body.style.overflow = '';
+            });
+            document.body.appendChild(overlay);
+            document.body.style.overflow = 'hidden';
+        }
+
         // Galeria dinâmica
         fetch(`${API_URL}/galeria`)
             .then(res => {
@@ -77,6 +95,7 @@
                     const imagemElem = document.createElement('img');
                     imagemElem.src = img.url;
                     imagemElem.alt = img.nome;
+                    imagemElem.addEventListener('click', () => abrirLightbox(img.url, img.nome));
                     card.appendChild(imagemElem);
 
                     const nomeElem = document.createElement('span');
