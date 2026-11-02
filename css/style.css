@@ -658,6 +658,32 @@ body:has(.dashboard-layout) footer {
     margin: 8px 0;
 }
 
+/* Fotos dentro dos cards do painel: nunca estouram a moldura */
+.card img {
+    max-width: 100%;
+    max-height: 240px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* Edição inline de vídeos no painel */
+.edicao-video {
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    margin-top: 8px;
+}
+
+.edicao-video.ativo {
+    display: flex;
+}
+
+.descricao-video {
+    font-size: 0.9em;
+    color: #5a7184;
+}
+
 /* Destaque edit */
 .destaque-edit {
     display: flex;

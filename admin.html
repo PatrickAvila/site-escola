@@ -7,7 +7,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard Admin - Escola Antônio Austregésio</title>
-  <link rel="stylesheet" href="css/style.css?v=20261102" />
+  <link rel="stylesheet" href="css/style.css?v=20261102-2" />
 </head>
 
 <body>
@@ -1131,7 +1131,8 @@
             nomeElem.textContent = video.nome;
             card.appendChild(nomeElem);
 
-            if (video.url.includes('youtube.com') || video.url.includes('youtu.be')) {
+            const isYoutube = video.url.includes('youtube.com') || video.url.includes('youtu.be');
+            if (isYoutube) {
               const youtubeId = extrairIdYoutube(video.url);
               const iframe = document.createElement('iframe');
               iframe.src = `https://www.youtube.com/embed/${youtubeId}`;
@@ -1150,8 +1151,74 @@
               card.appendChild(videoElem);
             }
 
+            if (video.descricao) {
+              const descElem = document.createElement('span');
+              descElem.textContent = video.descricao;
+              descElem.className = 'descricao-video';
+              card.appendChild(descElem);
+            }
+
+            // Campos de edição (aparecem ao clicar em Editar)
+            const formEdicao = document.createElement('div');
+            formEdicao.className = 'edicao-video';
+
+            const inputNome = document.createElement('input');
+            inputNome.type = 'text';
+            inputNome.value = video.nome;
+            formEdicao.appendChild(inputNome);
+
+            let inputUrl = null;
+            if (isYoutube) {
+              inputUrl = document.createElement('input');
+              inputUrl.type = 'url';
+              inputUrl.value = video.url;
+              formEdicao.appendChild(inputUrl);
+            }
+
+            const inputDesc = document.createElement('textarea');
+            inputDesc.value = video.descricao || '';
+            inputDesc.rows = 2;
+            inputDesc.placeholder = 'Descrição (opcional)';
+            formEdicao.appendChild(inputDesc);
+
+            card.appendChild(formEdicao);
+
             const acoes = document.createElement('div');
             acoes.className = 'acoes';
+
+            const btnEditar = document.createElement('button');
+            btnEditar.className = 'btn btn-editar';
+            btnEditar.textContent = 'Editar';
+            btnEditar.onclick = function () {
+              formEdicao.classList.add('ativo');
+              btnEditar.style.display = 'none';
+              btnSalvar.style.display = 'inline-block';
+              inputNome.focus();
+            };
+            acoes.appendChild(btnEditar);
+
+            const btnSalvar = document.createElement('button');
+            btnSalvar.className = 'btn';
+            btnSalvar.textContent = 'Salvar';
+            btnSalvar.style.display = 'none';
+            btnSalvar.onclick = function () {
+              const corpo = { nome: inputNome.value, descricao: inputDesc.value };
+              if (inputUrl) corpo.youtube = inputUrl.value;
+              fetchAdmin(`${API_URL}/videos/${video._id}`, {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': 'Bearer ' + localStorage.getItem('token')
+                },
+                body: JSON.stringify(corpo)
+              })
+                .then(res => res.json())
+                .then(() => {
+                  carregarVideos();
+                  mostrarMensagem('Vídeo atualizado com sucesso!');
+                });
+            };
+            acoes.appendChild(btnSalvar);
 
             const btnExcluir = document.createElement('button');
             btnExcluir.className = 'btn btn-perigo';
