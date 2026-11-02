@@ -1,6 +1,7 @@
 /* Reset e base */
 html {
     scroll-behavior: smooth;
+    background: #003d80; /* no overscroll do iOS, o elástico fica da cor do rodapé */
 }
 
 body {
